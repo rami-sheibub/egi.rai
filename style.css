@@ -1,0 +1,406 @@
+/* ============================================
+   EGI.RAI — стили
+   Flexbox используется для шапки, hero, каталога,
+   карточек и подвала (по заданию лабораторной).
+   ============================================ */
+
+:root{
+  --ink:#25231f;
+  --muted:#77736b;
+  --cream:#f8f5ef;
+  --paper:#fffdf8;
+  --gold:#b58a50;
+  --gold-light:#dfc49a;
+  --line:#e8e0d4;
+  --dark:#292821;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"DM Sans",sans-serif;font-size:14px;
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+
+/* ---------- Шапка ---------- */
+.announcement{
+  background:var(--dark);color:#f6ead8;text-align:center;
+  padding:10px 16px;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;
+}
+.header{
+  height:82px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6.5%;
+  background:var(--paper);border-bottom:1px solid #eee8de;
+  position:sticky;top:0;z-index:20;
+}
+.logo{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;letter-spacing:1.4px}
+.logo-mark{
+  width:37px;height:37px;border:1px solid var(--gold);
+  display:grid;place-items:center;
+  font-family:"Playfair Display",serif;color:var(--gold);font-size:25px;font-weight:500;
+}
+.logo small{display:block;font-size:7px;letter-spacing:3px;color:#8d8579;margin-top:3px;font-weight:500}
+.gold{color:var(--gold)}
+.nav{display:flex;gap:34px;color:#514d45;font-size:12px}
+.nav a:hover,.text-link:hover{color:var(--gold)}
+.header-order{border:1px solid #c9b18c;padding:12px 18px;font-size:11px;letter-spacing:.5px}
+.header-order span{margin-left:12px;color:var(--gold)}
+.menu-toggle{display:none;background:none;border:0;font-size:23px}
+
+/* ---------- Hero ---------- */
+.hero{
+  min-height:590px;display:flex;align-items:stretch;
+  background:var(--cream);padding:0 8.5% 0 10%;overflow:hidden;
+}
+.hero-copy{
+  width:54%;padding:78px 0 52px;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+}
+.eyebrow{font-size:9px;letter-spacing:2.5px;color:var(--gold);font-weight:700;margin:0 0 20px}
+.eyebrow span{display:inline-block;width:24px;height:1px;background:var(--gold);vertical-align:middle;margin-right:8px}
+.hero h1,h2{font-family:"Playfair Display",serif;font-weight:500;letter-spacing:-1.6px}
+.hero h1{font-size:clamp(48px,5.2vw,76px);line-height:1.04;margin:0 0 24px}
+.hero h1 em,h2 em,.quote-band em{font-weight:500;color:var(--gold);font-style:italic}
+.hero-text{max-width:440px;line-height:1.9;color:#716c63;font-size:13px}
+.hero-actions{display:flex;align-items:center;gap:28px;margin-top:25px}
+.button{
+  display:inline-flex;align-items:center;justify-content:center;gap:26px;
+  padding:16px 22px;font-size:11px;letter-spacing:.3px;
+  transition:transform .2s,background .2s;
+}
+.button:hover{transform:translateY(-2px)}
+.button-gold{background:var(--gold);color:white}
+.button-gold:hover{background:#98713e}
+.text-link{font-size:11px;border-bottom:1px solid #cfc3b1;padding-bottom:8px}
+.text-link span{color:var(--gold);margin-left:8px}
+.hero-notes{display:flex;gap:35px;border-top:1px solid #ded6c9;margin-top:55px;padding-top:20px;width:90%}
+.hero-notes div{display:flex;flex-direction:column;gap:6px}
+.hero-notes strong{font-family:"Playfair Display",serif;font-size:18px;font-weight:500}
+.hero-notes span{font-size:9px;color:#898277}
+
+.hero-art{
+  position:relative;width:46%;min-height:570px;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 48%,#eee0c9 0%,#e8dac3 25%,#f3eadc 57%,transparent 72%);
+}
+.art-orbit{position:absolute;border:1px solid rgba(177,139,83,.35);border-radius:50%;width:380px;height:380px}
+.orbit-two{width:470px;height:470px;border-color:rgba(177,139,83,.18)}
+.art-glow{position:absolute;width:240px;height:290px;background:rgba(188,148,88,.14);filter:blur(45px);border-radius:50%}
+.bottle{
+  position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+  filter:drop-shadow(15px 24px 15px rgba(69,48,23,.16));transform:rotate(-4deg);
+}
+.bottle-cap{
+  width:62px;height:53px;
+  background:linear-gradient(90deg,#3e3024,#a58b5e 25%,#e0c79a 47%,#65513a 75%,#33291e);
+  border-radius:4px 4px 1px 1px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);
+}
+.bottle-neck{width:42px;height:19px;background:linear-gradient(90deg,#92764e,#e2c58e,#79613d);border:1px solid #9a7b4e}
+.bottle-body{
+  width:195px;height:250px;position:relative;
+  border-radius:24px 24px 35px 35px;border:1px solid #c6a773;
+  background:linear-gradient(100deg,rgba(91,65,32,.8),rgba(221,188,129,.9) 17%,rgba(246,220,168,.85) 35%,rgba(147,105,53,.9) 65%,rgba(63,47,30,.9));
+  box-shadow:inset 0 0 15px rgba(255,255,255,.35),inset 0 -28px 30px rgba(63,40,15,.23);
+}
+.bottle-shine{position:absolute;top:18px;left:14px;width:10px;height:190px;border-radius:50%;background:rgba(255,255,255,.23);filter:blur(4px)}
+.bottle-label{
+  position:absolute;left:19px;right:19px;top:77px;height:95px;
+  border:1px solid rgba(246,225,185,.75);background:rgba(44,37,27,.85);color:#e4c89c;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+}
+.bottle-label span{font-family:"Playfair Display",serif;font-size:22px;letter-spacing:2px}
+.bottle-label i{font-size:8px;letter-spacing:4px;font-style:normal}
+.bottle-label small{font-size:6px;letter-spacing:1.3px}
+.art-caption{
+  position:absolute;bottom:38px;left:9%;right:9%;
+  display:flex;justify-content:space-between;
+  font-size:8px;letter-spacing:1.7px;color:#8d795e;
+}
+.floating-note{position:absolute;z-index:3;color:#987849;font-size:14px}
+.floating-note span{display:inline-block;font-size:10px;line-height:1.6;letter-spacing:.5px;color:#6c5d49;margin-left:5px}
+.note-a{right:3%;top:26%}
+.note-b{left:2%;bottom:28%;font-size:8px;letter-spacing:2px;transform:rotate(-90deg)}
+
+/* ---------- Преимущества ---------- */
+.benefits{
+  display:flex;justify-content:center;gap:8%;
+  padding:28px 7%;border-bottom:1px solid var(--line);background:#fffdf9;
+}
+.benefits>div{display:flex;align-items:center;gap:13px}
+.benefit-icon{
+  width:37px;height:37px;border:1px solid #e1d2bc;border-radius:50%;
+  display:grid;place-items:center;color:var(--gold);font-size:19px;
+}
+.benefits b,.benefits small{display:block}
+.benefits b{font-size:11px;font-weight:600}
+.benefits small{font-size:10px;color:#91897e;margin-top:5px}
+
+/* ---------- Секции ---------- */
+.section{padding:95px 9%}
+.section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:40px}
+.section-heading h2,.about h2,.contact-banner h2{font-size:clamp(36px,4vw,52px);line-height:1.13;margin:0}
+.section-sub{max-width:330px;color:var(--muted);font-size:12px;line-height:1.8;margin:0 0 4px}
+
+/* ---------- Каталог ---------- */
+.catalog{background:#fffdf8}
+.catalog-layout{display:flex;gap:28px;align-items:flex-start}
+.catalog-sidebar{
+  flex:0 0 220px;background:#f7f3ec;border:1px solid var(--line);
+  padding:22px 18px;position:sticky;top:100px;
+}
+.catalog-sidebar h3{
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold);margin:0 0 12px;font-family:"DM Sans",sans-serif;
+}
+.side-nav{display:flex;flex-direction:column;gap:3px;margin-bottom:22px}
+.side-nav a{
+  padding:8px 10px;font-size:11px;color:#6e685f;
+  border-left:2px solid transparent;transition:.15s;cursor:pointer;
+}
+.side-nav a:hover,.side-nav a.active{color:var(--ink);border-left-color:var(--gold);background:#fffdf8}
+.catalog-main{flex:1;min-width:0}
+.catalog-tools{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:25px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter{
+  background:transparent;border:1px solid #e5ddd1;color:#6e685f;
+  padding:10px 15px;font-size:10px;cursor:pointer;
+}
+.filter.active,.filter:hover{background:var(--dark);border-color:var(--dark);color:#fff}
+.search{width:270px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #d9d0c4;padding:9px 0;color:var(--gold)}
+.search span{font-size:23px}
+.search input{border:0;outline:0;background:transparent;width:100%;font-size:11px;color:var(--ink)}
+.result-line{display:flex;justify-content:space-between;color:#989084;font-size:10px;margin-bottom:18px}
+
+/* ---------- КАРТОЧКИ: Flexbox ---------- */
+.product-grid{display:flex;flex-wrap:wrap;gap:18px}
+.product-card{
+  flex:1 1 calc(25% - 14px);
+  min-width:200px;max-width:calc(25% - 14px);
+  background:#f7f3ec;border:1px solid transparent;
+  transition:transform .2s,border-color .2s;
+  display:flex;flex-direction:column;
+}
+.product-card:hover{transform:translateY(-4px);border-color:#d6c3a6}
+.product-visual{
+  height:175px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse,#eadcc7 0%,#f4ede2 55%,#f7f3ec 78%);
+  overflow:hidden;
+}
+.product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(177,139,83,.2);border-radius:50%}
+.mini-perfume{
+  position:relative;z-index:1;width:56px;height:79px;
+  border-radius:8px 8px 12px 12px;
+  background:linear-gradient(90deg,#80633d,#e2c99b 30%,#b0905c 75%,#5b452c);
+  border:1px solid #b8a078;box-shadow:7px 10px 10px rgba(60,43,22,.13);
+  display:flex;align-items:center;justify-content:center;
+}
+.mini-perfume:before{content:"";position:absolute;top:-18px;width:21px;height:18px;background:linear-gradient(90deg,#51412f,#c9b38c,#51412f);border-radius:2px}
+.mini-perfume:after{
+  content:"E";font-family:"Playfair Display",serif;color:#f3e3c7;font-size:21px;
+  border:1px solid rgba(245,224,189,.5);width:35px;height:36px;display:grid;place-items:center;
+}
+.product-card:nth-child(3n+2) .mini-perfume{height:69px;width:67px;border-radius:14px 14px 9px 9px;background:linear-gradient(90deg,#302a24,#77664c 30%,#d6c09a 60%,#54412e)}
+.product-card:nth-child(3n) .mini-perfume{height:87px;width:48px;border-radius:4px 4px 9px 9px;background:linear-gradient(90deg,#d6b36c,#f5dfaa 25%,#a57a3c 80%,#e1bd79)}
+.product-card:nth-child(4n) .mini-perfume{background:linear-gradient(90deg,#d9d5c9,#fffdf3 30%,#b5a995 80%,#f4ead7)}
+.product-category{position:absolute;top:12px;left:12px;font-size:8px;letter-spacing:1px;color:#8c795e}
+.product-info{padding:17px 15px 15px;display:flex;flex-direction:column;flex:1}
+.product-brand{font-size:9px;letter-spacing:1.1px;color:var(--gold);text-transform:uppercase;margin-bottom:7px}
+.product-name{font-family:"Playfair Display",serif;font-size:17px;line-height:1.25;min-height:42px;margin:0}
+.product-type{color:#999084;font-size:9px;margin-top:9px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e5dbcc;margin-top:15px;padding-top:12px}
+.from-price{font-size:10px;color:#777064}
+.from-price b{font-size:13px;color:var(--ink);display:block;margin-top:3px}
+.order-small{width:31px;height:31px;border:1px solid #d4c2a6;color:#8b6b3d;display:grid;place-items:center;font-size:16px}
+.order-small:hover{background:var(--gold);color:white}
+.empty-state{text-align:center;padding:50px;color:#81796d}
+
+/* ---------- Цитата ---------- */
+.quote-band{background:#2b2923;color:#f8f1e6;padding:66px 20px;text-align:center}
+.quote-mark{font-family:"Playfair Display",serif;font-size:70px;line-height:.8;color:var(--gold-light)}
+.quote-band p{font-family:"Playfair Display",serif;font-size:clamp(24px,3vw,38px);line-height:1.4;margin:18px 0}
+.quote-band em{color:#d9b987}
+.quote-band>span{font-size:8px;letter-spacing:3px;color:#b4a58f}
+
+/* ---------- Цены ---------- */
+.prices{background:var(--cream)}
+.price-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:900px;margin:0 auto}
+.price-card{background:#fffdf8;border:1px solid #e7dece;padding:32px 36px}
+.deluxe-card{background:#2b2923;color:#fff8ed;border-color:#2b2923}
+.price-card-top{display:flex;align-items:center;justify-content:space-between}
+.price-symbol{color:var(--gold);font-size:25px}
+.pill{font-size:8px;letter-spacing:1.5px;border:1px solid #e3d7c5;padding:7px 9px;color:#9b7b4c}
+.deluxe-card .pill{border-color:#6b5c45;color:#d7b783}
+.price-card h3{font-family:"Playfair Display",serif;font-size:27px;font-weight:500;margin:23px 0 6px}
+.price-card>p{font-size:11px;color:#8a8377;margin:0}
+.deluxe-card>p{color:#bdb2a0}
+.price-list{margin:24px 0}
+.price-list div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee6d9;font-size:12px}
+.deluxe-card .price-list div{border-color:#49443a}
+.price-list span{color:#8b8478}
+.deluxe-card .price-list span{color:#c4b8a4}
+.price-list b{font-weight:600}
+.button-outline{border:1px solid #bda27c;color:#725a38}
+.price-card .button{width:100%}
+.price-note{text-align:center;color:#999084;font-size:10px;margin-top:20px}
+
+/* ---------- О нас ---------- */
+.about{display:flex;align-items:center;gap:10%;background:#fffdf8}
+.about-art{
+  width:42%;display:flex;justify-content:center;align-items:center;
+  min-height:360px;background:radial-gradient(ellipse,#e7d7bd 0%,#f4ede2 50%,#fffdf8 72%);
+}
+.about-circle{
+  width:245px;height:245px;border:1px solid #bfa77f;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;color:#97774a;
+}
+.about-circle:before,.about-circle:after{content:"";position:absolute;border:1px solid rgba(173,136,79,.35);border-radius:50%;inset:13px}
+.about-circle:after{inset:-13px;border-style:dashed}
+.about-circle>span{font-family:"Playfair Display",serif;font-size:27px;letter-spacing:4px}
+.about-circle>i{font-size:7px;letter-spacing:2px;font-style:normal;margin-top:8px}
+.mini-bottle{
+  width:35px;height:47px;margin-top:20px;
+  background:linear-gradient(90deg,#6c5030,#dfc28b,#8b6738);
+  border:1px solid #ad8a53;color:#f7e6c6;
+  display:grid;place-items:center;font-family:"Playfair Display",serif;font-size:20px;
+}
+.about-copy{flex:1}
+.about-copy h2{margin-bottom:23px}
+.about-copy>p:not(.eyebrow){font-size:12px;line-height:1.95;color:#777166;max-width:440px}
+.about-copy .text-link{display:inline-block;margin-top:15px}
+
+/* ---------- Контакты ---------- */
+.contact-banner{
+  display:flex;align-items:center;justify-content:space-between;gap:30px;
+  background:#e9ddca;padding:55px 10%;
+}
+.contact-banner .eyebrow{color:#927347}
+.contact-banner h2{font-size:42px}
+
+/* ---------- Подвал ---------- */
+.footer{padding:40px 8.5% 20px;background:#292821;color:#f4ecdf}
+.footer-logo{display:inline-flex}
+.footer-logo .logo-mark{color:#d5b47f;border-color:#a4875a}
+.footer-logo small{color:#b6a991}
+.footer>p{font-size:11px;color:#bcb2a2;margin:16px 0 22px}
+.footer-contact{display:flex;gap:25px;font-size:10px;color:#c8bdac}
+.footer-contact a{color:#d7b783}
+.footer-bottom{
+  border-top:1px solid #4a453b;margin-top:30px;padding-top:18px;
+  display:flex;justify-content:space-between;gap:15px;
+  color:#9e9587;font-size:9px;
+}
+.footer-bottom a{color:#d7b783}
+
+/* ---------- Фиксированный чат ---------- */
+.floating-chat{
+  position:fixed;right:22px;bottom:24px;z-index:30;
+  width:52px;height:52px;background:#2c2922;color:#e4c18c;border:1px solid #9e7d4b;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px #0002;
+}
+.floating-chat span{font-size:19px}
+.floating-chat small{
+  position:absolute;right:60px;background:#2c2922;color:#fff1dc;
+  padding:8px 11px;white-space:nowrap;font-size:10px;opacity:0;transition:opacity .2s;
+}
+.floating-chat:hover small{opacity:1}
+
+/* ---------- Кнопка «наверх» ---------- */
+.to-top{
+  position:fixed;right:28px;bottom:88px;width:40px;height:40px;
+  border:1px solid #d6c5a9;background:#fffaf1;color:#8a6b3e;
+  cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.to-top.visible{opacity:1;pointer-events:auto}
+
+/* ============================================
+   АДАПТИВ
+   ============================================ */
+@media(max-width:1000px){
+  .header{padding:0 4%}
+  .nav{gap:18px}
+  .hero{padding-left:6%;padding-right:5%}
+  .hero-notes{gap:20px}
+  .section{padding:75px 6%}
+  .product-card{flex:1 1 calc(33.333% - 12px);max-width:calc(33.333% - 12px)}
+  .benefits{gap:4%}
+  .about{gap:5%}
+}
+
+@media(max-width:720px){
+  .announcement{font-size:8px;letter-spacing:1px}
+  .header{height:70px}
+  .nav{
+    display:none;position:absolute;top:70px;left:0;right:0;
+    padding:20px 6%;background:#fffdf8;border-bottom:1px solid var(--line);
+    flex-direction:column;gap:20px;
+  }
+  .nav.open{display:flex}
+  .header-order{margin-left:auto;margin-right:15px;padding:10px 12px}
+  .menu-toggle{display:block}
+
+  .hero{flex-direction:column;padding:0 7%}
+  .hero-copy{width:100%;padding:60px 0 35px}
+  .hero h1{font-size:54px}
+  .hero-notes{margin-top:35px;width:100%;gap:18px}
+  .hero-notes span{max-width:95px;line-height:1.4}
+  .hero-art{width:100%;min-height:430px}
+  .art-orbit{width:300px;height:300px}
+  .orbit-two{width:360px;height:360px}
+  .bottle-body{width:165px;height:215px}
+  .bottle-label{top:62px;height:85px}
+  .bottle-cap{width:54px;height:45px}
+  .note-a{right:0}
+
+  .benefits{padding:25px 7%;display:grid;grid-template-columns:1fr;gap:17px}
+  .section{padding:62px 6%}
+  .section-heading{align-items:flex-start;flex-direction:column;gap:15px;margin-bottom:28px}
+  .section-sub{max-width:100%}
+
+  .catalog-layout{flex-direction:column}
+  .catalog-sidebar{position:static;width:100%;flex:1 1 auto}
+  .catalog-tools{align-items:stretch}
+  .filters{gap:6px}
+  .filter{padding:9px 11px}
+  .search{width:100%}
+
+  .product-card{flex:1 1 calc(50% - 5px);max-width:calc(50% - 5px);min-width:0}
+  .product-grid{gap:10px}
+  .product-visual{height:145px}
+  .product-info{padding:13px 11px}
+  .product-name{font-size:15px}
+  .product-category{font-size:7px}
+
+  .price-cards{grid-template-columns:1fr}
+  .price-card{padding:25px 23px}
+
+  .about{flex-direction:column;gap:30px}
+  .about-art{width:100%;min-height:300px}
+  .about-copy{width:100%}
+
+  .contact-banner{padding:40px 7%;align-items:flex-start;flex-direction:column}
+  .contact-banner h2{font-size:36px}
+
+  .footer{padding:35px 6% 20px}
+  .footer-bottom{flex-wrap:wrap}
+  .result-line span:last-child{display:none}
+}
+
+@media(max-width:390px){
+  .logo{font-size:16px}
+  .logo-mark{width:32px;height:32px}
+  .header-order{font-size:10px}
+  .hero h1{font-size:46px}
+  .hero-notes{gap:12px}
+  .hero-notes strong{font-size:16px}
+  .hero-notes span{font-size:8px}
+  .product-card{flex:1 1 100%;max-width:100%}
+  .product-grid{gap:8px}
+  .product-name{font-size:14px}
+  .product-visual{height:125px}
+  .product-bottom{align-items:flex-start}
+  .from-price{font-size:9px}
+}
