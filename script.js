@@ -305,9 +305,9 @@ if (modal) {
   });
 }
 
-// --- ОТПРАВКА ЗАКАЗА ЧЕРЕЗ FORMSPREE ---
+// --- ОТПРАВКА ЗАКАЗА ЧЕРЕЗ FORMSPREE (по их официальному методу) ---
 if (submitOrderBtn) {
-  submitOrderBtn.addEventListener("click", async () => {
+  submitOrderBtn.addEventListener("click", () => {
     const vol = modalVolume.value;
     const name = modalName.value.trim();
     const contact = modalContact.value.trim();
@@ -324,40 +324,52 @@ if (submitOrderBtn) {
 
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqaeq";
 
-    // Используем FormData вместо JSON (Formspree работает с ним стабильнее)
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", contact); // Formspree требует поле email
-    formData.append("contact", contact);
-    formData.append("product", `${currentProduct.brand} — ${currentProduct.name}`);
-    formData.append("volume", vol + ' мл');
-    formData.append("price", price.toLocaleString("ru-RU") + ' ₽');
-    formData.append("_subject", "Новый заказ с сайта EGI.RAI");
+    // 1. Создаем невидимый iframe, чтобы страница не перезагружалась
+    const iframe = document.createElement('iframe');
+    iframe.name = 'hidden_iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
 
-    try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 
-          'Accept': 'application/json' // Только Accept, Content-Type не указываем, браузер сделает это сам для FormData
-        },
-        body: formData
-      });
+    // 2. Создаем саму форму, как в инструкции Formspree
+    const form = document.createElement('form');
+    form.action = FORMSPREE_ENDPOINT;
+    form.method = 'POST';
+    form.target = 'hidden_iframe'; // Отправляем в невидимый iframe
 
-      if (response.ok) {
-        alert('Заказ отправлен! Мы скоро свяжемся с вами.');
-        closeModal();
-      } else {
-        const errorData = await response.json();
-        console.error('Ошибка от Formspree:', errorData);
-        alert('Ошибка отправки. Проверьте консоль браузера для деталей.');
-      }
-    } catch (error) {
-      console.error('Ошибка сети:', error);
-      alert('Не удалось отправить заказ. Проверьте интернет-соединение.');
-    } finally {
+    // 3. Добавляем поля
+    const fields = {
+      name: name,
+      email: contact, // Formspree требует email, передаем сюда телефон/тг
+      contact: contact,
+      product: `${currentProduct.brand} — ${currentProduct.name}`,
+      volume: vol + ' мл',
+      price: price.toLocaleString("ru-RU") + ' ₽',
+      _subject: "Новый заказ с сайта EGI.RAI"
+    };
+
+    for (const key in fields) {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields[key];
+      form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit(); // Отправляем
+
+    // 4. Показываем сообщение об успехе (через 1 секунду, чтобы форма успела уйти)
+    setTimeout(() => {
+      alert('Заказ отправлен! Мы скоро свяжемся с вами.');
+      closeModal();
+      
+      // Убираем мусор
+      document.body.removeChild(form);
+      document.body.removeChild(iframe);
+      
       submitOrderBtn.innerHTML = originalBtnText;
       submitOrderBtn.disabled = false;
-    }
+    }, 1000);
   });
 }
 // --- Кнопки скролла Вверх / Вниз ---
