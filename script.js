@@ -324,7 +324,7 @@ if (submitOrderBtn) {
     submitOrderBtn.disabled = true;
 
     // ВАШ КЛЮЧ ИЗ FORMHOOK
-    const SITE_KEY = "1M7GP9RJS138K3H39JJQP7DMV"; 
+    const SITE_KEY = "01M7GP9RJS138K3H39JJQP7DMV"; 
     const FORMHOOK_ENDPOINT = `https://form-hook.com/api/c1/sites/${SITE_KEY}/submissions`;
 
     // Формируем данные для отправки
