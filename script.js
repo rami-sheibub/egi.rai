@@ -322,37 +322,37 @@ if (submitOrderBtn) {
     submitOrderBtn.innerHTML = "Отправка...";
     submitOrderBtn.disabled = true;
 
-    // ВАШ ENDPOINT ИЗ FORMSPREE
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqaeq";
 
-    // Formspree принимает плоский JSON
-    const orderData = {
-      name: name,
-      contact: contact,
-      product: `${currentProduct.brand} — ${currentProduct.name}`,
-      volume: vol + ' мл',
-      price: price.toLocaleString("ru-RU") + ' ₽',
-      _subject: "Новый заказ с сайта EGI.RAI"
-    };
+    // Используем FormData вместо JSON (Formspree работает с ним стабильнее)
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", contact); // Formspree требует поле email
+    formData.append("contact", contact);
+    formData.append("product", `${currentProduct.brand} — ${currentProduct.name}`);
+    formData.append("volume", vol + ' мл');
+    formData.append("price", price.toLocaleString("ru-RU") + ' ₽');
+    formData.append("_subject", "Новый заказ с сайта EGI.RAI");
 
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json' // Только Accept, Content-Type не указываем, браузер сделает это сам для FormData
         },
-        body: JSON.stringify(orderData)
+        body: formData
       });
 
       if (response.ok) {
         alert('Заказ отправлен! Мы скоро свяжемся с вами.');
         closeModal();
       } else {
-        alert('Ошибка отправки. Попробуйте позже.');
+        const errorData = await response.json();
+        console.error('Ошибка от Formspree:', errorData);
+        alert('Ошибка отправки. Проверьте консоль браузера для деталей.');
       }
     } catch (error) {
-      console.error('Ошибка:', error);
+      console.error('Ошибка сети:', error);
       alert('Не удалось отправить заказ. Проверьте интернет-соединение.');
     } finally {
       submitOrderBtn.innerHTML = originalBtnText;
@@ -360,7 +360,6 @@ if (submitOrderBtn) {
     }
   });
 }
-
 // --- Кнопки скролла Вверх / Вниз ---
 if (toTop) {
   toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
