@@ -323,25 +323,42 @@ if (submitOrderBtn) {
     submitOrderBtn.innerHTML = "Отправка...";
     submitOrderBtn.disabled = true;
 
-    // ВАШ КЛЮЧ ИЗ FORMHOOK
-    const SITE_KEY = "01M7GP9RJS138K3H39JJQP7DMV"; 
-    const FORMHOOK_ENDPOINT = `https://form-hook.com/api/c1/sites/${SITE_KEY}/submissions`;
+if (submitOrderBtn) {
+  submitOrderBtn.addEventListener("click", async () => {
+    const vol = modalVolume.value;
+    const name = modalName.value.trim();
+    const contact = modalContact.value.trim();
+    const price = parseInt(vol) * 100;
 
-    // Формируем данные для отправки
+    if (!name || !contact) {
+      alert("Пожалуйста, заполните ваше имя и контакт для связи.");
+      return;
+    }
+
+    const originalBtnText = submitOrderBtn.innerHTML;
+    submitOrderBtn.innerHTML = "Отправка...";
+    submitOrderBtn.disabled = true;
+
+    // ВАШ ENDPOINT ИЗ FORMSPREE
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqaeq";
+
+    // Formspree принимает плоский JSON (без обертки data)
     const orderData = {
-  data: { // Добавляем обертку
-    name: name,
-    contact: contact,
-    product: `${currentProduct.brand} — ${currentProduct.name}`,
-    volume: vol + ' мл',
-    price: price.toLocaleString("ru-RU") + ' ₽'
-  }
-};
+      name: name,
+      contact: contact,
+      product: `${currentProduct.brand} — ${currentProduct.name}`,
+      volume: vol + ' мл',
+      price: price.toLocaleString("ru-RU") + ' ₽',
+      _subject: "Новый заказ с сайта EGI.RAI" // Тема письма
+    };
 
     try {
-      const response = await fetch(FORMHOOK_ENDPOINT, {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(orderData)
       });
 
@@ -349,13 +366,12 @@ if (submitOrderBtn) {
         alert('Заказ отправлен! Мы скоро свяжемся с вами.');
         closeModal();
       } else {
-        alert('Ошибка отправки. Попробуйте позже или напишите нам в Telegram.');
+        alert('Ошибка отправки. Попробуйте позже.');
       }
     } catch (error) {
       console.error('Ошибка:', error);
       alert('Не удалось отправить заказ. Проверьте интернет-соединение.');
     } finally {
-      // Возвращаем кнопку в исходное состояние
       submitOrderBtn.innerHTML = originalBtnText;
       submitOrderBtn.disabled = false;
     }
