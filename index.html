@@ -104,13 +104,22 @@
 
         <div class="catalog-main">
           <div class="catalog-tools">
-            <div class="filters" id="filters">
-              <button class="filter active" data-category="Все">Все ароматы</button>
-              <button class="filter" data-category="Мужские">Мужские</button>
-              <button class="filter" data-category="Женские">Женские</button>
-              <button class="filter" data-category="Унисекс">Унисекс</button>
-              <button class="filter" data-category="DELUX">DELUX</button>
+            <!-- НОВЫЕ ФИЛЬТРЫ -->
+            <div class="filters" id="filters" style="display: flex; gap: 15px; flex-wrap: wrap;">
+              <select id="genderFilter" class="filter" style="padding: 10px; background: var(--dark); color: var(--ink); border: 1px solid var(--line); outline: none; cursor: pointer;">
+                <option value="Все">Все категории</option>
+                <option value="Мужские">Мужские</option>
+                <option value="Женские">Женские</option>
+                <option value="Унисекс">Унисекс</option>
+                <option value="DELUX">DELUX</option>
+              </select>
+
+              <select id="brandFilter" class="filter" style="padding: 10px; background: var(--dark); color: var(--ink); border: 1px solid var(--line); outline: none; cursor: pointer;">
+                <option value="Все">Все бренды</option>
+                <!-- Скрипт автоматически заполнит этот список -->
+              </select>
             </div>
+            
             <label class="search">
               <span>⌕</span>
               <input id="searchInput" type="search" placeholder="Поиск аромата или бренда..." aria-label="Поиск аромата">
@@ -124,6 +133,14 @@
 
           <div class="product-grid" id="productGrid"></div>
           <div class="empty-state" id="emptyState" hidden>Ничего не найдено. Попробуйте изменить запрос.</div>
+          
+          <!-- НОВАЯ КНОПКА РАЗВЕРНУТЬ -->
+          <div style="text-align: center; margin-top: 40px; display: none;" id="expandWrapper">
+            <button class="button button-outline" id="expandBtn" style="border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; padding: 12px 24px;">
+              Развернуть каталог ↓
+            </button>
+          </div>
+
         </div>
       </div>
     </section>
@@ -134,47 +151,32 @@
       <span>EGI.RAI · ART OF SCENT</span>
     </section>
 
+    <!-- НОВЫЕ ЕДИНЫЕ ЦЕНЫ -->
     <section class="prices section" id="prices">
       <div class="section-heading">
         <div>
           <p class="eyebrow">ВАШ РАЗМЕР — ВАШ ВЫБОР</p>
           <h2>Простые <em>цены</em></h2>
         </div>
-        <p class="section-sub">Выберите объём флакона. Цена зависит от коллекции аромата.</p>
+        <p class="section-sub">Единая цена для всех ароматов. Без разницы между базовой коллекцией и DELUX.</p>
       </div>
-      <div class="price-cards">
-        <article class="price-card">
-          <div class="price-card-top"><span class="price-symbol">✧</span><span class="pill">ОСНОВНАЯ КОЛЛЕКЦИЯ</span></div>
-          <h3>Базовые ароматы</h3>
-          <p>Любимые ноты на каждый день.</p>
-          <div class="price-list">
-            <div><span>5 мл</span><b>450 ₽</b></div>
-            <div><span>10 мл</span><b>750 ₽</b></div>
-            <div><span>20 мл</span><b>1 300 ₽</b></div>
-            <div><span>30 мл</span><b>2 300 ₽</b></div>
-            <div><span>50 мл</span><b>4 300 ₽</b></div>
-            <div><span>70 мл</span><b>5 750 ₽</b></div>
-            <div><span>100 мл</span><b>7 700 ₽</b></div>
-          </div>
-          <a class="button button-outline" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Выбрать аромат ↗</a>
-        </article>
-        <article class="price-card deluxe-card">
-          <div class="price-card-top"><span class="price-symbol">✦</span><span class="pill">ОСОБАЯ КОЛЛЕКЦИЯ</span></div>
-          <h3>DELUX ароматы</h3>
-          <p>Премиальное звучание и характер.</p>
-          <div class="price-list">
-            <div><span>5 мл</span><b>950 ₽</b></div>
-            <div><span>10 мл</span><b>1 400 ₽</b></div>
-            <div><span>20 мл</span><b>2 400 ₽</b></div>
-            <div><span>30 мл</span><b>3 400 ₽</b></div>
-            <div><span>50 мл</span><b>5 600 ₽</b></div>
-            <div><span>70 мл</span><b>7 500 ₽</b></div>
-            <div><span>100 мл</span><b>9 000 ₽</b></div>
-          </div>
-          <a class="button button-gold" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Выбрать аромат ↗</a>
-        </article>
+      
+      <div class="price-unified">
+        <p class="eyebrow">ЕДИНАЯ ЦЕНА</p>
+        <div class="big">1 мл = 100 ₽</div>
+        <p>Любой аромат из каталога</p>
+        
+        <div class="vol-row">
+          <span>5 мл — 500 ₽</span>
+          <span>10 мл — 1 000 ₽</span>
+          <span>20 мл — 2 000 ₽</span>
+          <span>30 мл — 3 000 ₽</span>
+          <span>50 мл — 5 000 ₽</span>
+          <span>70 мл — 7 000 ₽</span>
+          <span>100 мл — 10 000 ₽</span>
+        </div>
+        <p class="note">* Наличие конкретного аромата и объёма уточняйте перед заказом в Telegram.</p>
       </div>
-      <p class="price-note">* Наличие конкретного аромата и объёма уточняйте перед заказом.</p>
     </section>
 
     <section class="about section" id="about">
