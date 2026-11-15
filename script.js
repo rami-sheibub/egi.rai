@@ -214,7 +214,6 @@ function renderProducts() {
 
   const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
 
-  // ВАЖНО: Здесь кнопка теперь имеет data-атрибуты для модального окна
   grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category.toUpperCase();
@@ -275,7 +274,7 @@ const modalContact = document.getElementById("modalContact");
 
 let currentProduct = { brand: "", name: "" };
 
-// Открытие по клику на карточку (делегирование событий)
+// Открытие по клику на карточку
 if (grid) {
   grid.addEventListener("click", (e) => {
     const btn = e.target.closest(".order-small");
@@ -306,23 +305,7 @@ if (modal) {
   });
 }
 
-if (submitOrderBtn) {
-  submitOrderBtn.addEventListener("click", async () => {
-    const vol = modalVolume.value;
-    const name = modalName.value.trim();
-    const contact = modalContact.value.trim();
-    const price = parseInt(vol) * 100;
-
-    if (!name || !contact) {
-      alert("Пожалуйста, заполните ваше имя и контакт для связи.");
-      return;
-    }
-
-    // Меняем текст кнопки, чтобы показать загрузку
-    const originalBtnText = submitOrderBtn.innerHTML;
-    submitOrderBtn.innerHTML = "Отправка...";
-    submitOrderBtn.disabled = true;
-
+// --- ОТПРАВКА ЗАКАЗА ЧЕРЕЗ FORMSPREE ---
 if (submitOrderBtn) {
   submitOrderBtn.addEventListener("click", async () => {
     const vol = modalVolume.value;
@@ -342,14 +325,14 @@ if (submitOrderBtn) {
     // ВАШ ENDPOINT ИЗ FORMSPREE
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqaeq";
 
-    // Formspree принимает плоский JSON (без обертки data)
+    // Formspree принимает плоский JSON
     const orderData = {
       name: name,
       contact: contact,
       product: `${currentProduct.brand} — ${currentProduct.name}`,
       volume: vol + ' мл',
       price: price.toLocaleString("ru-RU") + ' ₽',
-      _subject: "Новый заказ с сайта EGI.RAI" // Тема письма
+      _subject: "Новый заказ с сайта EGI.RAI"
     };
 
     try {
@@ -388,7 +371,7 @@ if (toBottom) {
 window.addEventListener("scroll", () => {
   const show = window.scrollY > 400;
   if (toTop) toTop.classList.toggle("visible", show);
-  if (toBottom) toBottom.classList.toggle("visible", !show); // Внизу кнопка "Вниз" скрывается
+  if (toBottom) toBottom.classList.toggle("visible", !show); 
 });
 
 // --- Меню ---
