@@ -307,7 +307,7 @@ if (modal) {
 }
 
 if (submitOrderBtn) {
-  submitOrderBtn.addEventListener("click", () => {
+  submitOrderBtn.addEventListener("click", async () => {
     const vol = modalVolume.value;
     const name = modalName.value.trim();
     const contact = modalContact.value.trim();
@@ -318,17 +318,45 @@ if (submitOrderBtn) {
       return;
     }
 
-    const message = `Здравствуйте! Хочу заказать аромат:\n\n` +
-      `Аромат: ${currentProduct.brand} — ${currentProduct.name}\n` +
-      `Объём: ${vol} мл\n` +
-      `Стоимость: ${price.toLocaleString("ru-RU")} ₽\n\n` +
-      `Имя: ${name}\n` +
-      `Контакт: ${contact}\n\n` +
-      `Подскажите, как можно оплатить и получить заказ?`;
+    // Меняем текст кнопки, чтобы показать загрузку
+    const originalBtnText = submitOrderBtn.innerHTML;
+    submitOrderBtn.innerHTML = "Отправка...";
+    submitOrderBtn.disabled = true;
 
-    const tgLink = `https://t.me/Faputa_void?text=${encodeURIComponent(message)}`;
-    window.open(tgLink, "_blank");
-    closeModal();
+    // ВАШ КЛЮЧ ИЗ FORMHOOK
+    const SITE_KEY = "1M7GP9RJS138K3H39JJQP7DMV"; 
+    const FORMHOOK_ENDPOINT = `https://form-hook.com/api/c1/sites/${SITE_KEY}/submissions`;
+
+    // Формируем данные для отправки
+    const orderData = {
+      name: name,
+      contact: contact,
+      product: `${currentProduct.brand} — ${currentProduct.name}`,
+      volume: vol + ' мл',
+      price: price.toLocaleString("ru-RU") + ' ₽'
+    };
+
+    try {
+      const response = await fetch(FORMHOOK_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+
+      if (response.ok) {
+        alert('Заказ отправлен! Мы скоро свяжемся с вами.');
+        closeModal();
+      } else {
+        alert('Ошибка отправки. Попробуйте позже или напишите нам в Telegram.');
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+      alert('Не удалось отправить заказ. Проверьте интернет-соединение.');
+    } finally {
+      // Возвращаем кнопку в исходное состояние
+      submitOrderBtn.innerHTML = originalBtnText;
+      submitOrderBtn.disabled = false;
+    }
   });
 }
 
