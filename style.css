@@ -5,20 +5,22 @@
    ============================================ */
 
 :root{
-  --ink:#25231f;
-  --muted:#77736b;
-  --cream:#f8f5ef;
-  --paper:#fffdf8;
-  --gold:#b58a50;
-  --gold-light:#dfc49a;
-  --line:#e8e0d4;
-  --dark:#292821;
+  color-scheme: dark;          /* жёстко тёмная тема — браузер не влияет */
+  --ink:#f2ece4;               /* основной текст — был тёмный, стал светлый */
+  --muted:#a89a8a;
+  --cream:#14110e;             /* фоны секций */
+  --paper:#0d0b0a;             /* основной фон */
+  --gold:#c9a96e;
+  --gold-light:#e6cf9e;
+  --line:#2e2620;              /* линии/рамки */
+  --dark:#1c1714;              /* «тёмные» блоки (announcement, фильтры active, footer) */
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
   margin:0;background:var(--paper);color:var(--ink);
   font-family:"DM Sans",sans-serif;font-size:14px;
+  color-scheme:dark;           /* ещё раз — для полей ввода */
 }
 a{color:inherit;text-decoration:none}
 button,input{font:inherit}
@@ -83,7 +85,7 @@ button,input{font:inherit}
 .hero-art{
   position:relative;width:46%;min-height:570px;
   display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse at 50% 48%,#eee0c9 0%,#e8dac3 25%,#f3eadc 57%,transparent 72%);
+  background:radial-gradient(ellipse at 50% 48%, #2a2218 0%, #1c1714 25%, #14110e 57%, transparent 72%);
 }
 .art-orbit{position:absolute;border:1px solid rgba(177,139,83,.35);border-radius:50%;width:380px;height:380px}
 .orbit-two{width:470px;height:470px;border-color:rgba(177,139,83,.18)}
@@ -186,7 +188,7 @@ button,input{font:inherit}
 .product-visual{
   height:175px;position:relative;
   display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse,#eadcc7 0%,#f4ede2 55%,#f7f3ec 78%);
+  background:radial-gradient(ellipse, #2a2218 0%, #1c1714 55%, var(--dark) 78%);
   overflow:hidden;
 }
 .product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(177,139,83,.2);border-radius:50%}
