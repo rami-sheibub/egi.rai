@@ -270,3 +270,57 @@ button,input,select{font:inherit}
   .product-bottom{align-items:flex-start}
   .from-price{font-size:9px}
 }
+/* ---------- МОДАЛЬНОЕ ОКНО ЗАКАЗА ---------- */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  display: none; /* Скрыто по умолчанию */
+  align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.modal-overlay.active {
+  display: flex; opacity: 1;
+}
+.modal-content {
+  background: var(--dark);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 40px;
+  width: 90%; max-width: 450px;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transform: translateY(20px); transition: transform 0.3s ease;
+}
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+.modal-close {
+  position: absolute; top: 15px; right: 15px;
+  background: transparent; border: none;
+  color: var(--muted); font-size: 20px; cursor: pointer;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--gold); }
+.modal-title {
+  font-family: "Playfair Display", serif;
+  font-size: 26px; color: var(--gold-light); margin: 0 0 5px;
+}
+.modal-brand {
+  color: var(--gold); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 25px;
+}
+.modal-form label {
+  display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; margin-top: 15px;
+}
+.modal-form select, .modal-form input {
+  width: 100%; padding: 12px; background: var(--paper);
+  border: 1px solid var(--line); color: var(--ink);
+  border-radius: 4px; font-family: inherit; font-size: 13px;
+}
+.modal-form select:focus, .modal-form input:focus {
+  outline: none; border-color: var(--gold);
+}
+.modal-note {
+  font-size: 10px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.5;
+}
