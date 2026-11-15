@@ -329,12 +329,14 @@ if (submitOrderBtn) {
 
     // Формируем данные для отправки
     const orderData = {
-      name: name,
-      contact: contact,
-      product: `${currentProduct.brand} — ${currentProduct.name}`,
-      volume: vol + ' мл',
-      price: price.toLocaleString("ru-RU") + ' ₽'
-    };
+  data: { // Добавляем обертку
+    name: name,
+    contact: contact,
+    product: `${currentProduct.brand} — ${currentProduct.name}`,
+    volume: vol + ' мл',
+    price: price.toLocaleString("ru-RU") + ' ₽'
+  }
+};
 
     try {
       const response = await fetch(FORMHOOK_ENDPOINT, {
