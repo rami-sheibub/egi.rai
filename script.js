@@ -1,4 +1,4 @@
-// Каталог сформирован на основе таблицы «Ароматы.xlsx».
+// Каталог (дополнен недостающими ароматами)
 const catalog = {
   "Мужские": [
     {"brand": "Giorgio Armani", "name": "Acqua di Giò"},
@@ -28,7 +28,14 @@ const catalog = {
     {"brand": "Dior", "name": "Sauvage"},
     {"brand": "Dior", "name": "Fahrenheit"},
     {"brand": "Carolina Herrera", "name": "212 VIP"},
-    {"brand": "Kenzo", "name": "For men"}
+    {"brand": "Kenzo", "name": "For men"},
+    // НОВОЕ
+    {"brand": "Dior", "name": "Sauvage Elixir"},
+    {"brand": "Chanel", "name": "Allure Homme Edition Blanche"},
+    {"brand": "Tom Ford", "name": "Noir Extreme"},
+    {"brand": "Jean Paul Gaultier", "name": "Le Male"},
+    {"brand": "Azzaro", "name": "Chrome"},
+    {"brand": "Gucci", "name": "Guilty Pour Homme"}
   ],
   "Женские": [
     {"brand": "Parade of Stars", "name": "1001 Nights Sharazad"},
@@ -75,7 +82,16 @@ const catalog = {
     {"brand": "Killian", "name": "Good Girl Gonna Be Bad"},
     {"brand": "Trussardi", "name": "Donna"},
     {"brand": "Initio", "name": "Narcotic Delight"},
-    {"brand": "Lancome", "name": "La vie est bella"}
+    {"brand": "Lancome", "name": "La vie est bella"},
+    // НОВОЕ
+    {"brand": "Gucci", "name": "Bloom"},
+    {"brand": "Dior", "name": "Miss Dior Originale"},
+    {"brand": "Chanel", "name": "Gabrielle"},
+    {"brand": "Lancome", "name": "La Nuit Trésor"},
+    {"brand": "YSL", "name": "Libre"},
+    {"brand": "Mugler", "name": "Alien"},
+    {"brand": "Paco Rabanne", "name": "Olympéa"},
+    {"brand": "Narciso Rodriguez", "name": "For Her"}
   ],
   "Унисекс": [
     {"brand": "Ajmal", "name": "Amber Wood"},
@@ -117,7 +133,14 @@ const catalog = {
     {"brand": "Entrigue Parfums", "name": "Entrigue Devil's"},
     {"brand": "Chabrawichi", "name": "Nefertity"},
     {"brand": "Anna Sui", "name": "Lucky Wish / Soblazn"},
-    {"brand": "—", "name": "Mesk"}
+    {"brand": "—", "name": "Mesk"},
+    // НОВОЕ
+    {"brand": "Byredo", "name": "Gypsy Water"},
+    {"brand": "Byredo", "name": "Mojave Ghost"},
+    {"brand": "Le Labo", "name": "Santal 33"},
+    {"brand": "Parfums de Marly", "name": "Layton"},
+    {"brand": "Parfums de Marly", "name": "Delina"},
+    {"brand": "Xerjoff", "name": "Naxos"}
   ],
   "DELUX": [
     {"brand": "Quartana", "name": "ANDROMEDA"},
@@ -129,20 +152,38 @@ const catalog = {
   ]
 };
 
-const basePrices = {"5 мл":450,"10 мл":750,"20 мл":1300,"30 мл":2300,"50 мл":4300,"70 мл":5750,"100 мл":7700};
-const deluxePrices = {"5 мл":950,"10 мл":1400,"20 мл":2400,"30 мл":3400,"50 мл":5600,"70 мл":7500,"100 мл":9000};
-
-let activeCategory = "Все";
-
 // Все ароматы в единый список
 const allProducts = Object.entries(catalog).flatMap(([category, items]) =>
   items.map(item => ({...item, category}))
 );
 
+// Элементы на странице
 const grid = document.getElementById("productGrid");
 const searchInput = document.getElementById("searchInput");
 const resultCount = document.getElementById("resultCount");
 const emptyState = document.getElementById("emptyState");
+const genderFilter = document.getElementById("genderFilter");
+const brandFilter = document.getElementById("brandFilter");
+const expandWrapper = document.getElementById("expandWrapper");
+const expandBtn = document.getElementById("expandBtn");
+
+// Переменные для фильтрации и пагинации
+let activeGender = "Все";
+let activeBrand = "Все";
+let currentLimit = 12;
+let isExpanded = false;
+
+// Заполняем фильтр по брендам (собираем уникальные из каталога)
+function populateBrands() {
+  if (!brandFilter) return;
+  const brands = [...new Set(allProducts.map(p => p.brand))].sort((a, b) => a.localeCompare(b, 'ru'));
+  brands.forEach(brand => {
+    const option = document.createElement("option");
+    option.value = brand;
+    option.textContent = brand;
+    brandFilter.appendChild(option);
+  });
+}
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, ch =>
@@ -151,21 +192,34 @@ function escapeHtml(value) {
 }
 
 function renderProducts() {
-  // Если каталога на странице нет — выходим без ошибки
   if (!grid || !searchInput || !resultCount || !emptyState) return;
 
   const query = searchInput.value.trim().toLowerCase();
-  const products = allProducts.filter(item =>
-    (activeCategory === "Все" || item.category === activeCategory) &&
-    (`${item.brand} ${item.name} ${item.category}`).toLowerCase().includes(query)
-  );
+  
+  // Фильтрация (пол + бренд + поиск)
+  const products = allProducts.filter(item => {
+    const matchGender = activeGender === "Все" || item.category === activeGender;
+    const matchBrand = activeBrand === "Все" || item.brand === activeBrand;
+    const matchQuery = (`${item.brand} ${item.name}`).toLowerCase().includes(query);
+    return matchGender && matchBrand && matchQuery;
+  });
 
   resultCount.textContent = `${products.length} ${products.length === 1 ? "аромат" : "ароматов"}`;
+  
+  // Показываем/скрываем пустое состояние
   emptyState.hidden = products.length !== 0;
+  if (products.length === 0) {
+    emptyState.innerHTML = "<strong>Таких духов нет</strong><br>Попробуйте изменить категорию или бренд.";
+    grid.innerHTML = "";
+    if(expandWrapper) expandWrapper.style.display = "none";
+    return;
+  }
 
-  grid.innerHTML = products.map((item) => {
-    const isDeluxe = item.category === "DELUX";
-    const price = isDeluxe ? deluxePrices["5 мл"] : basePrices["5 мл"];
+  // Пагинация (если не развёрнуто — показываем currentLimit)
+  const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
+
+  // Отрисовка карточек
+  grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category === "DELUX" ? "DELUX" : item.category.toUpperCase();
     const message = `Здравствуйте! Хочу заказать аромат: ${brand} — ${item.name} (${item.category}). Подскажите наличие и объёмы.`;
@@ -179,33 +233,58 @@ function renderProducts() {
       <div class="product-info">
         <div class="product-brand">${escapeHtml(brand)}</div>
         <div class="product-name">${escapeHtml(item.name)}</div>
-        <div class="product-type">${isDeluxe ? "Особая коллекция" : "Масляный аромат"}</div>
+        <div class="product-type">Масляный аромат</div>
         <div class="product-bottom">
-          <div class="from-price">от<b>${price.toLocaleString("ru-RU")} ₽</b></div>
+          <div class="from-price">1 мл <b>100 ₽</b></div>
           <a class="order-small" href="${link}" target="_blank" rel="noopener" aria-label="Заказать ${escapeHtml(item.name)}">↗</a>
         </div>
       </div>
     </article>`;
   }).join("");
+
+  // Управление кнопкой "Развернуть"
+  if (expandWrapper && expandBtn) {
+    if (products.length > currentLimit) {
+      expandWrapper.style.display = "block";
+      expandBtn.textContent = isExpanded ? "Свернуть каталог ↑" : "Развернуть каталог ↓";
+    } else {
+      expandWrapper.style.display = "none";
+    }
+  }
 }
 
-// --- Обработчики (каждый с проверкой на null) ---
-const filtersBox = document.getElementById("filters");
-if (filtersBox) {
-  filtersBox.addEventListener("click", event => {
-    const button = event.target.closest("[data-category]");
-    if (!button) return;
-    activeCategory = button.dataset.category;
-    document.querySelectorAll(".filter").forEach(el => el.classList.toggle("active", el === button));
+// --- Обработчики событий ---
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    currentLimit = 12; // Сбрасываем лимит при поиске
     renderProducts();
   });
 }
 
-if (searchInput) {
-  searchInput.addEventListener("input", renderProducts);
+if (genderFilter) {
+  genderFilter.addEventListener("change", (e) => {
+    activeGender = e.target.value;
+    currentLimit = 12;
+    renderProducts();
+  });
 }
 
-// Меню (гамбургер) — есть и на index, и на about
+if (brandFilter) {
+  brandFilter.addEventListener("change", (e) => {
+    activeBrand = e.target.value;
+    currentLimit = 12;
+    renderProducts();
+  });
+}
+
+if (expandBtn) {
+  expandBtn.addEventListener("click", () => {
+    isExpanded = !isExpanded;
+    renderProducts();
+  });
+}
+
+// Меню (гамбургер)
 const menuToggle = document.getElementById("menuToggle");
 const nav = document.getElementById("nav");
 if (menuToggle && nav) {
@@ -215,12 +294,13 @@ if (menuToggle && nav) {
   );
 }
 
-// Кнопка «наверх» — только на index
+// Кнопка «наверх»
 const toTop = document.getElementById("toTop");
 if (toTop) {
   window.addEventListener("scroll", () => toTop.classList.toggle("visible", window.scrollY > 500));
   toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
 }
 
-// Запуск
+// Инициализация
+populateBrands();
 renderProducts();
