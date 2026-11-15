@@ -227,7 +227,7 @@ function renderProducts() {
         <div class="product-type">Масляный аромат</div>
         <div class="product-bottom">
           <div class="from-price">1 мл <b>100 ₽</b></div>
-          <a class="order-small" href="${link}" target="_blank" rel="noopener" aria-label="Заказать ${escapeHtml(item.name)}">↗</a>
+            <button class="order-small" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name)}" aria-label="Заказать ${escapeHtml(item.name)}">↗</button>
         </div>
       </div>
     </article>`;
@@ -291,3 +291,79 @@ if (toTop) {
 
 updateBrandOptions();
 renderProducts();
+// --- ЛОГИКА МОДАЛЬНОГО ОКНА ЗАКАЗА ---
+const modal = document.getElementById("orderModal");
+const closeModalBtn = document.getElementById("closeModal");
+const submitOrderBtn = document.getElementById("submitOrder");
+const modalProductName = document.getElementById("modalProductName");
+const modalProductBrand = document.getElementById("modalProductBrand");
+const modalVolume = document.getElementById("modalVolume");
+const modalName = document.getElementById("modalName");
+const modalContact = document.getElementById("modalContact");
+
+let currentProduct = { brand: "", name: "" };
+
+// Открытие модального окна при клике на карточку
+if (grid) {
+  grid.addEventListener("click", (e) => {
+    const btn = e.target.closest(".order-small");
+    if (!btn) return;
+    
+    // Берем данные из data-атрибутов кнопки
+    currentProduct.brand = btn.getAttribute("data-brand");
+    currentProduct.name = btn.getAttribute("data-name");
+    
+    // Заполняем окно
+    modalProductName.textContent = currentProduct.name;
+    modalProductBrand.textContent = currentProduct.brand;
+    modalName.value = ""; // Очищаем поля
+    modalContact.value = "";
+    modalVolume.value = "5"; // Сбрасываем объем
+    
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden"; // Блокируем скролл фона
+  });
+}
+
+// Закрытие модального окна
+function closeModal() {
+  modal.classList.remove("active");
+  document.body.style.overflow = ""; // Возвращаем скролл
+}
+
+if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+if (modal) {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal(); // Клик по темному фону закрывает
+  });
+}
+
+// Отправка заказа
+if (submitOrderBtn) {
+  submitOrderBtn.addEventListener("click", () => {
+    const vol = modalVolume.value;
+    const name = modalName.value.trim();
+    const contact = modalContact.value.trim();
+    const price = parseInt(vol) * 100; // 1 мл = 100 руб
+
+    if (!name || !contact) {
+      alert("Пожалуйста, заполните ваше имя и контакт для связи.");
+      return;
+    }
+
+    // Формируем сообщение для Telegram
+    const message = `Здравствуйте! Хочу заказать аромат:\n\n` +
+      `🌸 Аромат: ${currentProduct.brand} — ${currentProduct.name}\n` +
+      `📦 Объём: ${vol} мл\n` +
+      `💰 Стоимость: ${price.toLocaleString("ru-RU")} ₽\n\n` +
+      `👤 Имя: ${name}\n` +
+      `📞 Контакт: ${contact}\n\n` +
+      `Подскажите, как можно оплатить и получить заказ?`;
+
+    const tgLink = `https://t.me/Faputa_void?text=${encodeURIComponent(message)}`;
+    
+    // Открываем Telegram
+    window.open(tgLink, "_blank");
+    closeModal();
+  });
+}
