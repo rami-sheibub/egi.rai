@@ -153,6 +153,10 @@ const brandFilter = document.getElementById("brandFilter");
 const expandWrapper = document.getElementById("expandWrapper");
 const expandBtn = document.getElementById("expandBtn");
 
+// Кнопки скролла
+const toTop = document.getElementById("toTop");
+const toBottom = document.getElementById("toBottom");
+
 let activeGender = "Все";
 let activeBrand = "Все";
 let currentLimit = 12;
@@ -210,11 +214,10 @@ function renderProducts() {
 
   const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
 
+  // ВАЖНО: Здесь кнопка теперь имеет data-атрибуты для модального окна
   grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category.toUpperCase();
-    const message = `Здравствуйте! Хочу заказать аромат: ${brand} — ${item.name || "—"} (${item.category}). Подскажите наличие и объёмы.`;
-    const link = `https://t.me/Faputa_void?text=${encodeURIComponent(message)}`;
 
     return `<article class="product-card">
       <div class="product-visual">
@@ -227,7 +230,7 @@ function renderProducts() {
         <div class="product-type">Масляный аромат</div>
         <div class="product-bottom">
           <div class="from-price">1 мл <b>100 ₽</b></div>
-            <button class="order-small" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name)}" aria-label="Заказать ${escapeHtml(item.name)}">↗</button>
+          <button class="order-small" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}" aria-label="Заказать ${escapeHtml(item.name)}">&rarr;</button>
         </div>
       </div>
     </article>`;
@@ -236,7 +239,7 @@ function renderProducts() {
   if (expandWrapper && expandBtn) {
     if (products.length > currentLimit) {
       expandWrapper.style.display = "block";
-      expandBtn.textContent = isExpanded ? "Свернуть каталог ↑" : "Развернуть каталог ↓";
+      expandBtn.innerHTML = isExpanded ? "Свернуть каталог &uarr;" : "Развернуть каталог &darr;";
     } else {
       expandWrapper.style.display = "none";
     }
@@ -244,53 +247,22 @@ function renderProducts() {
 }
 
 if (searchInput) {
-  searchInput.addEventListener("input", () => {
-    currentLimit = 12;
-    renderProducts();
-  });
+  searchInput.addEventListener("input", () => { currentLimit = 12; renderProducts(); });
 }
-
 if (genderFilter) {
   genderFilter.addEventListener("change", (e) => {
-    activeGender = e.target.value;
-    currentLimit = 12;
-    updateBrandOptions();
-    renderProducts();
+    activeGender = e.target.value; currentLimit = 12; updateBrandOptions(); renderProducts();
   });
 }
-
 if (brandFilter) {
   brandFilter.addEventListener("change", (e) => {
-    activeBrand = e.target.value;
-    currentLimit = 12;
-    renderProducts();
+    activeBrand = e.target.value; currentLimit = 12; renderProducts();
   });
 }
-
 if (expandBtn) {
-  expandBtn.addEventListener("click", () => {
-    isExpanded = !isExpanded;
-    renderProducts();
-  });
+  expandBtn.addEventListener("click", () => { isExpanded = !isExpanded; renderProducts(); });
 }
 
-const menuToggle = document.getElementById("menuToggle");
-const nav = document.getElementById("nav");
-if (menuToggle && nav) {
-  menuToggle.addEventListener("click", () => nav.classList.toggle("open"));
-  document.querySelectorAll(".nav a").forEach(link =>
-    link.addEventListener("click", () => nav.classList.remove("open"))
-  );
-}
-
-const toTop = document.getElementById("toTop");
-if (toTop) {
-  window.addEventListener("scroll", () => toTop.classList.toggle("visible", window.scrollY > 500));
-  toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
-}
-
-updateBrandOptions();
-renderProducts();
 // --- ЛОГИКА МОДАЛЬНОГО ОКНА ЗАКАЗА ---
 const modal = document.getElementById("orderModal");
 const closeModalBtn = document.getElementById("closeModal");
@@ -303,67 +275,86 @@ const modalContact = document.getElementById("modalContact");
 
 let currentProduct = { brand: "", name: "" };
 
-// Открытие модального окна при клике на карточку
+// Открытие по клику на карточку (делегирование событий)
 if (grid) {
   grid.addEventListener("click", (e) => {
     const btn = e.target.closest(".order-small");
     if (!btn) return;
     
-    // Берем данные из data-атрибутов кнопки
     currentProduct.brand = btn.getAttribute("data-brand");
     currentProduct.name = btn.getAttribute("data-name");
     
-    // Заполняем окно
     modalProductName.textContent = currentProduct.name;
     modalProductBrand.textContent = currentProduct.brand;
-    modalName.value = ""; // Очищаем поля
+    modalName.value = "";
     modalContact.value = "";
-    modalVolume.value = "5"; // Сбрасываем объем
+    modalVolume.value = "5";
     
     modal.classList.add("active");
-    document.body.style.overflow = "hidden"; // Блокируем скролл фона
+    document.body.style.overflow = "hidden";
   });
 }
 
-// Закрытие модального окна
 function closeModal() {
   modal.classList.remove("active");
-  document.body.style.overflow = ""; // Возвращаем скролл
+  document.body.style.overflow = "";
 }
-
 if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
 if (modal) {
   modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal(); // Клик по темному фону закрывает
+    if (e.target === modal) closeModal();
   });
 }
 
-// Отправка заказа
 if (submitOrderBtn) {
   submitOrderBtn.addEventListener("click", () => {
     const vol = modalVolume.value;
     const name = modalName.value.trim();
     const contact = modalContact.value.trim();
-    const price = parseInt(vol) * 100; // 1 мл = 100 руб
+    const price = parseInt(vol) * 100;
 
     if (!name || !contact) {
       alert("Пожалуйста, заполните ваше имя и контакт для связи.");
       return;
     }
 
-    // Формируем сообщение для Telegram
     const message = `Здравствуйте! Хочу заказать аромат:\n\n` +
-      `🌸 Аромат: ${currentProduct.brand} — ${currentProduct.name}\n` +
-      `📦 Объём: ${vol} мл\n` +
-      `💰 Стоимость: ${price.toLocaleString("ru-RU")} ₽\n\n` +
-      `👤 Имя: ${name}\n` +
-      `📞 Контакт: ${contact}\n\n` +
+      `Аромат: ${currentProduct.brand} — ${currentProduct.name}\n` +
+      `Объём: ${vol} мл\n` +
+      `Стоимость: ${price.toLocaleString("ru-RU")} ₽\n\n` +
+      `Имя: ${name}\n` +
+      `Контакт: ${contact}\n\n` +
       `Подскажите, как можно оплатить и получить заказ?`;
 
     const tgLink = `https://t.me/Faputa_void?text=${encodeURIComponent(message)}`;
-    
-    // Открываем Telegram
     window.open(tgLink, "_blank");
     closeModal();
   });
 }
+
+// --- Кнопки скролла Вверх / Вниз ---
+if (toTop) {
+  toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+}
+if (toBottom) {
+  toBottom.addEventListener("click", () => window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"}));
+}
+window.addEventListener("scroll", () => {
+  const show = window.scrollY > 400;
+  if (toTop) toTop.classList.toggle("visible", show);
+  if (toBottom) toBottom.classList.toggle("visible", !show); // Внизу кнопка "Вниз" скрывается
+});
+
+// --- Меню ---
+const menuToggle = document.getElementById("menuToggle");
+const nav = document.getElementById("nav");
+if (menuToggle && nav) {
+  menuToggle.addEventListener("click", () => nav.classList.toggle("open"));
+  document.querySelectorAll(".nav a").forEach(link =>
+    link.addEventListener("click", () => nav.classList.remove("open"))
+  );
+}
+
+// Запуск
+updateBrandOptions();
+renderProducts();
