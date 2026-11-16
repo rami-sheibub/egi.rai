@@ -213,12 +213,11 @@ function renderProducts() {
 
   const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
 
-  // СТРУКТУРА ДЛЯ ПЕРЕВОРОТА КАРТОЧЕК
+  // СТРУКТУРА ДЛЯ ПЕРЕВОРОТА КАРТОЧЕК (БЕЗ КНОПКИ "ВЕРНУТЬСЯ")
   grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category.toUpperCase();
     
-    // Заглушка для нот (потом можно добавить поле "notes" в базу)
     const notes = item.notes || "Информация о нотах временно отсутствует.";
 
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
@@ -247,7 +246,6 @@ function renderProducts() {
           <div class="card-notes">
             <p>${escapeHtml(notes)}</p>
           </div>
-          <button class="btn-back">Вернуться</button>
         </div>
 
       </div>
@@ -297,38 +295,35 @@ let currentProduct = { brand: "", name: "" };
 // ОБРАБОТЧИК КЛИКОВ (ПЕРЕВОРОТ И ЗАКАЗ)
 if (grid) {
   grid.addEventListener("click", (e) => {
-    // 1. Если нажали на кнопку "i" (перевернуть)
+    const card = e.target.closest(".product-card");
+    if (!card) return;
+
+    // 1. Если нажали на кнопку "i" (переворачиваем и выходим)
     if (e.target.closest(".btn-info")) {
       e.stopPropagation(); 
-      const card = e.target.closest(".product-card");
-      if (card) card.classList.add("flipped");
+      card.classList.add("flipped");
       return;
     }
 
-    // 2. Если нажали на кнопку "Вернуться" (перевернуть обратно)
-    if (e.target.closest(".btn-back")) {
-      e.stopPropagation();
-      const card = e.target.closest(".product-card");
-      if (card) card.classList.remove("flipped");
-      return;
+    // 2. Если карточка УЖЕ перевернута, то любой клик по ней возвращает её обратно
+    if (card.classList.contains("flipped")) {
+      card.classList.remove("flipped");
+      return; 
     }
 
-    // 3. Если нажали на саму карточку (открываем окно заказа)
-    const card = e.target.closest(".product-card");
-    if (card && !card.classList.contains("flipped")) {
-      currentProduct.brand = card.getAttribute("data-brand");
-      currentProduct.name = card.getAttribute("data-name");
-      
-      modalProductName.textContent = currentProduct.name;
-      modalProductBrand.textContent = currentProduct.brand;
-      modalName.value = "";
-      modalContact.value = "";
-      if (modalComment) modalComment.value = "";
-      modalVolume.value = "5";
-      
-      modal.classList.add("active");
-      document.body.style.overflow = "hidden";
-    }
+    // 3. Если карточка НЕ перевернута, открываем окно заказа
+    currentProduct.brand = card.getAttribute("data-brand");
+    currentProduct.name = card.getAttribute("data-name");
+    
+    modalProductName.textContent = currentProduct.name;
+    modalProductBrand.textContent = currentProduct.brand;
+    modalName.value = "";
+    modalContact.value = "";
+    if (modalComment) modalComment.value = "";
+    modalVolume.value = "5";
+    
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
   });
 }
 
