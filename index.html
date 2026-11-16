@@ -26,7 +26,7 @@
       <a href="#contacts">Контакты</a>
       <a href="about.html">О бренде</a>
     </nav>
-    <a class="header-order" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Заказать <span>&rarr;</span></a>
+   <a class="header-order" href="https://t.me/Faputa_void" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px;">Заказать в Telegram</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">☰</button>
   </header>
 
@@ -37,8 +37,8 @@
         <h1>Искусство<br>в каждом <em>аромате.</em></h1>
         <p class="hero-text">140+ ароматов: мужские, женские и унисекс. Найдите свой signature и закажите в Telegram.</p>
         <div class="hero-actions">
-          <a class="button button-gold" href="#catalog">Выбрать аромат <span>&darr;</span></a>
-          <a class="text-link" href="#about">О бренде <span>&rarr;</span></a>
+          <a class="button button-gold" href="#catalog">Выбрать аромат</a>
+          <a class="text-link" href="#about">О бренде</a>
         </div>
         <div class="hero-notes">
           <div><strong>140+</strong><span>ароматов в каталоге</span></div>
@@ -103,7 +103,7 @@
 
           <div class="result-line">
             <span id="resultCount">Все ароматы · 140</span>
-            <span>Нажмите &rarr; в карточке для заказа</span>
+            <span>Нажмите на карточку для заказа</span>
           </div>
 
           <div class="product-grid" id="productGrid"></div>
@@ -111,7 +111,7 @@
           
           <div style="text-align: center; margin-top: 40px; display: none;" id="expandWrapper">
             <button class="button button-outline" id="expandBtn" style="border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; padding: 12px 24px;">
-              Развернуть каталог &darr;
+              Развернуть каталог
             </button>
           </div>
         </div>
@@ -164,7 +164,7 @@
         <h2>Запомниться —<br>это <em>искусство.</em></h2>
         <p>EGI.RAI — коллекция ароматов для тех, кто хочет выразить себя без лишних слов. Здесь можно найти знакомую классику, необычные композиции и ароматы для особых случаев.</p>
         <p>Не знаете, с чего начать? Напишите нам — поможем сориентироваться в каталоге и подобрать направление по вашим предпочтениям.</p>
-        <a class="text-link" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Подобрать аромат в Telegram <span>&rarr;</span></a>
+        <a class="text-link" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Подобрать аромат в Telegram</a>
       </div>
     </section>
 
@@ -173,7 +173,7 @@
         <p class="eyebrow">ВАШ СЛЕДУЮЩИЙ ЛЮБИМЫЙ АРОМАТ</p>
         <h2>Давайте найдём<br><em>ваш аромат.</em></h2>
       </div>
-      <a class="button button-gold" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Написать для заказа <span>&rarr;</span></a>
+      <a class="button button-gold" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Написать в Telegram</a>
     </section>
   </main>
 
@@ -186,16 +186,16 @@
     <div class="footer-contact">
       <span>Новочеркасский, 20к1</span>
       <span>Прокатная ул., д.2</span>
-      <a href="https://t.me/Faputa_void" target="_blank" rel="noopener">@Faputa_void &rarr;</a>
+      <a href="https://t.me/Faputa_void" target="_blank" rel="noopener">@Faputa_void</a>
     </div>
     <div class="footer-bottom">
       <span>© 2026 EGI.RAI</span>
       <span>Создано с вниманием к деталям</span>
-      <a href="#home">Наверх &uarr;</a>
+      <a href="#home">Наверх</a>
     </div>
   </footer>
 
-  <!-- КНОПКИ ВВЕРХ И ВНИЗ -->
+  <!-- КНОПКИ ВВЕРХ И ВНИЗ (стрелки оставлены, так как это функциональные иконки) -->
   <button id="toTop" class="to-top up" aria-label="Наверх">&uarr;</button>
   <button id="toBottom" class="to-top down" aria-label="Вниз">&darr;</button>
 
@@ -229,9 +229,10 @@
         <input type="text" id="modalComment" placeholder="Например: пишите в WhatsApp или звоните после 18:00">
         
         <button class="button button-gold" id="submitOrder" style="margin-top: 15px; width: 100%;">
-          Отправить заказ <span>&rarr;</span>
+          Отправить заказ
         </button>
-        <p class="modal-note">Нажимая кнопку, вы перейдёте в Telegram для подтверждения заказа.</p>
+        <!-- Исправлена подпись: заказ отправляется на почту, а не в ТГ -->
+        <p class="modal-note">Нажимая кнопку, вы отправляете заказ. Мы свяжемся с вами для подтверждения.</p>
       </div>
     </div>
   </div>
