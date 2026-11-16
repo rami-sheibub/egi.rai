@@ -152,6 +152,7 @@ const genderFilter = document.getElementById("genderFilter");
 const brandFilter = document.getElementById("brandFilter");
 const expandWrapper = document.getElementById("expandWrapper");
 const expandBtn = document.getElementById("expandBtn");
+const originalParentOfBtn = expandWrapper ? expandWrapper.parentNode : null; // Запоминаем оригинальное место
 
 const toTop = document.getElementById("toTop");
 const scrollIcon = document.getElementById("scrollIcon");
@@ -259,12 +260,21 @@ function renderProducts() {
       
       // Если каталог развернут, делаем кнопку липкой
       if (isExpanded) {
+        if (document.body !== expandWrapper.parentNode) {
+          document.body.appendChild(expandWrapper); // Переносим в body, чтобы не ломался position: fixed
+        }
         expandWrapper.classList.add("is-sticky");
       } else {
+        if (originalParentOfBtn && expandWrapper.parentNode !== originalParentOfBtn) {
+          originalParentOfBtn.appendChild(expandWrapper); // Возвращаем на место
+        }
         expandWrapper.classList.remove("is-sticky");
       }
     } else {
       expandWrapper.style.display = "none";
+      if (originalParentOfBtn && expandWrapper.parentNode !== originalParentOfBtn) {
+        originalParentOfBtn.appendChild(expandWrapper);
+      }
       expandWrapper.classList.remove("is-sticky");
     }
   }
@@ -284,15 +294,20 @@ if (brandFilter) {
   });
 }
 
-// Плавная прокрутка при сворачивании
+// Плавная прокрутка при сворачивании и перенос кнопки
 if (expandBtn) {
   expandBtn.addEventListener("click", () => { 
     isExpanded = !isExpanded; 
     renderProducts(); 
     
     if (!isExpanded) {
-      // Если сворачиваем — убираем "липкость" и плавно скроллим наверх
-      if (expandWrapper) expandWrapper.classList.remove("is-sticky");
+      // Если сворачиваем — убираем "липкость", возвращаем кнопку и скроллим наверх
+      if (expandWrapper) {
+        expandWrapper.classList.remove("is-sticky");
+        if (originalParentOfBtn && expandWrapper.parentNode !== originalParentOfBtn) {
+          originalParentOfBtn.appendChild(expandWrapper);
+        }
+      }
       const catalogSection = document.getElementById("catalog");
       if (catalogSection) {
         catalogSection.scrollIntoView({ behavior: "smooth", block: "start" });
