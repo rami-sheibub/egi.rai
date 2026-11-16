@@ -1,4 +1,3 @@
-
 /* ============================================
    EGI.RAI — ТОЛЬКО ТЁМНАЯ ТЕМА
    ============================================ */
@@ -20,6 +19,7 @@ body{
   margin:0;background:var(--paper);color:var(--ink);
   font-family:"DM Sans",sans-serif;font-size:14px;
   color-scheme:dark;
+  animation: fadeInPage 0.8s ease-out forwards;
 }
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit}
@@ -74,11 +74,12 @@ button:active, .button:active {
 .hero-notes strong{font-family:"Playfair Display",serif;font-size:18px;font-weight:500; color:var(--gold-light);}
 .hero-notes span{font-size:10px;color:var(--muted)}
 
-.hero-art{position:relative;width:46%;min-height:570px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 48%, #2a2218 0%, #1c1714 25%, #14110e 57%, transparent 72%);}
+.hero-art{position:relative;width:46%;min-height:570px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 48%, #2a2218 0%, #1c1714 25%, #14110e 57%, transparent 72%);opacity: 0;animation: fadeInArt 1.2s ease-out 0.3s forwards;}
 .art-orbit{position:absolute;border:1px solid rgba(201,169,110,.15);border-radius:50%;width:380px;height:380px}
 .orbit-two{width:470px;height:470px;border-color:rgba(201,169,110,.08)}
 .art-glow{position:absolute;width:240px;height:290px;background:rgba(201,169,110,.1);filter:blur(45px);border-radius:50%}
-.bottle{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(15px 24px 15px rgba(0,0,0,.5));transform:rotate(-4deg);}
+.bottle{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(15px 24px 15px rgba(0,0,0,.5));transform:rotate(-4deg);transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;animation: floatBottle 4s ease-in-out infinite;}
+.bottle:hover {transform: translateY(-15px) rotate(2deg) scale(1.05);filter: drop-shadow(0px 30px 25px rgba(0, 0, 0, 0.8)) drop-shadow(0px 0px 30px rgba(201, 169, 110, 0.3));animation-play-state: paused;}
 .bottle-cap{width:62px;height:53px;background:linear-gradient(90deg,#3e3024,#a58b5e 25%,#e0c79a 47%,#65513a 75%,#33291e);border-radius:4px 4px 1px 1px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);}
 .bottle-neck{width:42px;height:19px;background:linear-gradient(90deg,#92764e,#e2c58e,#79613d);border:1px solid #9a7b4e}
 .bottle-body{width:195px;height:250px;position:relative;border-radius:24px 24px 35px 35px;border:1px solid #c6a773;background:linear-gradient(100deg,rgba(91,65,32,.8),rgba(221,188,129,.9) 17%,rgba(246,220,168,.85) 35%,rgba(147,105,53,.9) 65%,rgba(63,47,30,.9));box-shadow:inset 0 0 15px rgba(255,255,255,.2),inset 0 -28px 30px rgba(63,40,15,.3);}
@@ -120,29 +121,27 @@ button:active, .button:active {
 .search input{border:0;outline:0;background:transparent;width:100%;font-size:12px;color:var(--ink)}
 .result-line{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:18px}
 
-/* ---------- КАРТОЧКИ (с премиум-эффектом) ---------- */
+/* ---------- КАРТОЧКИ (исправлены отступы) ---------- */
 .product-grid{display:flex;flex-wrap:wrap;gap:18px}
 .product-card{
   flex:1 1 calc(25% - 14px);min-width:200px;max-width:calc(25% - 14px);
   background:var(--dark);border:1px solid var(--line);border-radius:12px;
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s, box-shadow 0.4s;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
   display:flex;flex-direction:column;cursor:pointer;
   box-shadow:0 4px 10px rgba(0,0,0,0.2);position:relative;overflow:hidden;
+  opacity: 0; animation: slideUpFade 0.6s ease-out forwards;
 }
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.15s; }
+.product-card:nth-child(3) { animation-delay: 0.2s; }
+.product-card:nth-child(4) { animation-delay: 0.25s; }
+.product-card:nth-child(5) { animation-delay: 0.3s; }
+.product-card:nth-child(6) { animation-delay: 0.35s; }
+.product-card:nth-child(7) { animation-delay: 0.4s; }
+.product-card:nth-child(8) { animation-delay: 0.45s; }
 
-.product-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--gold);
-  /* Вот эта строчка создает золотистое свечение (ореол), как у флакона */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 25px rgba(201, 169, 110, 0.3);
-}
-
-/* Эффект нажатия (вдавливания) */
-.product-card:active {
-  transform: translateY(2px) scale(0.98);
-  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
-  border-color: var(--gold-light);
-}
+.product-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 8px 20px rgba(0,0,0,0.4), 0 0 25px rgba(201,169,110,0.3);}
+.product-card:active{transform:translateY(2px) scale(0.98);box-shadow:inset 0 4px 10px rgba(0,0,0,0.5);border-color:var(--gold-light);}
 
 .product-visual{height:175px;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse, #2a2218 0%, #1c1714 55%, var(--dark) 78%);overflow:hidden;}
 .product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(201,169,110,.15);border-radius:50%}
@@ -154,112 +153,43 @@ button:active, .button:active {
   width: 56px;
   height: 76px;
   border-radius: 6px 6px 10px 10px;
-  /* Более реалистичный градиент стекла с отблесками */
-  background: linear-gradient(105deg, 
-    rgba(255,255,255,0.1) 0%, 
-    #d6b36c 15%, 
-    #f5dfaa 35%, 
-    #a57a3c 60%, 
-    #e1bd79 85%, 
-    rgba(0,0,0,0.1) 100%
-  );
+  background: linear-gradient(105deg, rgba(255,255,255,0.1) 0%, #d6b36c 15%, #f5dfaa 35%, #a57a3c 60%, #e1bd79 85%, rgba(0,0,0,0.1) 100%);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    inset 0 0 10px rgba(255,255,255,0.2), 
-    inset 0 -10px 15px rgba(0,0,0,0.3),
-    7px 12px 12px rgba(0,0,0,0.4); /* Глубокая тень */
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.2), inset 0 -10px 15px rgba(0,0,0,0.3), 7px 12px 12px rgba(0,0,0,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
 }
 
-/* Стеклянный блик (полоска света) */
 .mini-perfume::before {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 8px;
-  width: 6px;
-  height: 50px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.4);
-  filter: blur(2px);
-  z-index: 2;
+  content: ""; position: absolute; top: 10px; left: 8px; width: 6px; height: 50px; border-radius: 10px;
+  background: rgba(255, 255, 255, 0.4); filter: blur(2px); z-index: 2;
 }
 
-/* Крышка флакона (объемная и металлическая) */
 .mini-perfume::after {
-  content: "";
-  position: absolute;
-  top: -16px;
-  width: 24px;
-  height: 18px;
-  border-radius: 3px 3px 1px 1px;
+  content: ""; position: absolute; top: -16px; width: 24px; height: 18px; border-radius: 3px 3px 1px 1px;
   background: linear-gradient(90deg, #3e3024, #a58b5e 30%, #e0c79a 50%, #65513a 70%, #33291e);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 2px 4px rgba(0,0,0,0.4);
 }
 
-/* Этикетка на флаконе */
 .mini-perfume span {
-  position: relative;
-  z-index: 3;
-  font-family: "Playfair Display", serif;
-  color: #f3e3c7;
-  font-size: 18px;
-  border: 1px solid rgba(245,224,189,.4);
-  width: 32px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  background: rgba(30, 25, 20, 0.85);
-  border-radius: 2px;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+  position: relative; z-index: 3; font-family: "Playfair Display", serif; color: #f3e3c7; font-size: 18px;
+  border: 1px solid rgba(245,224,189,.4); width: 32px; height: 34px; display: grid; place-items: center;
+  background: rgba(30, 25, 20, 0.85); border-radius: 2px; box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
 
-/* --- Разные формы флаконов для разнообразия --- */
-.product-card:nth-child(3n+2) .mini-perfume {
-  height: 66px;
-  width: 64px;
-  border-radius: 12px 12px 8px 8px; /* Круглый флакон */
-  background: linear-gradient(105deg, #3a322b, #7a6a52 25%, #d6c09a 55%, #5b4b3a);
-}
-.product-card:nth-child(3n+2) .mini-perfume::after {
-  width: 18px; /* Узкая крышка */
-}
+.product-card:nth-child(3n+2) .mini-perfume { height: 66px; width: 64px; border-radius: 12px 12px 8px 8px; background: linear-gradient(105deg, #3a322b, #7a6a52 25%, #d6c09a 55%, #5b4b3a); }
+.product-card:nth-child(3n+2) .mini-perfume::after { width: 18px; }
+.product-card:nth-child(3n) .mini-perfume { height: 84px; width: 46px; border-radius: 4px 4px 8px 8px; background: linear-gradient(105deg, #d6b36c, #f5dfaa 30%, #a57a3c 75%, #e1bd79); }
+.product-card:nth-child(3n) .mini-perfume::after { width: 28px; height: 14px; }
+.product-card:nth-child(4n) .mini-perfume { background: linear-gradient(105deg, #c9c3b6, #fffdf3 30%, #9d9284 70%, #e8dec9); border-color: rgba(255,255,255,0.4); }
 
-.product-card:nth-child(3n) .mini-perfume {
-  height: 84px;
-  width: 46px;
-  border-radius: 4px 4px 8px 8px; /* Высокий флакон */
-  background: linear-gradient(105deg, #d6b36c, #f5dfaa 30%, #a57a3c 75%, #e1bd79);
-}
-.product-card:nth-child(3n) .mini-perfume::after {
-  width: 28px; height: 14px; /* Широкая плоская крышка */
-}
-
-.product-card:nth-child(4n) .mini-perfume {
-  background: linear-gradient(105deg, #c9c3b6, #fffdf3 30%, #9d9284 70%, #e8dec9); /* Светлое стекло */
-  border-color: rgba(255,255,255,0.4);
-}
-
-/* Эффект парения и свечения при наведении на карточку */
 .product-card:hover .mini-perfume {
   transform: translateY(-8px) scale(1.05);
   filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 15px rgba(201, 169, 110, 0.4));
 }
 
-.product-card:hover .mini-perfume {
-  filter: drop-shadow(0 0 15px rgba(201, 169, 110, 0.6)); /* Свечение вокруг мини-флакона */
-  transition: filter 0.3s ease;
-}
-}
-
-.mini-perfume:before{content:"";position:absolute;top:-18px;width:21px;height:18px;background:linear-gradient(90deg,#51412f,#c9b38c,#51412f);border-radius:2px}
-.mini-perfume:after{content:"E";font-family:"Playfair Display",serif;color:#f3e3c7;font-size:21px;border:1px solid rgba(245,224,189,.5);width:35px;height:36px;display:grid;place-items:center;}
-.product-card:nth-child(3n+2) .mini-perfume{height:69px;width:67px;border-radius:14px 14px 9px 9px;background:linear-gradient(90deg,#302a24,#77664c 30%,#d6c09a 60%,#54412e)}
-.product-card:nth-child(3n) .mini-perfume{height:87px;width:48px;border-radius:4px 4px 9px 9px;background:linear-gradient(90deg,#d6b36c,#f5dfaa 25%,#a57a3c 80%,#e1bd79)}
-.product-card:nth-child(4n) .mini-perfume{background:linear-gradient(90deg,#d9d5c9,#fffdf3 30%,#b5a995 80%,#f4ead7)}
 .product-category{position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:1px;color:var(--gold)}
 .product-info{padding:17px 15px 15px;display:flex;flex-direction:column;flex:1}
 .product-brand{font-size:10px;letter-spacing:1.1px;color:var(--gold);text-transform:uppercase;margin-bottom:7px}
@@ -269,11 +199,7 @@ button:active, .button:active {
 .from-price{font-size:11px;color:var(--muted)}
 .from-price b{font-size:14px;color:var(--gold-light);display:block;margin-top:3px}
 
-/* Скрываем старую кнопку-стрелочку */
-.order-small {
-  display: none !important;
-}
-
+.order-small { display: none !important; }
 .empty-state{text-align:center;padding:50px;color:var(--muted);font-size:14px;}
 
 /* ---------- Цитата ---------- */
@@ -283,7 +209,7 @@ button:active, .button:active {
 .quote-band em{color:var(--gold-light)}
 .quote-band>span{font-size:9px;letter-spacing:3px;color:var(--muted)}
 
-/* ---------- Цены (ЕДИНЫЕ) ---------- */
+/* ---------- Цены ---------- */
 .prices{background:var(--cream)}
 .price-unified{max-width:640px;margin:0 auto;background:var(--dark);border:1px solid var(--gold);border-radius:10px;padding:40px 32px;text-align:center;}
 .price-unified .big{font-size:clamp(2rem,5vw,3rem);color:var(--gold-light);margin:15px 0 5px;font-family:"Playfair Display",serif;}
@@ -333,71 +259,24 @@ button:active, .button:active {
 }
 .to-top:hover { background: var(--gold); color: #0d0b0a; }
 .to-top.visible { opacity: 1; pointer-events: auto; }
-.to-top:active {
-  transform: scale(0.9);
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
-}
-
+.to-top:active { transform: scale(0.9); box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5); }
 .to-top.up { bottom: 88px; }
 .to-top.down { bottom: 28px; }
 
 /* ---------- МОДАЛЬНОЕ ОКНО ЗАКАЗА ---------- */
-.modal-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(5px);
-  z-index: 100;
-  display: none;
-  align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.3s ease;
-}
-.modal-overlay.active {
-  display: flex; opacity: 1;
-}
-.modal-content {
-  background: var(--dark);
-  border: 1px solid var(--gold);
-  border-radius: 12px;
-  padding: 40px;
-  width: 90%; max-width: 450px;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  transform: translateY(20px); transition: transform 0.3s ease;
-}
-.modal-overlay.active .modal-content {
-  transform: translateY(0);
-}
-.modal-close {
-  position: absolute; top: 15px; right: 15px;
-  background: transparent; border: none;
-  color: var(--muted); font-size: 20px; cursor: pointer;
-  transition: color 0.2s;
-}
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+.modal-overlay.active { display: flex; opacity: 1; }
+.modal-content { background: var(--dark); border: 1px solid var(--gold); border-radius: 12px; padding: 40px; width: 90%; max-width: 450px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(20px); transition: transform 0.3s ease; }
+.modal-overlay.active .modal-content { transform: translateY(0); }
+.modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--muted); font-size: 20px; cursor: pointer; transition: color 0.2s; }
 .modal-close:hover { color: var(--gold); }
-.modal-title {
-  font-family: "Playfair Display", serif;
-  font-size: 26px; color: var(--gold-light); margin: 0 0 5px;
-}
-.modal-brand {
-  color: var(--gold); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 25px;
-}
-.modal-form label {
-  display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; margin-top: 15px;
-}
-.modal-form select, .modal-form input {
-  width: 100%; padding: 12px; background: var(--paper);
-  border: 1px solid var(--line); color: var(--ink);
-  border-radius: 4px; font-family: inherit; font-size: 14px;
-}
-.modal-form select:focus, .modal-form input:focus {
-  outline: none; border-color: var(--gold);
-}
-.modal-form button {
-  width: 100%; margin-top: 15px;
-}
-.modal-note {
-  font-size: 11px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.5;
-}
+.modal-title { font-family: "Playfair Display", serif; font-size: 26px; color: var(--gold-light); margin: 0 0 5px; }
+.modal-brand { color: var(--gold); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 25px; }
+.modal-form label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; margin-top: 15px; }
+.modal-form select, .modal-form input { width: 100%; padding: 12px; background: var(--paper); border: 1px solid var(--line); color: var(--ink); border-radius: 4px; font-family: inherit; font-size: 14px; }
+.modal-form select:focus, .modal-form input:focus { outline: none; border-color: var(--gold); }
+.modal-form button { width: 100%; margin-top: 15px; }
+.modal-note { font-size: 11px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.5; }
 
 /* ============================================
    АДАПТИВ
@@ -420,7 +299,6 @@ button:active, .button:active {
   .nav.open{display:flex}
   .header-order{margin-left:auto;margin-right:15px;padding:10px 12px}
   .menu-toggle{display:block}
-
   .hero{flex-direction:column;padding:0 7%}
   .hero-copy{width:100%;padding:60px 0 35px}
   .hero h1{font-size:54px}
@@ -433,33 +311,26 @@ button:active, .button:active {
   .bottle-label{top:62px;height:85px}
   .bottle-cap{width:54px;height:45px}
   .note-a{right:0}
-
   .benefits{padding:25px 7%;display:grid;grid-template-columns:1fr;gap:17px}
   .section{padding:62px 6%}
   .section-heading{align-items:flex-start;flex-direction:column;gap:15px;margin-bottom:28px}
   .section-sub{max-width:100%}
-
   .catalog-tools{align-items:stretch}
   .filters{gap:6px; width: 100%;}
   .filter{padding:9px 11px; flex: 1;}
   .search{width:100%}
-
   .product-card{flex:1 1 calc(50% - 5px);max-width:calc(50% - 5px);min-width:0}
   .product-grid{gap:10px}
   .product-visual{height:145px}
   .product-info{padding:13px 11px}
   .product-name{font-size:15px}
   .product-category{font-size:8px}
-
   .price-unified{padding:25px 20px;}
-
   .about{flex-direction:column;gap:30px}
   .about-art{width:100%;min-height:300px}
   .about-copy{width:100%}
-
   .contact-banner{padding:40px 7%;align-items:flex-start;flex-direction:column}
   .contact-banner h2{font-size:36px}
-
   .footer{padding:35px 6% 20px}
   .footer-bottom{flex-wrap:wrap}
   .result-line span:last-child{display:none}
@@ -482,77 +353,19 @@ button:active, .button:active {
 }
 
 /* ============================================
-   АНИМАЦИИ ПОЯВЛЕНИЯ И НАВЕДЕНИЯ
+   АНИМАЦИИ
    ============================================ */
-
-/* 1. Плавное появление всей страницы при загрузке */
-body {
-  animation: fadeInPage 0.8s ease-out forwards;
-}
-
-@keyframes fadeInPage {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* 2. Анимация выезда для текста в Hero */
-.hero-copy > * {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: slideUpFade 0.8s ease-out forwards;
-}
-
-.hero-copy .eyebrow { animation-delay: 0.1s; }
-.hero-copy h1 { animation-delay: 0.2s; }
-.hero-copy .hero-text { animation-delay: 0.3s; }
-.hero-copy .hero-actions { animation-delay: 0.4s; }
-.hero-copy .hero-notes { animation-delay: 0.5s; }
-
-@keyframes slideUpFade {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 3. Анимация появления и парения флакона */
-.hero-art {
-  opacity: 0;
-  animation: fadeInArt 1.2s ease-out 0.3s forwards;
-}
-
-@keyframes fadeInArt {
-  to { opacity: 1; }
-}
-
-.bottle {
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
-  animation: floatBottle 4s ease-in-out infinite;
-}
-
-.bottle:hover {
-  transform: translateY(-15px) rotate(2deg) scale(1.05);
-  filter: drop-shadow(0px 30px 25px rgba(0, 0, 0, 0.8)) drop-shadow(0px 0px 30px rgba(201, 169, 110, 0.3));
-  animation-play-state: paused;
-}
-
+@keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInArt { to { opacity: 1; } }
 @keyframes floatBottle {
   0% { transform: translateY(0) rotate(-4deg); }
   50% { transform: translateY(-12px) rotate(-2deg); }
   100% { transform: translateY(0) rotate(-4deg); }
 }
-
-/* 4. Красивое появление карточек при загрузке */
-.product-card {
-  opacity: 0;
-  animation: slideUpFade 0.6s ease-out forwards;
-}
-.product-card:nth-child(1) { animation-delay: 0.1s; }
-.product-card:nth-child(2) { animation-delay: 0.15s; }
-.product-card:nth-child(3) { animation-delay: 0.2s; }
-.product-card:nth-child(4) { animation-delay: 0.25s; }
-.product-card:nth-child(5) { animation-delay: 0.3s; }
-.product-card:nth-child(6) { animation-delay: 0.35s; }
-.product-card:nth-child(7) { animation-delay: 0.4s; }
-.product-card:nth-child(8) { animation-delay: 0.45s; }
-```
+.hero-copy > * { opacity: 0; transform: translateY(20px); animation: slideUpFade 0.8s ease-out forwards; }
+.hero-copy .eyebrow { animation-delay: 0.1s; }
+.hero-copy h1 { animation-delay: 0.2s; }
+.hero-copy .hero-text { animation-delay: 0.3s; }
+.hero-copy .hero-actions { animation-delay: 0.4s; }
+.hero-copy .hero-notes { animation-delay: 0.5s; }
+@keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
