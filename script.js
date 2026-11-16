@@ -322,7 +322,7 @@ if (submitOrderBtn) {
     submitOrderBtn.innerHTML = "Отправка...";
     submitOrderBtn.disabled = true;
 
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqaeq";
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqpaeq";
 
     // Создаем невидимый iframe, чтобы страница не перезагружалась
     const iframe = document.createElement('iframe');
