@@ -221,7 +221,6 @@ function renderProducts() {
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
       <div class="card-inner">
         
-        <!-- ЛИЦЕВАЯ СТОРОНА -->
         <div class="card-front">
           <button class="btn-info" title="Узнать ноты">i</button>
           <div class="product-visual">
@@ -238,7 +237,6 @@ function renderProducts() {
           </div>
         </div>
 
-        <!-- ОБРАТНАЯ СТОРОНА -->
         <div class="card-back">
           <h4>${escapeHtml(item.name)}</h4>
           <div class="card-notes">
@@ -260,7 +258,6 @@ function renderProducts() {
   }
 }
 
-// --- Обработчики КАТАЛОГА ---
 if (searchInput) {
   searchInput.addEventListener("input", () => { currentLimit = 12; renderProducts(); });
 }
@@ -281,17 +278,12 @@ if (expandBtn) {
 // --- МОДАЛЬНЫЕ ОКНА ---
 const modal = document.getElementById("orderModal");
 const closeModalBtn = document.getElementById("closeModal");
-const submitOrderBtn = document.getElementById("submitOrder");
 const modalProductName = document.getElementById("modalProductName");
 const modalProductBrand = document.getElementById("modalProductBrand");
 const modalVolume = document.getElementById("modalVolume");
-const modalName = document.getElementById("modalName");
-const modalContact = document.getElementById("modalContact");
-const modalComment = document.getElementById("modalComment");
 
 let currentProduct = { brand: "", name: "" };
 
-// Клики в каталоге
 if (grid) {
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".product-card");
@@ -313,9 +305,6 @@ if (grid) {
     
     modalProductName.textContent = currentProduct.name;
     modalProductBrand.textContent = currentProduct.brand;
-    modalName.value = "";
-    modalContact.value = "";
-    if (modalComment) modalComment.value = "";
     modalVolume.value = "5";
     
     modal.classList.add("active");
@@ -334,79 +323,8 @@ if (modal) {
   });
 }
 
-// --- ОТПРАВКА ОДИНОЧНОГО ЗАКАЗА ---
-if (submitOrderBtn) {
-  submitOrderBtn.addEventListener("click", () => {
-    const vol = modalVolume.value;
-    const name = modalName.value.trim();
-    const contact = modalContact.value.trim();
-    const comment = modalComment ? modalComment.value.trim() : "";
-    const price = parseInt(vol) * 100;
-
-    if (name.length < 2) {
-      alert("Пожалуйста, введите ваше имя (минимум 2 буквы).");
-      return;
-    }
-
-    const phoneRegex = /^\+?\d{10,15}$/;
-    const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/;
-
-    if (!phoneRegex.test(contact) && !tgRegex.test(contact)) {
-      alert("Пожалуйста, введите корректный номер телефона (например, +79774872613) или ник в Telegram (например, @username).");
-      return;
-    }
-
-    const originalBtnText = submitOrderBtn.innerHTML;
-    submitOrderBtn.innerHTML = "Отправка...";
-    submitOrderBtn.disabled = true;
-
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqpaeq";
-
-    const iframe = document.createElement('iframe');
-    iframe.name = 'hidden_iframe';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-
-    const form = document.createElement('form');
-    form.action = FORMSPREE_ENDPOINT;
-    form.method = 'POST';
-    form.target = 'hidden_iframe'; 
-
-    const fields = {
-      name: name,
-      email: "linashebik230@gmail.com", 
-      contact: contact,
-      comment: comment,
-      product: `${currentProduct.brand} — ${currentProduct.name}`,
-      volume: vol + ' мл',
-      price: price.toLocaleString("ru-RU") + ' ₽',
-      _subject: `Новый заказ: ${name} (${contact})`
-    };
-
-    for (const key in fields) {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = fields[key];
-      form.appendChild(input);
-    }
-
-    document.body.appendChild(form);
-    form.submit(); 
-
-    setTimeout(() => {
-      alert('Заказ отправлен! Мы скоро свяжемся с вами.');
-      closeModal();
-      document.body.removeChild(form);
-      document.body.removeChild(iframe);
-      submitOrderBtn.innerHTML = originalBtnText;
-      submitOrderBtn.disabled = false;
-    }, 1000);
-  });
-}
-
 // ==========================================
-// ЛОГИКА КОРЗИНЫ
+// ЛОГИКА КОРЗИНЫ И АНИМАЦИЯ
 // ==========================================
 
 let cart = JSON.parse(localStorage.getItem("egi_cart")) || [];
@@ -421,7 +339,6 @@ const cartFormWrapper = document.getElementById("cartFormWrapper");
 const addToCartBtn = document.getElementById("addToCartBtn");
 const submitCartOrderBtn = document.getElementById("submitCartOrder");
 
-// Обновление интерфейса корзины
 function updateCartUI() {
   if (!cartCount) return;
   cartCount.textContent = cart.length;
@@ -456,10 +373,53 @@ function updateCartUI() {
   });
 }
 
+// Анимация полета в корзину
+function flyToCart(startRect) {
+  const flyingEl = document.createElement("div");
+  flyingEl.className = "flying-perfume";
+  
+  // Позиция корзины на экране
+  const cartRect = cartBtn.getBoundingClientRect();
+
+  // Стартовая позиция (от центра карточки)
+  flyingEl.style.left = (startRect.left + startRect.width / 2 - 25) + "px";
+  flyingEl.style.top = (startRect.top + startRect.height / 2 - 32) + "px";
+  flyingEl.style.opacity = "1";
+  
+  document.body.appendChild(flyingEl);
+
+  // Принудительно вызываем перерисовку
+  flyingEl.offsetWidth;
+
+  // Летим в корзину
+  flyingEl.style.left = (cartRect.left + cartRect.width / 2 - 25) + "px";
+  flyingEl.style.top = (cartRect.top + cartRect.height / 2 - 32) + "px";
+  flyingEl.style.transform = "scale(0.2) rotate(360deg)";
+  flyingEl.style.opacity = "0";
+
+  // Удаляем после завершения
+  setTimeout(() => {
+    if (flyingEl.parentNode) {
+      flyingEl.parentNode.removeChild(flyingEl);
+    }
+    // Анимация пульсации счетчика
+    cartBtn.classList.add("bump");
+    setTimeout(() => cartBtn.classList.remove("bump"), 400);
+  }, 1000);
+}
+
 // Добавление в корзину
 if (addToCartBtn) {
   addToCartBtn.addEventListener("click", () => {
     const vol = modalVolume.value;
+    
+    // Находим карточку, чтобы взять её координаты
+    const cardEl = document.querySelector(`.product-card[data-name="${CSS.escape(currentProduct.name)}"]`);
+    if (cardEl) {
+      const rect = cardEl.getBoundingClientRect();
+      flyToCart(rect);
+    }
+
     cart.push({
       brand: currentProduct.brand,
       name: currentProduct.name,
@@ -467,12 +427,11 @@ if (addToCartBtn) {
     });
     localStorage.setItem("egi_cart", JSON.stringify(cart));
     updateCartUI();
-    alert("Аромат добавлен в корзину!");
+    
     closeModal();
   });
 }
 
-// Открытие / Закрытие корзины
 if (cartBtn) {
   cartBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -496,7 +455,7 @@ if (cartModal) {
   });
 }
 
-// Отправка всей корзины
+// Отправка заказа из корзины
 if (submitCartOrderBtn) {
   submitCartOrderBtn.addEventListener("click", () => {
     const name = document.getElementById("cartName").value.trim();
