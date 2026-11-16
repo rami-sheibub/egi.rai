@@ -369,3 +369,30 @@ button:active, .button:active {
 .hero-copy .hero-actions { animation-delay: 0.4s; }
 .hero-copy .hero-notes { animation-delay: 0.5s; }
 @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
+
+/* ============================================
+   АНИМАЦИЯ ПОЯВЛЕНИЯ ДЛЯ БЛОКА "О НАС"
+   ============================================ */
+
+/* Начальное состояние (скрыто и сдвинуто) */
+.about-art, .about-copy {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Сдвигаем картинку (круг) влево */
+.about-art {
+  transform: translateX(-40px);
+}
+
+/* Сдвигаем текст вправо */
+.about-copy {
+  transform: translateX(40px);
+}
+
+/* Класс, который добавляется через JS, когда блок появляется на экране */
+.about.section.visible .about-art,
+.about.section.visible .about-copy {
+  opacity: 1;
+  transform: translateX(0);
+}
