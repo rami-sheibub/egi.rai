@@ -305,7 +305,7 @@ if (modal) {
   });
 }
 
-// --- ОТПРАВКА ЗАКАЗА ЧЕРЕЗ FORMSPREE (по их официальному методу) ---
+// --- ОТПРАВКА ЗАКАЗА ЧЕРЕЗ FORMSPREE ---
 if (submitOrderBtn) {
   submitOrderBtn.addEventListener("click", () => {
     const vol = modalVolume.value;
@@ -322,29 +322,31 @@ if (submitOrderBtn) {
     submitOrderBtn.innerHTML = "Отправка...";
     submitOrderBtn.disabled = true;
 
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqpaeq";
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqaeq";
 
-    // 1. Создаем невидимый iframe, чтобы страница не перезагружалась
+    // Создаем невидимый iframe, чтобы страница не перезагружалась
     const iframe = document.createElement('iframe');
     iframe.name = 'hidden_iframe';
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
 
-    // 2. Создаем саму форму, как в инструкции Formspree
+    // Создаем форму
     const form = document.createElement('form');
     form.action = FORMSPREE_ENDPOINT;
     form.method = 'POST';
-    form.target = 'hidden_iframe'; // Отправляем в невидимый iframe
+    form.target = 'hidden_iframe'; 
 
-    // 3. Добавляем поля
+    // Добавляем поля
     const fields = {
       name: name,
-      email: contact, // Formspree требует email, передаем сюда телефон/тг
       contact: contact,
       product: `${currentProduct.brand} — ${currentProduct.name}`,
       volume: vol + ' мл',
       price: price.toLocaleString("ru-RU") + ' ₽',
-      _subject: "Новый заказ с сайта EGI.RAI"
+      // ВАЖНО: Formspree требует валидный email. 
+      // Вставляем ваш email, а контакт клиента пишем в отдельное поле.
+      email: "linashebiк230@gmail.com", 
+      _subject: `Новый заказ: ${name} (${contact})`
     };
 
     for (const key in fields) {
@@ -356,17 +358,13 @@ if (submitOrderBtn) {
     }
 
     document.body.appendChild(form);
-    form.submit(); // Отправляем
+    form.submit(); 
 
-    // 4. Показываем сообщение об успехе (через 1 секунду, чтобы форма успела уйти)
     setTimeout(() => {
       alert('Заказ отправлен! Мы скоро свяжемся с вами.');
       closeModal();
-      
-      // Убираем мусор
       document.body.removeChild(form);
       document.body.removeChild(iframe);
-      
       submitOrderBtn.innerHTML = originalBtnText;
       submitOrderBtn.disabled = false;
     }, 1000);
