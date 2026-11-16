@@ -362,3 +362,83 @@ button:active, .button:active {
   .product-bottom{align-items:flex-start}
   .from-price{font-size:10px}
 }
+/* ============================================
+   АНИМАЦИИ ПОЯВЛЕНИЯ И НАВЕДЕНИЯ
+   ============================================ */
+
+/* 1. Плавное появление всей страницы при загрузке */
+body {
+  animation: fadeInPage 0.8s ease-out forwards;
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 2. Анимация выезда для текста в Hero (Заголовок и описание) */
+.hero-copy > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUpFade 0.8s ease-out forwards;
+}
+
+/* Задержки, чтобы текст появлялся по очереди (каскадом) */
+.hero-copy .eyebrow { animation-delay: 0.1s; }
+.hero-copy h1 { animation-delay: 0.2s; }
+.hero-copy .hero-text { animation-delay: 0.3s; }
+.hero-copy .hero-actions { animation-delay: 0.4s; }
+.hero-copy .hero-notes { animation-delay: 0.5s; }
+
+@keyframes slideUpFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 3. Анимация появления и парения флакона */
+.hero-art {
+  opacity: 0;
+  animation: fadeInArt 1.2s ease-out 0.3s forwards;
+}
+
+@keyframes fadeInArt {
+  to { opacity: 1; }
+}
+
+.bottle {
+  /* Добавляем плавный переход для эффекта наведения */
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+  /* Базовая анимация легкого покачивания */
+  animation: floatBottle 4s ease-in-out infinite;
+}
+
+/* Эффект при наведении на флакон */
+.bottle:hover {
+  /* Флакон увеличивается, поворачивается и парит выше */
+  transform: translateY(-15px) rotate(2deg) scale(1.05);
+  filter: drop-shadow(0px 30px 25px rgba(0, 0, 0, 0.8)) drop-shadow(0px 0px 30px rgba(201, 169, 110, 0.3));
+  animation-play-state: paused; /* Останавливаем базовое покачивание при наведении */
+}
+
+@keyframes floatBottle {
+  0% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-12px) rotate(-2deg); }
+  100% { transform: translateY(0) rotate(-4deg); }
+}
+
+/* 4. Красивое появление карточек при загрузке */
+.product-card {
+  opacity: 0;
+  animation: slideUpFade 0.6s ease-out forwards;
+}
+/* Задержка для карточек, чтобы они появлялись волной */
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.15s; }
+.product-card:nth-child(3) { animation-delay: 0.2s; }
+.product-card:nth-child(4) { animation-delay: 0.25s; }
+.product-card:nth-child(5) { animation-delay: 0.3s; }
+.product-card:nth-child(6) { animation-delay: 0.35s; }
+.product-card:nth-child(7) { animation-delay: 0.4s; }
+.product-card:nth-child(8) { animation-delay: 0.45s; }
