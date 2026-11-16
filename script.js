@@ -409,18 +409,40 @@ if (submitOrderBtn) {
   });
 }
 
-// --- Кнопки скролла Вверх / Вниз ---
-if (toTop) {
-  toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+// --- Кнопки скролла Вверх / Вниз (в одной точке) ---
+const scrollBtn = document.getElementById("toTop"); // Берем одну кнопку
+const scrollIcon = document.getElementById("scrollIcon"); // Наша стрелка
+
+if (scrollBtn && scrollIcon && toBottom) {
+  // Слушаем скролл страницы
+  window.addEventListener("scroll", () => {
+    // Если проскроллили больше 400px
+    const isScrolledDown = window.scrollY > 400;
+    
+    // Показываем кнопку
+    scrollBtn.classList.toggle("visible", window.scrollY > 100); 
+
+    if (isScrolledDown) {
+      // Если мы внизу — кнопка ведет наверх (стрелка вверх)
+      scrollIcon.innerHTML = "&uarr;";
+      scrollBtn.setAttribute("aria-label", "Наверх");
+      scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: "smooth"});
+    } else {
+      // Если мы вверху — кнопка ведет вниз (стрелка вниз)
+      scrollIcon.innerHTML = "&darr;";
+      scrollBtn.setAttribute("aria-label", "Вниз");
+      scrollBtn.onclick = () => window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
+    }
+  });
+
+  // Вызываем один раз при загрузке, чтобы кнопка "Вниз" сразу появилась
+  if (window.scrollY <= 400) {
+    scrollBtn.classList.add("visible");
+    scrollIcon.innerHTML = "&darr;";
+    scrollBtn.setAttribute("aria-label", "Вниз");
+    scrollBtn.onclick = () => window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
+  }
 }
-if (toBottom) {
-  toBottom.addEventListener("click", () => window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"}));
-}
-window.addEventListener("scroll", () => {
-  const show = window.scrollY > 400;
-  if (toTop) toTop.classList.toggle("visible", show);
-  if (toBottom) toBottom.classList.toggle("visible", !show); 
-});
 
 // --- Меню ---
 const menuToggle = document.getElementById("menuToggle");
