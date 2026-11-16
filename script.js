@@ -313,24 +313,27 @@ if (submitOrderBtn) {
     const vol = modalVolume.value;
     const name = modalName.value.trim();
     const contact = modalContact.value.trim();
+    const comment = modalComment ? modalComment.value.trim() : ""; // Защита, если поля нет
     const price = parseInt(vol) * 100;
 
-       // Проверка имени (хотя бы 2 буквы)
+    // 1. Проверка имени
     if (name.length < 2) {
       alert("Пожалуйста, введите ваше имя (минимум 2 буквы).");
       return;
     }
 
-    // Проверка контакта: либо номер телефона, либо @username
-    // Регулярное выражение: начинается с + и цифр, ИЛИ начинается с @
-    const phoneRegex = /^\+?\d{10,15}$/; // Для номера телефона (от 10 до 15 цифр)
-    const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/; // Для телеграма (от 4 до 32 символов)
+    // 2. Проверка контакта (Телефон или @username)
+    // Телефон: от 10 до 15 цифр (с плюсом или без)
+    const phoneRegex = /^\+?\d{10,15}$/; 
+    // Телеграм: начинается с @, буквы/цифры/подчеркивания, от 4 до 32 символов
+    const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/; 
 
     if (!phoneRegex.test(contact) && !tgRegex.test(contact)) {
-      alert("Пожалуйста, введите корректный номер телефона (например, +79774872613) или ник в Telegram (например, @faputa_void).");
+      alert("Пожалуйста, введите корректный номер телефона (например, +79774872613) или ник в Telegram (например, @username).");
       return;
     }
 
+    // Блокируем кнопку на время отправки
     const originalBtnText = submitOrderBtn.innerHTML;
     submitOrderBtn.innerHTML = "Отправка...";
     submitOrderBtn.disabled = true;
@@ -338,29 +341,31 @@ if (submitOrderBtn) {
     // ВАША ССЫЛКА ИЗ FORMSPREE
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqpaeq";
 
+    // Создаем невидимый iframe, чтобы страница не перезагружалась
     const iframe = document.createElement('iframe');
     iframe.name = 'hidden_iframe';
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
 
+    // Создаем форму
     const form = document.createElement('form');
     form.action = FORMSPREE_ENDPOINT;
     form.method = 'POST';
     form.target = 'hidden_iframe'; 
 
+    // Собираем данные
     const fields = {
       name: name,
-      // ВАЖНО: Всегда отправляем ВАШ реальный email, чтобы Formspree не блокировал заявку
-      email: "linashebiк230@gmail.com", 
-      // А контакт клиента (номер или @username) пишем в отдельное поле
-      contact: contact, 
-      comment: modalComment.value.trim(),
+      email: "linashebiк230@gmail.com", // Ваш email (обязателен для Formspree)
+      contact: contact,
+      comment: comment, // Передаем комментарий (если он есть)
       product: `${currentProduct.brand} — ${currentProduct.name}`,
       volume: vol + ' мл',
       price: price.toLocaleString("ru-RU") + ' ₽',
       _subject: `Новый заказ: ${name} (${contact})`
     };
 
+    // Добавляем поля в форму
     for (const key in fields) {
       const input = document.createElement('input');
       input.type = 'hidden';
@@ -370,8 +375,9 @@ if (submitOrderBtn) {
     }
 
     document.body.appendChild(form);
-    form.submit(); 
+    form.submit(); // Отправляем
 
+    // Показываем успех через 1 секунду
     setTimeout(() => {
       alert('Заказ отправлен! Мы скоро свяжемся с вами.');
       closeModal();
