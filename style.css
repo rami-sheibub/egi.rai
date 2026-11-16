@@ -68,15 +68,14 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .cart-btn:hover .cart-count { background: #000; color: var(--gold); }
 
 /* ---------- ОБЩИЙ СТИЛЬ ДЛЯ ОСТРОВКОВ (СЕКЦИЙ) ---------- */
-/* Создает эффект матового стекла, чтобы текст не сливался с фоном */
 .section, .benefits, .contact-banner, .about-art {
-  background: rgba(28, 23, 20, 0.4) !important; /* Полупрозрачный темный фон */
-  backdrop-filter: blur(12px); /* Размытие фона */
-  border: 1px solid rgba(201, 169, 110, 0.15); /* Тонкая золотая рамка */
-  border-radius: 20px; /* Овальные, сглаженные углы */
-  margin: 40px auto; /* Отступы сверху и снизу */
-  max-width: 1300px; /* Чтобы не растягивалось на весь экран */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Тень для объема */
+  background: rgba(28, 23, 20, 0.4) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  border-radius: 20px;
+  margin: 40px auto;
+  max-width: 1300px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .hero { background: transparent !important; border: none; margin: 0; max-width: 100%; backdrop-filter: none; box-shadow: none; }
@@ -311,6 +310,23 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
 @keyframes cartPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
 .cart-btn.bump { animation: cartPulse 0.4s ease; }
 
+/* ---------- ЛИПКАЯ КНОПКА ---------- */
+#expandWrapper.is-sticky {
+  position: fixed !important;
+  bottom: 30px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+  margin: 0 !important;
+  background: rgba(20, 17, 14, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 12px 24px !important;
+  border-radius: 50px !important;
+  border: 1px solid var(--gold) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+}
+#expandWrapper.is-sticky #expandBtn { border: none !important; background: transparent !important; color: var(--gold) !important; font-size: 14px !important; padding: 0 !important; }
+
 /* ============================================
    СТИЛИЗАЦИЯ ПОЛЗУНКОВ
    ============================================ */
@@ -319,80 +335,6 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; border: 2px solid var(--paper); }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 * { scrollbar-width: thin; scrollbar-color: var(--line) var(--paper); }
-
-/* ============================================
-   АДАПТИВ
-   ============================================ */
-@media(max-width:1000px){
-  .header{padding:0 4%}
-  .nav{gap:18px}
-  .hero{padding-left:6%;padding-right:5%}
-  .hero-notes{gap:20px}
-  .section{padding:40px 4%; margin: 20px 10px;}
-  .product-card{flex:1 1 calc(33.333% - 12px);max-width:calc(33.333% - 12px)}
-  .benefits{gap:4%}
-  .about{gap:5%}
-}
-
-@media(max-width:720px){
-  .announcement{font-size:9px;letter-spacing:1px}
-  .header{height:70px}
-  .nav{display:none;position:absolute;top:70px;left:0;right:0;padding:20px 6%;background:rgba(13, 11, 10, 0.95);backdrop-filter: blur(10px);border-bottom:1px solid var(--line);flex-direction:column;gap:20px;}
-  .nav.open{display:flex}
-  .header-order{margin-left:auto;margin-right:15px;padding:10px 12px}
-  .menu-toggle{display:block}
-  .hero{flex-direction:column;padding:0 7%}
-  .hero-copy{width:100%;padding:60px 0 35px}
-  .hero h1{font-size:54px}
-  .hero-notes{margin-top:35px;width:100%;gap:18px}
-  .hero-notes span{max-width:95px;line-height:1.4}
-  .hero-art{width:100%;min-height:430px}
-  .art-orbit{width:300px;height:300px}
-  .orbit-two{width:360px;height:360px}
-  .bottle-body{width:165px;height:215px}
-  .bottle-label{top:62px;height:85px}
-  .bottle-cap{width:54px;height:45px}
-  .note-a{right:0}
-  .benefits{padding:25px 7%;display:grid;grid-template-columns:1fr;gap:17px}
-  .section{padding:40px 4%; margin: 15px 10px;}
-  .section-heading{align-items:flex-start;flex-direction:column;gap:15px;margin-bottom:28px}
-  .section-sub{max-width:100%}
-  .catalog-tools{align-items:stretch}
-  .filters{gap:6px; width: 100%;}
-  .filter{padding:9px 11px; flex: 1;}
-  .search{width:100%}
-  .product-card{flex:1 1 calc(50% - 5px);max-width:calc(50% - 5px);min-width:0; height: 360px;}
-  .product-grid{gap:10px}
-  .product-visual{height:145px}
-  .product-info{padding:13px 11px}
-  .product-name{font-size:15px}
-  .product-category{font-size:8px}
-  .price-unified{padding:25px 20px;}
-  .about{flex-direction:column;gap:30px}
-  .about-art{width:100%;min-height:300px}
-  .about-copy{width:100%}
-  .contact-banner{padding:40px 4%;align-items:flex-start;flex-direction:column}
-  .contact-banner h2{font-size:36px}
-  .footer{padding:35px 6% 20px}
-  .footer-bottom{flex-wrap:wrap}
-  .result-line span:last-child{display:none}
-}
-
-@media(max-width:390px){
-  .logo{font-size:16px}
-  .logo-mark{width:32px;height:32px}
-  .header-order{font-size:10px}
-  .hero h1{font-size:46px}
-  .hero-notes{gap:12px}
-  .hero-notes strong{font-size:16px}
-  .hero-notes span{font-size:9px}
-  .product-card{flex:1 1 100%;max-width:100%; height: 340px;}
-  .product-grid{gap:8px}
-  .product-name{font-size:14px}
-  .product-visual{height:125px}
-  .product-bottom{align-items:flex-start}
-  .from-price{font-size:10px}
-}
 
 /* ============================================
    АНИМАЦИИ
@@ -449,77 +391,133 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   100% { opacity: 1; transform: translate(-50%, -50%); }
 }
 
-@media (max-width: 720px) {
-  .moon-container { width: 140px; height: 140px; }
-  @keyframes flyToCorner {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(calc(50vw + 80px), calc(-50vh + 80px)) scale(0.5); }
-  }
-  .about-content { width: 95%; left: 50%; padding: 20px; }
-  .about-content p { font-size: 14px; }
-  .about-main { height: calc(100vh - 70px); align-items: flex-end; padding-bottom: 50px; }
-}
-
 /* ============================================
-   ЛИПКАЯ КНОПКА "СВЕРНУТЬ" ДЛЯ РАЗВЕРНУТОГО КАТАЛОГА
+   МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (АДАПТИВ)
    ============================================ */
-#expandWrapper.is-sticky {
-  position: fixed;
-  bottom: 30px; /* Отступ от низа экрана */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 50; /* Поверх карточек */
-  margin: 0;
-  background: rgba(20, 17, 14, 0.85); /* Темная подложка */
-  backdrop-filter: blur(10px);
-  padding: 10px 20px;
-  border-radius: 50px;
-  border: 1px solid var(--gold);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-  transition: all 0.3s ease;
+@media(max-width:1000px){
+  .header{padding:0 4%}
+  .nav{gap:18px}
+  .hero{padding-left:6%;padding-right:5%}
+  .hero-notes{gap:20px}
+  .section{padding:40px 4%; margin: 20px 10px;}
+  .product-card{flex:1 1 calc(33.333% - 12px);max-width:calc(33.333% - 12px)}
+  .benefits{gap:4%}
+  .about{gap:5%}
 }
 
-/* Стили для самой кнопки внутри плавающего блока */
-#expandWrapper.is-sticky #expandBtn {
-  border: none !important; /* Убираем рамку у самой кнопки, она есть у подложки */
-  background: transparent !important;
-  padding: 0 10px !important;
-  font-size: 14px !important;
-  color: var(--gold) !important;
-  font-weight: bold;
-}
-#expandWrapper.is-sticky #expandBtn:hover {
-  color: var(--gold-light) !important;
+@media(max-width:720px){
+  /* Шапка */
+  .announcement{font-size:9px;letter-spacing:1px;padding:8px;}
+  .header{height:70px; padding: 0 15px;}
+  .logo{font-size:16px;}
+  .logo-mark{width:30px; height:30px; font-size:20px;}
+  .nav{display:none;position:absolute;top:70px;left:0;right:0;padding:20px 6%;background:rgba(13, 11, 10, 0.95);backdrop-filter: blur(10px);border-bottom:1px solid var(--line);flex-direction:column;gap:20px;}
+  .nav.open{display:flex}
+  .header-order{display: none;} /* Скрываем большую кнопку ТГ на мобилке, оставляем корзину */
+  .menu-toggle{display:block; margin-left: 10px;}
+  
+  /* Корзина в шапке */
+  .cart-btn { padding: 8px 10px; font-size: 11px; margin-right: 0; }
+  .cart-count { font-size: 9px; padding: 2px 5px; }
+
+  /* Главный экран */
+  .hero{flex-direction:column;padding:0 7%; min-height: auto;}
+  .hero-copy{width:100%;padding:40px 0 20px; text-align: center; align-items: center;}
+  .hero h1{font-size:38px;}
+  .hero-text{font-size:13px;}
+  .hero-actions { justify-content: center; flex-wrap: wrap; gap: 15px; }
+  .hero-notes{margin-top:25px;width:100%;gap:15px; justify-content: center; border-top: none; padding-top: 0;}
+  .hero-notes div { align-items: center; }
+  .hero-notes strong{font-size:16px;}
+  .hero-notes span{font-size:9px; text-align: center;}
+  
+  /* Картинка флакона */
+  .hero-art{width:100%;min-height:300px; margin-top: 20px;}
+  .art-orbit{width:200px;height:200px}
+  .orbit-two{width:250px;height:250px}
+  .bottle-body{width:140px;height:180px}
+  .bottle-label{top:50px;height:70px; left: 14px; right: 14px;}
+  .bottle-label span { font-size: 16px; }
+  .note-a{right:0; font-size: 10px;}
+  .note-b { display: none; }
+
+  /* Преимущества */
+  .benefits{padding:20px;display:grid;grid-template-columns:1fr;gap:15px; margin: 15px 10px;}
+  .benefit-icon { width: 30px; height: 30px; font-size: 15px; }
+  .benefits b { font-size: 13px; }
+  .benefits small { font-size: 11px; }
+
+  /* Секции */
+  .section{padding:30px 15px; margin: 15px 10px;}
+  .section-heading{align-items:flex-start;flex-direction:column;gap:10px;margin-bottom:20px}
+  .section-heading h2 { font-size: 28px; }
+  .section-sub{max-width:100%; font-size: 12px;}
+
+  /* Фильтры */
+  .catalog-tools { flex-direction: column; align-items: stretch; gap: 10px; }
+  .filters{gap:10px; width: 100%; flex-direction: column;}
+  .filter{padding:12px; font-size: 13px; border-radius: 8px; width: 100%;}
+  .search{width:100%; padding: 12px 0;}
+
+  /* Карточки (2 в ряд) */
+  .product-card{flex:1 1 calc(50% - 8px);max-width:calc(50% - 8px);min-width:0; height: 330px;}
+  .product-grid{gap:15px}
+  .product-visual{height:140px}
+  .product-info{padding:12px 10px}
+  .product-name{font-size:15px; min-height: 38px;}
+  .product-category{font-size:8px; top: 8px; left: 8px;}
+  .product-brand { font-size: 9px; }
+  .product-type { display: none; } /* Скрываем "масляный аромат" для экономии места */
+  .from-price { font-size: 10px; }
+  .from-price b { font-size: 13px; }
+
+  /* Цены */
+  .price-unified{padding:20px 15px;}
+  .price-unified .big { font-size: 28px; }
+  .vol-row { gap: 8px; }
+  .vol-row span { font-size: 11px; padding: 6px 12px; }
+
+  /* О нас */
+  .about{flex-direction:column;gap:20px; padding: 30px 15px;}
+  .about-art{width:100%;min-height:200px; margin-bottom: 10px;}
+  .about-circle { width: 180px; height: 180px; }
+  .about-copy{width:100%}
+  .about-copy h2 { font-size: 28px; }
+  .about-copy>p:not(.eyebrow){font-size: 12px;}
+
+  /* Контакты */
+  .contact-banner{padding:30px 15px; align-items:center; flex-direction:column; text-align: center; gap: 15px; margin: 15px 10px;}
+  .contact-banner h2{font-size:28px}
+  
+  /* Подвал */
+  .footer{padding:30px 15px 20px}
+  .footer-bottom{flex-wrap:wrap; justify-content: center; text-align: center; gap: 10px;}
+  .footer-contact { justify-content: center; flex-wrap: wrap; }
+  .result-line span:last-child{display:none}
+
+  /* Модальные окна */
+  .modal-content { padding: 25px 20px; width: 95%; max-height: 90vh; overflow-y: auto; }
+  .modal-title { font-size: 22px; }
+  
+  /* Кнопка наверх */
+  .to-top { right: 15px; bottom: 15px; width: 40px; height: 40px; font-size: 18px; }
+
+  /* Липкая кнопка "Свернуть" */
+  #expandWrapper.is-sticky { bottom: 70px !important; width: 90%; }
+  
+  /* Страница "О бренде" */
+  .about-content { width: 95%; left: 50%; padding: 20px; top: auto; bottom: 20px; transform: translate(-50%, 0); animation: none; opacity: 1; }
+  .about-main { height: calc(100vh - 70px); align-items: flex-start; padding-top: 20px; overflow-y: auto; }
+  .moon-container { width: 120px; height: 120px; animation: spinMoon 20s linear infinite; position: relative; margin-top: 50px; } /* Убираем полет на мобилке, чтобы не мешало */
+  .about-content h2 { font-size: 24px; }
+  .about-content p { font-size: 13px; }
 }
 
-/* Чтобы кнопка не наезжала на кнопку "Наверх" */
-@media (max-width: 720px) {
-  #expandWrapper.is-sticky {
-    bottom: 90px; /* Поднимаем выше на телефонах */
-    width: 90%;
-    text-align: center;
-  }
-}
-/* Исправление для липкой кнопки */
-#expandWrapper.is-sticky {
-  position: fixed !important;
-  bottom: 30px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 9999 !important; /* Поверх всего */
-  margin: 0 !important;
-  background: rgba(20, 17, 14, 0.95) !important;
-  backdrop-filter: blur(10px) !important;
-  padding: 12px 24px !important;
-  border-radius: 50px !important;
-  border: 1px solid var(--gold) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
-}
-
-#expandWrapper.is-sticky #expandBtn {
-  border: none !important;
-  background: transparent !important;
-  color: var(--gold) !important;
-  font-size: 14px !important;
-  padding: 0 !important;
+@media(max-width:390px){
+  /* Для очень маленьких экранов (iPhone SE) */
+  .hero h1{font-size:32px}
+  .product-card{flex:1 1 100%;max-width:100%; height: 340px;} /* В 1 колонку */
+  .logo { font-size: 14px; }
+  .logo-mark { width: 26px; height: 26px; font-size: 16px; }
+  .cart-btn { font-size: 10px; padding: 6px 8px;}
 }
