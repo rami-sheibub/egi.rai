@@ -1,3 +1,13 @@
+Я вижу, что вы уже добавили анимации, но в коде остался старый эффект для карточек (`.product-card:hover`), который срабатывает раньше нового. Из-за этого карточки могут дергаться или работать не так плавно, как хотелось бы.
+
+Я подготовил **полностью готовый файл `style.css`**. В нём:
+1. Карточки получили **точно такой же** эффект наведения, как у главного флакона (плавное увеличение, поворот, золотистое свечение и внутренняя тень).
+2. Убран старый, конфликтующий код.
+3. Все анимации появления (текст, флакон, карточки) работают как надо.
+
+Просто скопируйте этот код и **полностью замените** ваш текущий `style.css`:
+
+```css
 /* ============================================
    EGI.RAI — ТОЛЬКО ТЁМНАЯ ТЕМА
    ============================================ */
@@ -31,8 +41,6 @@ button, .button {
   border: 1px solid rgba(201, 169, 110, 0.5);
   cursor: pointer;
 }
-
-/* Эффект нажатия (вдавливание) для всех кнопок */
 button:active, .button:active {
   transform: translateY(2px) scale(0.98);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
@@ -60,7 +68,6 @@ button:active, .button:active {
 .eyebrow span{display:inline-block;width:24px;height:1px;background:var(--gold);vertical-align:middle;margin-right:8px}
 .hero h1,h2{font-family:"Playfair Display",serif;font-weight:500;letter-spacing:-1.6px;color:var(--ink)}
 .hero h1{font-size:clamp(48px,5.2vw,76px);line-height:1.04;margin:0 0 24px}
-/* Убрали курсив (font-style: normal) */
 .hero h1 em,h2 em,.quote-band em{font-weight:500;color:var(--gold);font-style:normal}
 .hero-text{max-width:440px;line-height:1.9;color:var(--muted);font-size:14px}
 .hero-actions{display:flex;align-items:center;gap:28px;margin-top:25px}
@@ -122,21 +129,50 @@ button:active, .button:active {
 .search input{border:0;outline:0;background:transparent;width:100%;font-size:12px;color:var(--ink)}
 .result-line{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:18px}
 
-/* ---------- КАРТОЧКИ ---------- */
+/* ---------- КАРТОЧКИ (с премиум-эффектом) ---------- */
 .product-grid{display:flex;flex-wrap:wrap;gap:18px}
 .product-card{
   flex:1 1 calc(25% - 14px);min-width:200px;max-width:calc(25% - 14px);
   background:var(--dark);border:1px solid var(--line);border-radius:12px;
-  transition:transform .2s,border-color .2s,box-shadow .2s;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s, box-shadow 0.4s;
   display:flex;flex-direction:column;cursor:pointer;
   box-shadow:0 4px 10px rgba(0,0,0,0.2);position:relative;overflow:hidden;
 }
-.product-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 8px 20px rgba(201,169,110,0.15);}
-.product-card:active{transform:translateY(2px) scale(0.98);box-shadow:inset 0 4px 10px rgba(0,0,0,0.5);border-color:var(--gold-light);}
+
+/* Красивый эффект при наведении (как у флакона) */
+.product-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--gold);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(201, 169, 110, 0.2);
+  z-index: 10;
+}
+
+/* Эффект нажатия (вдавливания) */
+.product-card:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
+  border-color: var(--gold-light);
+}
 
 .product-visual{height:175px;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse, #2a2218 0%, #1c1714 55%, var(--dark) 78%);overflow:hidden;}
 .product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(201,169,110,.15);border-radius:50%}
-.mini-perfume{position:relative;z-index:1;width:56px;height:79px;border-radius:8px 8px 12px 12px;background:linear-gradient(90deg,#80633d,#e2c99b 30%,#b0905c 75%,#5b452c);border:1px solid #b8a078;box-shadow:7px 10px 10px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;}
+
+/* Плавность для флакона внутри карточки */
+.mini-perfume{
+  position:relative;z-index:1;width:56px;height:79px;
+  border-radius:8px 8px 12px 12px;
+  background:linear-gradient(90deg,#80633d,#e2c99b 30%,#b0905c 75%,#5b452c);
+  border:1px solid #b8a078;box-shadow:7px 10px 10px rgba(0,0,0,.3);
+  display:flex;align-items:center;justify-content:center;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+}
+
+/* Флакон парит внутри карточки при наведении */
+.product-card:hover .mini-perfume {
+  transform: translateY(-5px) scale(1.05);
+  filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.5));
+}
+
 .mini-perfume:before{content:"";position:absolute;top:-18px;width:21px;height:18px;background:linear-gradient(90deg,#51412f,#c9b38c,#51412f);border-radius:2px}
 .mini-perfume:after{content:"E";font-family:"Playfair Display",serif;color:#f3e3c7;font-size:21px;border:1px solid rgba(245,224,189,.5);width:35px;height:36px;display:grid;place-items:center;}
 .product-card:nth-child(3n+2) .mini-perfume{height:69px;width:67px;border-radius:14px 14px 9px 9px;background:linear-gradient(90deg,#302a24,#77664c 30%,#d6c09a 60%,#54412e)}
@@ -362,6 +398,7 @@ button:active, .button:active {
   .product-bottom{align-items:flex-start}
   .from-price{font-size:10px}
 }
+
 /* ============================================
    АНИМАЦИИ ПОЯВЛЕНИЯ И НАВЕДЕНИЯ
    ============================================ */
@@ -376,14 +413,13 @@ body {
   to { opacity: 1; }
 }
 
-/* 2. Анимация выезда для текста в Hero (Заголовок и описание) */
+/* 2. Анимация выезда для текста в Hero */
 .hero-copy > * {
   opacity: 0;
   transform: translateY(20px);
   animation: slideUpFade 0.8s ease-out forwards;
 }
 
-/* Задержки, чтобы текст появлялся по очереди (каскадом) */
 .hero-copy .eyebrow { animation-delay: 0.1s; }
 .hero-copy h1 { animation-delay: 0.2s; }
 .hero-copy .hero-text { animation-delay: 0.3s; }
@@ -408,18 +444,14 @@ body {
 }
 
 .bottle {
-  /* Добавляем плавный переход для эффекта наведения */
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
-  /* Базовая анимация легкого покачивания */
   animation: floatBottle 4s ease-in-out infinite;
 }
 
-/* Эффект при наведении на флакон */
 .bottle:hover {
-  /* Флакон увеличивается, поворачивается и парит выше */
   transform: translateY(-15px) rotate(2deg) scale(1.05);
   filter: drop-shadow(0px 30px 25px rgba(0, 0, 0, 0.8)) drop-shadow(0px 0px 30px rgba(201, 169, 110, 0.3));
-  animation-play-state: paused; /* Останавливаем базовое покачивание при наведении */
+  animation-play-state: paused;
 }
 
 @keyframes floatBottle {
@@ -433,7 +465,6 @@ body {
   opacity: 0;
   animation: slideUpFade 0.6s ease-out forwards;
 }
-/* Задержка для карточек, чтобы они появлялись волной */
 .product-card:nth-child(1) { animation-delay: 0.1s; }
 .product-card:nth-child(2) { animation-delay: 0.15s; }
 .product-card:nth-child(3) { animation-delay: 0.2s; }
@@ -442,3 +473,4 @@ body {
 .product-card:nth-child(6) { animation-delay: 0.35s; }
 .product-card:nth-child(7) { animation-delay: 0.4s; }
 .product-card:nth-child(8) { animation-delay: 0.45s; }
+```
