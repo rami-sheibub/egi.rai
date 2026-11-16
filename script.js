@@ -222,8 +222,7 @@ function renderProducts() {
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
       <div class="product-visual">
         <span class="product-category">${escapeHtml(categoryLabel)}</span>
-        <div class="mini-perfume" aria-hidden="true"></div>
-      </div>
+       <div class="mini-perfume" aria-hidden="true"><span>E</span></div>
       <div class="product-info">
         <div class="product-brand">${escapeHtml(brand)}</div>
         <div class="product-name">${escapeHtml(item.name)}</div>
