@@ -214,7 +214,7 @@ function renderProducts() {
 
   const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
 
-  // Карточка целиком является кнопкой (data-атрибуты перенесены в article)
+  // Карточка целиком является кнопкой (убрана внутренняя кнопка order-small)
   grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category.toUpperCase();
@@ -271,11 +271,11 @@ const modalProductBrand = document.getElementById("modalProductBrand");
 const modalVolume = document.getElementById("modalVolume");
 const modalName = document.getElementById("modalName");
 const modalContact = document.getElementById("modalContact");
-const modalComment = document.getElementById("modalComment"); // Поле комментария
+const modalComment = document.getElementById("modalComment");
 
 let currentProduct = { brand: "", name: "" };
 
-// Открытие модального окна при клике на ЛЮБУЮ часть карточки
+// Открытие по клику на ЛЮБУЮ часть карточки
 if (grid) {
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".product-card");
@@ -286,8 +286,6 @@ if (grid) {
     
     modalProductName.textContent = currentProduct.name;
     modalProductBrand.textContent = currentProduct.brand;
-    
-    // Очищаем поля при открытии
     modalName.value = "";
     modalContact.value = "";
     if (modalComment) modalComment.value = "";
@@ -318,13 +316,11 @@ if (submitOrderBtn) {
     const comment = modalComment ? modalComment.value.trim() : "";
     const price = parseInt(vol) * 100;
 
-    // 1. Проверка имени (минимум 2 буквы)
     if (name.length < 2) {
       alert("Пожалуйста, введите ваше имя (минимум 2 буквы).");
       return;
     }
 
-    // 2. Проверка контакта (телефон или @username)
     const phoneRegex = /^\+?\d{10,15}$/;
     const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/;
 
@@ -333,30 +329,26 @@ if (submitOrderBtn) {
       return;
     }
 
-    // Блокируем кнопку
     const originalBtnText = submitOrderBtn.innerHTML;
     submitOrderBtn.innerHTML = "Отправка...";
     submitOrderBtn.disabled = true;
 
-    // ВАША ССЫЛКА ИЗ FORMSPREE
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqpaeq";
 
-    // Создаем невидимый iframe, чтобы страница не перезагружалась
     const iframe = document.createElement('iframe');
     iframe.name = 'hidden_iframe';
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
 
-    // Создаем форму
     const form = document.createElement('form');
     form.action = FORMSPREE_ENDPOINT;
     form.method = 'POST';
     form.target = 'hidden_iframe'; 
 
-    // Собираем поля (email обязательно должен быть латиницей!)
+    // Email указан латиницей (k), чтобы Formspree не заблокировал отправку
     const fields = {
       name: name,
-      email: "linashebiк230@gmail.com", // Убедитесь, что здесь АНГЛИЙСКАЯ k
+      email: "linashebik230@gmail.com", 
       contact: contact,
       comment: comment,
       product: `${currentProduct.brand} — ${currentProduct.name}`,
@@ -376,7 +368,6 @@ if (submitOrderBtn) {
     document.body.appendChild(form);
     form.submit(); 
 
-    // Успешное завершение
     setTimeout(() => {
       alert('Заказ отправлен! Мы скоро свяжемся с вами.');
       closeModal();
@@ -398,7 +389,7 @@ if (toBottom) {
 window.addEventListener("scroll", () => {
   const show = window.scrollY > 400;
   if (toTop) toTop.classList.toggle("visible", show);
-  if (toBottom) toBottom.classList.toggle("visible", !show);
+  if (toBottom) toBottom.classList.toggle("visible", !show); 
 });
 
 // --- Меню ---
