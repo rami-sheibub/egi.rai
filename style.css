@@ -459,3 +459,44 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .about-content p { font-size: 14px; }
   .about-main { height: calc(100vh - 70px); align-items: flex-end; padding-bottom: 50px; }
 }
+
+/* ============================================
+   ЛИПКАЯ КНОПКА "СВЕРНУТЬ" ДЛЯ РАЗВЕРНУТОГО КАТАЛОГА
+   ============================================ */
+#expandWrapper.is-sticky {
+  position: fixed;
+  bottom: 30px; /* Отступ от низа экрана */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50; /* Поверх карточек */
+  margin: 0;
+  background: rgba(20, 17, 14, 0.85); /* Темная подложка */
+  backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--gold);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+/* Стили для самой кнопки внутри плавающего блока */
+#expandWrapper.is-sticky #expandBtn {
+  border: none !important; /* Убираем рамку у самой кнопки, она есть у подложки */
+  background: transparent !important;
+  padding: 0 10px !important;
+  font-size: 14px !important;
+  color: var(--gold) !important;
+  font-weight: bold;
+}
+#expandWrapper.is-sticky #expandBtn:hover {
+  color: var(--gold-light) !important;
+}
+
+/* Чтобы кнопка не наезжала на кнопку "Наверх" */
+@media (max-width: 720px) {
+  #expandWrapper.is-sticky {
+    bottom: 90px; /* Поднимаем выше на телефонах */
+    width: 90%;
+    text-align: center;
+  }
+}
