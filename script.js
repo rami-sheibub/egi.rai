@@ -207,7 +207,10 @@ function renderProducts() {
   if (products.length === 0) {
     emptyState.innerHTML = "<strong>Таких духов нет</strong><br>Попробуйте изменить категорию или бренд.";
     grid.innerHTML = "";
-    if(expandWrapper) expandWrapper.style.display = "none";
+    if(expandWrapper) {
+      expandWrapper.style.display = "none";
+      expandWrapper.classList.remove("is-sticky");
+    }
     return;
   }
 
@@ -221,7 +224,6 @@ function renderProducts() {
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
       <div class="card-inner">
         
-        <!-- ЛИЦЕВАЯ СТОРОНА -->
         <div class="card-front">
           <button class="btn-info" title="Узнать ноты">i</button>
           <div class="product-visual">
@@ -238,7 +240,6 @@ function renderProducts() {
           </div>
         </div>
 
-        <!-- ОБРАТНАЯ СТОРОНА -->
         <div class="card-back">
           <h4>${escapeHtml(item.name)}</h4>
           <div class="card-notes">
@@ -255,8 +256,16 @@ function renderProducts() {
     if (products.length > currentLimit || isExpanded) {
       expandWrapper.style.display = "block";
       expandBtn.innerHTML = isExpanded ? "Свернуть каталог" : "Развернуть каталог";
+      
+      // Если каталог развернут, делаем кнопку липкой
+      if (isExpanded) {
+        expandWrapper.classList.add("is-sticky");
+      } else {
+        expandWrapper.classList.remove("is-sticky");
+      }
     } else {
       expandWrapper.style.display = "none";
+      expandWrapper.classList.remove("is-sticky");
     }
   }
 }
@@ -282,6 +291,8 @@ if (expandBtn) {
     renderProducts(); 
     
     if (!isExpanded) {
+      // Если сворачиваем — убираем "липкость" и плавно скроллим наверх
+      if (expandWrapper) expandWrapper.classList.remove("is-sticky");
       const catalogSection = document.getElementById("catalog");
       if (catalogSection) {
         catalogSection.scrollIntoView({ behavior: "smooth", block: "start" });
