@@ -356,7 +356,7 @@ if (submitOrderBtn) {
     // Собираем данные
     const fields = {
       name: name,
-      email: "linashebiк230@gmail.com", // Ваш email (обязателен для Formspree)
+      email: "linashebik230@gmail.com", // Ваш email (обязателен для Formspree)
       contact: contact,
       comment: comment, // Передаем комментарий (если он есть)
       product: `${currentProduct.brand} — ${currentProduct.name}`,
