@@ -221,6 +221,7 @@ function renderProducts() {
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
       <div class="card-inner">
         
+        <!-- ЛИЦЕВАЯ СТОРОНА -->
         <div class="card-front">
           <button class="btn-info" title="Узнать ноты">i</button>
           <div class="product-visual">
@@ -237,6 +238,7 @@ function renderProducts() {
           </div>
         </div>
 
+        <!-- ОБРАТНАЯ СТОРОНА -->
         <div class="card-back">
           <h4>${escapeHtml(item.name)}</h4>
           <div class="card-notes">
@@ -248,13 +250,12 @@ function renderProducts() {
     </article>`;
   }).join("");
 
-   if (expandWrapper && expandBtn) {
+  // ИСПРАВЛЕННАЯ ЛОГИКА КНОПКИ РАЗВЕРНУТЬ/СВЕРНУТЬ
+  if (expandWrapper && expandBtn) {
     if (products.length > currentLimit || isExpanded) {
       expandWrapper.style.display = "block";
-      // Меняем текст кнопки в зависимости от состояния
       expandBtn.innerHTML = isExpanded ? "Свернуть каталог" : "Развернуть каталог";
     } else {
-      // Скрываем кнопку только если товаров мало (меньше лимита)
       expandWrapper.style.display = "none";
     }
   }
@@ -273,12 +274,13 @@ if (brandFilter) {
     activeBrand = e.target.value; currentLimit = 12; renderProducts();
   });
 }
+
+// Плавная прокрутка при сворачивании
 if (expandBtn) {
-  expandBtn.addEventListener("click", (e) => { 
+  expandBtn.addEventListener("click", () => { 
     isExpanded = !isExpanded; 
     renderProducts(); 
     
-    // Если мы свернули каталог, плавно прокручиваем к началу сетки товаров
     if (!isExpanded) {
       const catalogSection = document.getElementById("catalog");
       if (catalogSection) {
@@ -386,47 +388,31 @@ function updateCartUI() {
   });
 }
 
-// Анимация полета в корзину
 function flyToCart(startRect) {
   const flyingEl = document.createElement("div");
   flyingEl.className = "flying-perfume";
-  
-  // Позиция корзины на экране
   const cartRect = cartBtn.getBoundingClientRect();
-
-  // Стартовая позиция (от центра карточки)
   flyingEl.style.left = (startRect.left + startRect.width / 2 - 25) + "px";
   flyingEl.style.top = (startRect.top + startRect.height / 2 - 32) + "px";
   flyingEl.style.opacity = "1";
-  
   document.body.appendChild(flyingEl);
-
-  // Принудительно вызываем перерисовку
   flyingEl.offsetWidth;
 
-  // Летим в корзину
   flyingEl.style.left = (cartRect.left + cartRect.width / 2 - 25) + "px";
   flyingEl.style.top = (cartRect.top + cartRect.height / 2 - 32) + "px";
   flyingEl.style.transform = "scale(0.2) rotate(360deg)";
   flyingEl.style.opacity = "0";
 
-  // Удаляем после завершения
   setTimeout(() => {
-    if (flyingEl.parentNode) {
-      flyingEl.parentNode.removeChild(flyingEl);
-    }
-    // Анимация пульсации счетчика
+    if (flyingEl.parentNode) flyingEl.parentNode.removeChild(flyingEl);
     cartBtn.classList.add("bump");
     setTimeout(() => cartBtn.classList.remove("bump"), 400);
   }, 1000);
 }
 
-// Добавление в корзину
 if (addToCartBtn) {
   addToCartBtn.addEventListener("click", () => {
     const vol = modalVolume.value;
-    
-    // Находим карточку, чтобы взять её координаты
     const cardEl = document.querySelector(`.product-card[data-name="${CSS.escape(currentProduct.name)}"]`);
     if (cardEl) {
       const rect = cardEl.getBoundingClientRect();
@@ -440,7 +426,6 @@ if (addToCartBtn) {
     });
     localStorage.setItem("egi_cart", JSON.stringify(cart));
     updateCartUI();
-    
     closeModal();
   });
 }
@@ -468,7 +453,6 @@ if (cartModal) {
   });
 }
 
-// Отправка заказа из корзины
 if (submitCartOrderBtn) {
   submitCartOrderBtn.addEventListener("click", () => {
     const name = document.getElementById("cartName").value.trim();
@@ -591,51 +575,33 @@ if (aboutSection) {
   }, { threshold: 0.2 });
   observer.observe(aboutSection);
 }
+
 // --- ГЕНЕРАТОР ФОНОВЫХ ЗВЕЗД ---
 function createStars() {
-  // Создаем контейнер, если его нет
   let starsContainer = document.querySelector(".bg-stars");
   if (!starsContainer) {
     starsContainer = document.createElement("div");
     starsContainer.className = "bg-stars";
     document.body.prepend(starsContainer);
   }
-
-  const starCount = 70; // Количество звезд
-
+  const starCount = 70;
   for (let i = 0; i < starCount; i++) {
     const star = document.createElement("div");
     star.classList.add("star");
-    
-    // Примерно 30% звезд будут золотистыми
-    if (Math.random() > 0.7) {
-      star.classList.add("gold");
-    }
-
-    // Случайный размер (от 1 до 3 пикселей)
+    if (Math.random() > 0.7) star.classList.add("gold");
     const size = Math.random() * 2 + 1;
     star.style.width = `${size}px`;
     star.style.height = `${size}px`;
-
-    // Случайное положение
     star.style.left = `${Math.random() * 100}%`;
     star.style.top = `${Math.random() * 100}%`;
-
-    // Случайная скорость мерцания и задержка
-    star.style.animationDuration = `${Math.random() * 3 + 2}s`; // от 2 до 5 секунд
+    star.style.animationDuration = `${Math.random() * 3 + 2}s`;
     star.style.animationDelay = `${Math.random() * 5}s`;
-
     starsContainer.appendChild(star);
   }
 }
 
-// Вызываем генерацию
-createStars();
-
 // Запуск
-updateBrandOptions();
-renderProducts();
-// Инициализация
+createStars();
 updateBrandOptions();
 renderProducts();
 updateCartUI();
