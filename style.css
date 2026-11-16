@@ -52,6 +52,39 @@ button:active, .button:active {
 .header-order:hover span{color:#000}
 .menu-toggle{display:none;background:none;border:0;font-size:23px;color:var(--ink)}
 
+/* ---------- Кнопка корзины в шапке ---------- */
+.cart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--gold);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--gold);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  margin-right: 15px;
+}
+.cart-btn:hover {
+  background: var(--gold);
+  color: #0d0b0a;
+}
+.cart-count {
+  background: var(--gold);
+  color: #000;
+  border-radius: 50%;
+  padding: 2px 7px;
+  font-weight: bold;
+  font-size: 10px;
+}
+.cart-btn:hover .cart-count {
+  background: #000;
+  color: var(--gold);
+}
+
 /* ---------- Hero ---------- */
 .hero{min-height:590px;display:flex;align-items:stretch;background:var(--cream);padding:0 8.5% 0 10%;overflow:hidden;}
 .hero-copy{width:54%;padding:78px 0 52px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;}
@@ -125,8 +158,8 @@ button:active, .button:active {
 .product-grid{display:flex;flex-wrap:wrap;gap:18px}
 .product-card{
   flex:1 1 calc(25% - 14px);min-width:200px;max-width:calc(25% - 14px);
-  height: 380px; /* Фиксированная высота для 3D */
-  perspective: 1000px; /* Для 3D-эффекта */
+  height: 380px;
+  perspective: 1000px;
   cursor:pointer;
   opacity: 0; animation: slideUpFade 0.6s ease-out forwards;
 }
@@ -139,92 +172,18 @@ button:active, .button:active {
 .product-card:nth-child(7) { animation-delay: 0.4s; }
 .product-card:nth-child(8) { animation-delay: 0.45s; }
 
-/* Контейнер для переворота */
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transform-style: preserve-3d;
-}
+.card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
+.product-card.flipped .card-inner { transform: rotateY(180deg); }
 
-/* Класс, который переворачивает карточку */
-.product-card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
+.card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
+.card-front { background: var(--dark); border: 1px solid var(--line); display: flex; flex-direction: column; transition: border-color 0.3s, box-shadow 0.3s; }
+.product-card:hover .card-front { border-color: var(--gold); box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 25px rgba(201,169,110,0.3); }
+.card-back { background: var(--dark); border: 1px solid var(--gold); transform: rotateY(180deg); padding: 25px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1); }
+.card-back h4 { font-family: "Playfair Display", serif; color: var(--gold); font-size: 18px; margin-bottom: 15px; }
+.card-back p { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-/* Лицевая и обратная стороны */
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* Лицевая сторона */
-.card-front {
-  background: var(--dark);
-  border: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-.product-card:hover .card-front {
-  border-color: var(--gold);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 25px rgba(201,169,110,0.3);
-}
-
-/* Обратная сторона (Ноты) */
-.card-back {
-  background: var(--dark);
-  border: 1px solid var(--gold);
-  transform: rotateY(180deg);
-  padding: 25px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1);
-}
-.card-back h4 {
-  font-family: "Playfair Display", serif;
-  color: var(--gold);
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-.card-back p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-/* Кнопка "i" */
-.btn-info {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: rgba(20, 17, 14, 0.8);
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  font-family: "Playfair Display", serif;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.2s;
-}
-.btn-info:hover {
-  background: var(--gold);
-  color: #000;
-}
+.btn-info { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; background: rgba(20, 17, 14, 0.8); border: 1px solid var(--gold); color: var(--gold); font-family: "Playfair Display", serif; font-size: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all 0.2s; }
+.btn-info:hover { background: var(--gold); color: #000; }
 
 .product-visual{height:175px;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse, #2a2218 0%, #1c1714 55%, var(--dark) 78%);overflow:hidden;}
 .product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(201,169,110,.15);border-radius:50%}
@@ -300,33 +259,19 @@ button:active, .button:active {
 .footer-bottom{border-top:1px solid var(--line);margin-top:30px;padding-top:18px;display:flex;justify-content:space-between;gap:15px;color:var(--muted);font-size:10px;}
 .footer-bottom a{color:var(--gold)}
 
-/* ---------- Кнопка Скролла (Вверх/Вниз) ---------- */
+/* ---------- Кнопки Вверх/Вниз ---------- */
 .to-top {
-  position: fixed; 
-  right: 28px; 
-  bottom: 28px; 
-  width: 45px; 
-  height: 45px;
-  border: 1px solid var(--gold); 
-  background: var(--dark); 
-  color: var(--gold);
-  cursor: pointer; 
-  opacity: 0; 
-  pointer-events: none; 
-  transition: opacity .3s, background .2s, transform .2s;
-  font-size: 20px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  z-index: 40; 
-  border-radius: 50%;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  position: fixed; right: 28px; bottom: 28px; width: 45px; height: 45px;
+  border: 1px solid var(--gold); background: var(--dark); color: var(--gold);
+  cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s, background .2s, transform .2s, box-shadow .2s;
+  font-size: 20px; display: flex; align-items: center; justify-content: center;
+  z-index: 40; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 .to-top:hover { background: var(--gold); color: #0d0b0a; }
 .to-top.visible { opacity: 1; pointer-events: auto; }
-.to-top:active { transform: scale(0.9); }
+.to-top:active { transform: scale(0.9); box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5); }
 
-/* ---------- МОДАЛЬНОЕ ОКНО ЗАКАЗА ---------- */
+/* ---------- МОДАЛЬНОЕ ОКНО ---------- */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
 .modal-overlay.active { display: flex; opacity: 1; }
 .modal-content { background: var(--dark); border: 1px solid var(--gold); border-radius: 12px; padding: 40px; width: 90%; max-width: 450px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(20px); transition: transform 0.3s ease; }
@@ -335,11 +280,47 @@ button:active, .button:active {
 .modal-close:hover { color: var(--gold); }
 .modal-title { font-family: "Playfair Display", serif; font-size: 26px; color: var(--gold-light); margin: 0 0 5px; }
 .modal-brand { color: var(--gold); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 25px; }
-.modal-form label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; margin-top: 15px; }
-.modal-form select, .modal-form input { width: 100%; padding: 12px; background: var(--paper); border: 1px solid var(--line); color: var(--ink); border-radius: 4px; font-family: inherit; font-size: 14px; }
-.modal-form select:focus, .modal-form input:focus { outline: none; border-color: var(--gold); }
+
+/* Красивые поля ввода в модальных окнах */
+.modal-form label, #cartFormWrapper label {
+  display: block; font-size: 11px; color: var(--gold-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 20px; font-weight: 600;
+}
+.modal-form input, .modal-form select, #cartFormWrapper input {
+  width: 100%; padding: 14px 16px; background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-family: inherit; font-size: 14px; transition: all 0.3s ease; outline: none; box-sizing: border-box;
+}
+.modal-form input:hover, .modal-form select:hover, #cartFormWrapper input:hover { border-color: rgba(201, 169, 110, 0.5); }
+.modal-form input:focus, .modal-form select:focus, #cartFormWrapper input:focus { border-color: var(--gold); background-color: rgba(201, 169, 110, 0.05); box-shadow: 0 0 12px rgba(201, 169, 110, 0.2); }
+.modal-form input::placeholder, #cartFormWrapper input::placeholder { color: #66605a; font-style: italic; }
+.modal-form select {
+  appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a96e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 15px center; background-size: 15px; cursor: pointer;
+}
 .modal-form button { width: 100%; margin-top: 15px; }
 .modal-note { font-size: 11px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.5; }
+
+/* ---------- ЭЛЕМЕНТЫ КОРЗИНЫ ---------- */
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--line); background: var(--paper); border-radius: 8px; margin-bottom: 10px; }
+.cart-item-info h5 { margin: 0 0 5px 0; font-family: "Playfair Display", serif; color: var(--gold-light); font-size: 16px; }
+.cart-item-info span { font-size: 12px; color: var(--muted); }
+.cart-item-remove { background: transparent; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; opacity: 0.5; }
+.cart-item-remove:hover { color: var(--gold); opacity: 1; transform: scale(1.1); }
+
+/* ---------- АНИМАЦИЯ ПОЛЕТА В КОРЗИНУ ---------- */
+.flying-perfume { position: fixed; width: 50px; height: 65px; background: linear-gradient(105deg, #d6b36c 15%, #f5dfaa 35%, #a57a3c 60%, #e1bd79 85%); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px 6px 10px 10px; z-index: 9999; pointer-events: none; box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+
+@keyframes cartPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.cart-btn.bump { animation: cartPulse 0.4s ease; }
+
+/* ============================================
+   СТИЛИЗАЦИЯ ПОЛЗУНКОВ (СКРОЛЛБАРОВ)
+   ============================================ */
+/* Для Chrome, Safari, Edge */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; border: 2px solid var(--paper); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Для Firefox */
+* { scrollbar-width: thin; scrollbar-color: var(--line) var(--paper); }
 
 /* ============================================
    АДАПТИВ
@@ -420,11 +401,7 @@ button:active, .button:active {
    ============================================ */
 @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeInArt { to { opacity: 1; } }
-@keyframes floatBottle {
-  0% { transform: translateY(0) rotate(-4deg); }
-  50% { transform: translateY(-12px) rotate(-2deg); }
-  100% { transform: translateY(0) rotate(-4deg); }
-}
+@keyframes floatBottle { 0% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-12px) rotate(-2deg); } 100% { transform: translateY(0) rotate(-4deg); } }
 .hero-copy > * { opacity: 0; transform: translateY(20px); animation: slideUpFade 0.8s ease-out forwards; }
 .hero-copy .eyebrow { animation-delay: 0.1s; }
 .hero-copy h1 { animation-delay: 0.2s; }
@@ -432,217 +409,3 @@ button:active, .button:active {
 .hero-copy .hero-actions { animation-delay: 0.4s; }
 .hero-copy .hero-notes { animation-delay: 0.5s; }
 @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
-
-/* ---------- КНОПКА КОРЗИНЫ ---------- */
-.cart-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--gold);
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-size: 12px;
-  color: var(--gold);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  background: transparent;
-  margin-right: 15px;
-}
-.cart-btn:hover {
-  background: var(--gold);
-  color: #0d0b0a;
-}
-.cart-count {
-  background: var(--gold);
-  color: #000;
-  border-radius: 50%;
-  padding: 2px 7px;
-  font-weight: bold;
-  font-size: 10px;
-}
-.cart-btn:hover .cart-count {
-  background: #000;
-  color: var(--gold);
-}
-
-/* ---------- ЭЛЕМЕНТЫ КОРЗИНЫ ---------- */
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid var(--line);
-  background: var(--paper);
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-.cart-item-info h5 {
-  margin: 0 0 5px 0;
-  font-family: "Playfair Display", serif;
-  color: var(--gold-light);
-  font-size: 16px;
-}
-.cart-item-info span {
-  font-size: 12px;
-  color: var(--muted);
-}
-.cart-item-remove {
-  background: transparent;
-  border: none;
-  color: #ff6b6b;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 5px;
-  transition: transform 0.2s;
-}
-.cart-item-remove:hover {
-  transform: scale(1.2);
-}
-
-/* ---------- АНИМАЦИЯ ПОЛЕТА В КОРЗИНУ ---------- */
-.flying-perfume {
-  position: fixed;
-  width: 50px;
-  height: 65px;
-  background: linear-gradient(105deg, #d6b36c 15%, #f5dfaa 35%, #a57a3c 60%, #e1bd79 85%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px 6px 10px 10px;
-  z-index: 9999;
-  pointer-events: none;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* Эффект пульсации для корзины при добавлении */
-@keyframes cartPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-.cart-btn.bump {
-  animation: cartPulse 0.4s ease;
-}
-
-/* ============================================
-   КРАСИВЫЕ ПОЛЯ ВВОДА (ФОРМЫ)
-   ============================================ */
-
-/* Стили для всех полей ввода (текст, селекты) */
-.modal-form input, 
-.modal-form select,
-#cartFormWrapper input {
-  width: 100%;
-  padding: 14px 16px;
-  background-color: rgba(0, 0, 0, 0.3); /* Глубокий темный фон */
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink);
-  font-family: inherit;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  outline: none;
-  box-sizing: border-box;
-}
-
-/* Эффект при наведении на поле */
-.modal-form input:hover, 
-.modal-form select:hover,
-#cartFormWrapper input:hover {
-  border-color: rgba(201, 169, 110, 0.5); /* Полупрозрачное золото */
-}
-
-/* Эффект при клике (фокусе) на поле */
-.modal-form input:focus, 
-.modal-form select:focus,
-#cartFormWrapper input:focus {
-  border-color: var(--gold); /* Яркое золото */
-  background-color: rgba(201, 169, 110, 0.05); /* Легкий золотистый отблеск */
-  box-shadow: 0 0 12px rgba(201, 169, 110, 0.2); /* Мягкое свечение */
-}
-
-/* Стили для placeholder (текста-подсказки) */
-.modal-form input::placeholder,
-#cartFormWrapper input::placeholder {
-  color: #66605a; /* Приглушенный цвет */
-  font-style: italic;
-}
-
-/* Стили для label (подписи над полем) */
-.modal-form label,
-#cartFormWrapper label {
-  display: block;
-  font-size: 11px;
-  color: var(--gold-light);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-  margin-top: 20px;
-  font-weight: 600;
-}
-
-/* Отступ для самого первого label в форме */
-.modal-form label:first-of-type {
-  margin-top: 10px;
-}
-
-/* Красивая стрелочка в выпадающем списке (select) */
-.modal-form select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a96e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 15px center;
-  background-size: 15px;
-  cursor: pointer;
-
-   /* ============================================
-   КРАСИВЫЕ КРЕСТИКИ И ПОЛЗУНКИ (СКРОЛЛБАРЫ)
-   ============================================ */
-
-/* 1. Крестики для удаления из корзины */
-.cart-item-remove {
-  background: transparent;
-  border: none;
-  color: var(--muted); /* Приглушенный цвет */
-  font-size: 16px;
-  cursor: pointer;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  opacity: 0.5; /* Полупрозрачный в обычном состоянии */
-}
-.cart-item-remove:hover {
-  color: var(--gold); /* При наведении становится золотым */
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-/* 2. Стилизация ползунков (скроллбаров) для всего сайта */
-/* Для браузеров на движке WebKit (Chrome, Safari, Opera, Edge) */
-::-webkit-scrollbar {
-  width: 8px;  /* Ширина вертикального ползунка */
-  height: 8px; /* Высота горизонтального ползунка */
-}
-
-::-webkit-scrollbar-track {
-  background: var(--paper); /* Темный фон дорожки */
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--line); /* Цвет бегунка (темно-коричневый) */
-  border-radius: 10px; /* Скругление бегунка */
-  border: 2px solid var(--paper); /* Отступ, чтобы бегунок казался тоньше */
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold); /* При наведении бегунок становится золотым */
-}
-
-/* Для Firefox */
-* {
-  scrollbar-width: thin; /* Тонкий ползунок */
-  scrollbar-color: var(--line) var(--paper); /* Цвет бегунка и дорожки */
-}
-}
