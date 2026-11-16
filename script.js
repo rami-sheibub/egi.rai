@@ -153,7 +153,6 @@ const brandFilter = document.getElementById("brandFilter");
 const expandWrapper = document.getElementById("expandWrapper");
 const expandBtn = document.getElementById("expandBtn");
 
-// Кнопки скролла
 const toTop = document.getElementById("toTop");
 const toBottom = document.getElementById("toBottom");
 
@@ -214,7 +213,7 @@ function renderProducts() {
 
   const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
 
-  // Карточка целиком является кнопкой (убрана внутренняя кнопка order-small)
+  // ДОБАВЛЕНА БУКВА "E" ВНУТРЬ ФЛАКОНА
   grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category.toUpperCase();
@@ -222,7 +221,8 @@ function renderProducts() {
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
       <div class="product-visual">
         <span class="product-category">${escapeHtml(categoryLabel)}</span>
-       <div class="mini-perfume" aria-hidden="true"><span>E</span></div>
+        <div class="mini-perfume" aria-hidden="true"><span>E</span></div>
+      </div>
       <div class="product-info">
         <div class="product-brand">${escapeHtml(brand)}</div>
         <div class="product-name">${escapeHtml(item.name)}</div>
@@ -237,7 +237,7 @@ function renderProducts() {
   if (expandWrapper && expandBtn) {
     if (products.length > currentLimit) {
       expandWrapper.style.display = "block";
-      expandBtn.innerHTML = isExpanded ? "Свернуть каталог &uarr;" : "Развернуть каталог &darr;";
+      expandBtn.innerHTML = isExpanded ? "Свернуть каталог" : "Развернуть каталог";
     } else {
       expandWrapper.style.display = "none";
     }
@@ -274,7 +274,6 @@ const modalComment = document.getElementById("modalComment");
 
 let currentProduct = { brand: "", name: "" };
 
-// Открытие по клику на ЛЮБУЮ часть карточки
 if (grid) {
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".product-card");
@@ -344,7 +343,6 @@ if (submitOrderBtn) {
     form.method = 'POST';
     form.target = 'hidden_iframe'; 
 
-    // Email указан латиницей (k), чтобы Formspree не заблокировал отправку
     const fields = {
       name: name,
       email: "linashebik230@gmail.com", 
