@@ -473,3 +473,32 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
   50% { opacity: 1; transform: scale(1.2); }
   100% { opacity: 0.2; transform: scale(0.8); }
 }
+/* ============================================
+   ИСПРАВЛЕНИЕ ВЫПАДАЮЩЕГО СПИСКА (SELECT) НА ПК
+   ============================================ */
+
+/* Принудительно тёмная тема для всех select */
+select {
+  color-scheme: dark; 
+  background-color: var(--dark) !important;
+  color: var(--ink) !important;
+}
+
+/* Стили для самих вариантов внутри списка (в ПК браузерах) */
+select option {
+  background-color: var(--dark) !important; /* Тёмный фон */
+  color: var(--ink) !important; /* Светлый текст */
+  padding: 10px; /* Немного отступов */
+}
+
+/* Убираем синюю подсветку при наведении в некоторых браузерах */
+select option:checked,
+select option:hover {
+  background-color: var(--gold) !important;
+  color: #0d0b0a !important;
+}
+
+/* Убираем стандартную стрелку в некоторых браузерах (чтобы не было белого квадрата) */
+select::-ms-expand {
+  display: none;
+}
