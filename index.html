@@ -26,6 +26,11 @@
       <a href="#contacts">Контакты</a>
       <a href="about.html">О бренде</a>
     </nav>
+
+    <a href="#" id="cartBtn" style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--gold); padding: 10px 15px; border-radius: 8px; font-size: 11px; color: var(--gold); cursor: pointer; margin-right: 15px;">
+  🛒 Корзина <span id="cartCount" style="background: var(--gold); color: #000; border-radius: 50%; padding: 2px 6px; font-weight: bold; font-size: 10px;">0</span>
+</a>
+    
     <!-- Кнопка в шапке (золотая, с закруглениями) -->
     <a class="button button-gold" href="https://t.me/Faputa_void" target="_blank" rel="noopener" style="padding: 10px 20px; font-size: 11px; letter-spacing: 0.5px; border-radius: 8px; display: inline-flex;">Написать в Telegram</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">☰</button>
@@ -231,6 +236,8 @@
         <label>Комментарий (как удобнее связаться):</label>
         <input type="text" id="modalComment" placeholder="Например: пишите в WhatsApp или звоните после 18:00">
         
+        <button class="button button-outline" id="addToCartBtn" style="margin-top: 15px; width: 100%; border: 1px solid var(--gold); color: var(--gold); background: transparent;">Добавить в корзину</button>
+        
         <button class="button button-gold" id="submitOrder" style="margin-top: 15px; width: 100%;">
           Отправить заказ
         </button>
@@ -238,7 +245,40 @@
       </div>
     </div>
   </div>
+  
+  <!-- МОДАЛЬНОЕ ОКНО КОРЗИНЫ -->
+  <div id="cartModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 500px;">
+      <button class="modal-close" id="closeCart">✕</button>
+      <p class="eyebrow" style="margin-bottom: 5px;">ВАША КОРЗИНА</p>
+      <h3 class="modal-title" style="margin-bottom: 20px;">Выбранные ароматы</h3>
+      
+      <!-- Сюда скрипт будет вставлять товары -->
+      <div id="cartItemsList" style="max-height: 250px; overflow-y: auto; margin-bottom: 20px;">
+      </div>
 
+      <!-- Сообщение, если корзина пуста -->
+      <div id="cartEmptyMsg" style="text-align:center; color:var(--muted); padding: 20px;">
+        Ваша корзина пока пуста. Выберите аромат из каталога.
+      </div>
+
+      <!-- Форма отправки корзины (появится, когда есть товары) -->
+      <div id="cartFormWrapper" style="display:none; border-top: 1px solid var(--line); padding-top: 15px;">
+        <label>Ваше имя:</label>
+        <input type="text" id="cartName" placeholder="Как к вам обращаться?">
+        
+        <label>Телефон или Telegram:</label>
+        <input type="text" id="cartContact" placeholder="+7 (999) 000-00-00 или @username">
+        
+        <label>Комментарий:</label>
+        <input type="text" id="cartComment" placeholder="Например: пишите в WhatsApp">
+
+        <button class="button button-gold" id="submitCartOrder" style="margin-top: 20px; width: 100%;">Оформить заказ</button>
+        <p class="modal-note">Мы получим список всех выбранных ароматов одним сообщением.</p>
+      </div>
+    </div>
+  </div>
+  
   <script src="script.js"></script>
 </body>
 </html>
