@@ -594,4 +594,55 @@ button:active, .button:active {
   background-position: right 15px center;
   background-size: 15px;
   cursor: pointer;
+
+   /* ============================================
+   КРАСИВЫЕ КРЕСТИКИ И ПОЛЗУНКИ (СКРОЛЛБАРЫ)
+   ============================================ */
+
+/* 1. Крестики для удаления из корзины */
+.cart-item-remove {
+  background: transparent;
+  border: none;
+  color: var(--muted); /* Приглушенный цвет */
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0.5; /* Полупрозрачный в обычном состоянии */
+}
+.cart-item-remove:hover {
+  color: var(--gold); /* При наведении становится золотым */
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* 2. Стилизация ползунков (скроллбаров) для всего сайта */
+/* Для браузеров на движке WebKit (Chrome, Safari, Opera, Edge) */
+::-webkit-scrollbar {
+  width: 8px;  /* Ширина вертикального ползунка */
+  height: 8px; /* Высота горизонтального ползунка */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper); /* Темный фон дорожки */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line); /* Цвет бегунка (темно-коричневый) */
+  border-radius: 10px; /* Скругление бегунка */
+  border: 2px solid var(--paper); /* Отступ, чтобы бегунок казался тоньше */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold); /* При наведении бегунок становится золотым */
+}
+
+/* Для Firefox */
+* {
+  scrollbar-width: thin; /* Тонкий ползунок */
+  scrollbar-color: var(--line) var(--paper); /* Цвет бегунка и дорожки */
+}
 }
