@@ -27,10 +27,16 @@ a{color:inherit;text-decoration:none}
 button,input,select{font:inherit}
 
 /* ============================================
-   ФОНОВЫЕ ОБЛАКА
+   ФОНОВЫЕ ОБЛАКА (ТУМАН)
    ============================================ */
 .bg-clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
-.cloud { position: absolute; background: radial-gradient(circle, rgba(201, 169, 110, 0.05) 0%, transparent 70%); border-radius: 50%; filter: blur(40px); animation: floatClouds linear infinite; }
+.cloud { 
+  position: absolute; 
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.12) 0%, transparent 70%); /* Сделали ярче */
+  border-radius: 50%; 
+  filter: blur(50px); 
+  animation: floatClouds linear infinite; 
+}
 .cloud-1 { width: 400px; height: 400px; top: 10%; left: -10%; animation-duration: 40s; }
 .cloud-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; animation-duration: 50s; animation-direction: reverse; }
 .cloud-3 { width: 300px; height: 300px; top: 40%; left: 50%; animation-duration: 35s; }
@@ -63,7 +69,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .cart-btn:hover .cart-count { background: #000; color: var(--gold); }
 
 /* ---------- Hero ---------- */
-.hero{min-height:590px;display:flex;align-items:stretch;background:var(--cream);padding:0 8.5% 0 10%;overflow:hidden;}
+.hero{min-height:590px;display:flex;align-items:stretch;background:transparent;padding:0 8.5% 0 10%;overflow:hidden;} /* Сделали прозрачным */
 .hero-copy{width:54%;padding:78px 0 52px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;}
 .eyebrow{font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:700;margin:0 0 20px}
 .eyebrow span{display:inline-block;width:24px;height:1px;background:var(--gold);vertical-align:middle;margin-right:8px}
@@ -105,7 +111,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .note-b{left:2%;bottom:28%;font-size:9px;letter-spacing:2px;transform:rotate(-90deg);color:var(--muted)}
 
 /* ---------- Преимущества ---------- */
-.benefits{display:flex;justify-content:center;gap:8%;padding:28px 7%;border-bottom:1px solid var(--line);background:var(--dark);position:relative; z-index: 2;}
+.benefits{display:flex;justify-content:center;gap:8%;padding:28px 7%;border-bottom:1px solid var(--line);background:rgba(28, 23, 20, 0.6);position:relative; z-index: 2;} /* Сделали полупрозрачным */
 .benefits>div{display:flex;align-items:center;gap:13px}
 .benefit-icon{width:37px;height:37px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:19px;}
 .benefits b,.benefits small{display:block}
@@ -180,7 +186,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .empty-state{text-align:center;padding:50px;color:var(--muted);font-size:14px;}
 
 /* ---------- Цитата ---------- */
-.quote-band{background:#050403;color:var(--ink);padding:66px 20px;text-align:center;position:relative; z-index: 2;}
+.quote-band{background:rgba(5, 4, 3, 0.85);color:var(--ink);padding:66px 20px;text-align:center;position:relative; z-index: 2;}
 .quote-mark{font-family:"Playfair Display",serif;font-size:70px;line-height:.8;color:var(--gold)}
 .quote-band p{font-family:"Playfair Display",serif;font-size:clamp(24px,3vw,38px);line-height:1.4;margin:18px 0}
 .quote-band em{color:var(--gold-light)}
@@ -197,7 +203,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 
 /* ---------- О нас (с луной) ---------- */
 .about{display:flex;align-items:center;gap:10%;background:transparent; position: relative; z-index: 2;}
-.about-art{width:42%;display:flex;justify-content:center;align-items:center;min-height:360px;background:radial-gradient(ellipse, #1c1714 0%, #14110e 50%, var(--paper) 72%); position: relative; overflow: hidden; border-radius: 50%;}
+.about-art{width:42%;display:flex;justify-content:center;align-items:center;min-height:360px;background:radial-gradient(ellipse, #1c1714 0%, #14110e 50%, transparent 72%); position: relative; overflow: hidden; border-radius: 50%;}
 
 .about-circle{
   width:245px;height:245px;border-radius:50%;position:relative;
@@ -232,7 +238,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .about-copy .text-link{display:inline-block;margin-top:15px}
 
 /* ---------- Контакты ---------- */
-.contact-banner{display:flex;align-items:center;justify-content:space-between;gap:30px;background:var(--dark);padding:55px 10%; border-top:1px solid var(--line);position:relative; z-index: 2;}
+.contact-banner{display:flex;align-items:center;justify-content:space-between;gap:30px;background:rgba(28, 23, 20, 0.6);padding:55px 10%; border-top:1px solid var(--line);position:relative; z-index: 2;}
 .contact-banner .eyebrow{color:var(--gold)}
 .contact-banner h2{font-size:42px}
 
@@ -397,8 +403,6 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 20%), radial-gradient(circle at 70% 60%, rgba(0,0,0,0.3) 0%, transparent 30%), linear-gradient(135deg, #e6cf9e 0%, #c9a96e 50%, #8b6c3e 100%);
   box-shadow: 0 0 80px rgba(201, 169, 110, 0.3), inset -20px -20px 40px rgba(0,0,0,0.5);
   z-index: 10;
-  
-  /* Анимации: вращение (бесконечно) + полет (1 раз, но остается в углу) */
   animation: spinMoon 20s linear infinite, flyToCorner 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
 }
 .moon-texture {
@@ -407,19 +411,20 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
   mix-blend-mode: multiply;
 }
 
+/* Траектория полета (в правый верхний угол) */
 @keyframes flyToCorner {
   0% { 
     transform: translate(0, 0) scale(1); 
   }
   100% { 
-    /* Улетает в правый верхний угол (относительно центра экрана) и остается там */
-    transform: translate(calc(50vw - 120px), calc(-50vh + 80px)) scale(0.5); 
+    /* Летит в угол и не задевает шапку (150px вниз) */
+    transform: translate(calc(50vw - 120px), calc(-50vh + 150px)) scale(0.5); 
   }
 }
 
 /* Текст на странице "О бренде" */
 .about-content {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 700px; opacity: 0; animation: fadeInText 1s ease-out 2s forwards; z-index: 5;
+  position: absolute; left: 35%; top: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 700px; opacity: 0; animation: fadeInText 1s ease-out 2s forwards; z-index: 5;
 }
 .about-content p { line-height: 1.95; color: var(--muted); max-width: 640px; margin: 0 0 16px; font-size: 15px; }
 @keyframes fadeInText {
@@ -433,7 +438,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
     0% { transform: translate(0, 0) scale(1); }
     100% { transform: translate(calc(50vw + 80px), calc(-50vh + 80px)) scale(0.5); }
   }
-  .about-content { width: 95%; }
+  .about-content { width: 95%; left: 50%; }
   .about-content p { font-size: 14px; }
   .about-main { height: calc(100vh - 70px); align-items: flex-end; padding-bottom: 50px; }
 }
