@@ -409,41 +409,39 @@ if (submitOrderBtn) {
   });
 }
 
-// --- Кнопки скролла Вверх / Вниз (в одной точке) ---
-const scrollBtn = document.getElementById("toTop"); // Берем одну кнопку
-const scrollIcon = document.getElementById("scrollIcon"); // Наша стрелка
+// --- Кнопка скролла Вверх / Вниз (в одной точке) ---
+const scrollBtn = document.getElementById("toTop");
+const scrollIcon = document.getElementById("scrollIcon");
 
-if (scrollBtn && scrollIcon && toBottom) {
-  // Слушаем скролл страницы
-  window.addEventListener("scroll", () => {
-    // Если проскроллили больше 400px
-    const isScrolledDown = window.scrollY > 400;
-    
-    // Показываем кнопку
-    scrollBtn.classList.toggle("visible", window.scrollY > 100); 
+if (scrollBtn && scrollIcon) {
+  // Функция, которая обновляет вид кнопки при скролле
+  const updateScrollButton = () => {
+    const isScrolledDown = window.scrollY > 300;
+
+    // Показываем кнопку, как только прокрутили чуть-чуть
+    if (window.scrollY > 50) {
+      scrollBtn.classList.add("visible");
+    } else {
+      scrollBtn.classList.remove("visible");
+    }
 
     if (isScrolledDown) {
-      // Если мы внизу — кнопка ведет наверх (стрелка вверх)
+      // Если мы внизу — стрелка вверх, скроллим наверх
       scrollIcon.innerHTML = "&uarr;";
-      scrollBtn.setAttribute("aria-label", "Наверх");
-      scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: "smooth"});
+      scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      // Если мы вверху — кнопка ведет вниз (стрелка вниз)
+      // Если мы вверху — стрелка вниз, скроллим в самый низ
       scrollIcon.innerHTML = "&darr;";
-      scrollBtn.setAttribute("aria-label", "Вниз");
-      scrollBtn.onclick = () => window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
+      scrollBtn.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
-  });
+  };
 
-  // Вызываем один раз при загрузке, чтобы кнопка "Вниз" сразу появилась
-  if (window.scrollY <= 400) {
-    scrollBtn.classList.add("visible");
-    scrollIcon.innerHTML = "&darr;";
-    scrollBtn.setAttribute("aria-label", "Вниз");
-    scrollBtn.onclick = () => window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
-  }
+  // Слушаем скролл
+  window.addEventListener("scroll", updateScrollButton);
+  
+  // Вызываем сразу при загрузке страницы, чтобы кнопка вниз появилась, если мы вверху
+  updateScrollButton();
 }
-
 // --- Меню ---
 const menuToggle = document.getElementById("menuToggle");
 const nav = document.getElementById("nav");
