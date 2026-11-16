@@ -442,3 +442,34 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
   .about-content p { font-size: 14px; }
   .about-main { height: calc(100vh - 70px); align-items: flex-end; padding-bottom: 50px; }
 }
+
+/* ============================================
+   ФОНОВЫЕ ЗВЕЗДЫ
+   ============================================ */
+.bg-stars {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -2; /* Самый глубокий фон, под облаками */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.4);
+  animation: twinkle linear infinite;
+}
+
+/* Золотистые звезды */
+.star.gold {
+  background-color: var(--gold-light);
+  box-shadow: 0 0 6px 1px rgba(201, 169, 110, 0.6);
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.2; transform: scale(0.8); }
+}
