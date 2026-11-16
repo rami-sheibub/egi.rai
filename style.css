@@ -157,10 +157,10 @@ button:active, .button:active {
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
 }
 
-/* Флакон парит внутри карточки при наведении */
 .product-card:hover .mini-perfume {
-  transform: translateY(-5px) scale(1.05);
-  filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 0 15px rgba(201, 169, 110, 0.6)); /* Свечение вокруг мини-флакона */
+  transition: filter 0.3s ease;
+}
 }
 
 .mini-perfume:before{content:"";position:absolute;top:-18px;width:21px;height:18px;background:linear-gradient(90deg,#51412f,#c9b38c,#51412f);border-radius:2px}
