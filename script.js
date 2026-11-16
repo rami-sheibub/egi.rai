@@ -154,7 +154,7 @@ const expandWrapper = document.getElementById("expandWrapper");
 const expandBtn = document.getElementById("expandBtn");
 
 const toTop = document.getElementById("toTop");
-const toBottom = document.getElementById("toBottom");
+const scrollIcon = document.getElementById("scrollIcon");
 
 let activeGender = "Все";
 let activeBrand = "Все";
@@ -213,11 +213,9 @@ function renderProducts() {
 
   const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
 
-  // СТРУКТУРА ДЛЯ ПЕРЕВОРОТА КАРТОЧЕК (БЕЗ КНОПКИ "ВЕРНУТЬСЯ")
   grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category.toUpperCase();
-    
     const notes = item.notes || "Информация о нотах временно отсутствует.";
 
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
@@ -240,7 +238,7 @@ function renderProducts() {
           </div>
         </div>
 
-        <!-- ОБРАТНАЯ СТОРОНА (НОТЫ) -->
+        <!-- ОБРАТНАЯ СТОРОНА -->
         <div class="card-back">
           <h4>${escapeHtml(item.name)}</h4>
           <div class="card-notes">
@@ -262,6 +260,7 @@ function renderProducts() {
   }
 }
 
+// --- Обработчики КАТАЛОГА ---
 if (searchInput) {
   searchInput.addEventListener("input", () => { currentLimit = 12; renderProducts(); });
 }
@@ -279,7 +278,7 @@ if (expandBtn) {
   expandBtn.addEventListener("click", () => { isExpanded = !isExpanded; renderProducts(); });
 }
 
-// --- ЛОГИКА МОДАЛЬНОГО ОКНА ЗАКАЗА ---
+// --- МОДАЛЬНЫЕ ОКНА ---
 const modal = document.getElementById("orderModal");
 const closeModalBtn = document.getElementById("closeModal");
 const submitOrderBtn = document.getElementById("submitOrder");
@@ -292,26 +291,23 @@ const modalComment = document.getElementById("modalComment");
 
 let currentProduct = { brand: "", name: "" };
 
-// ОБРАБОТЧИК КЛИКОВ (ПЕРЕВОРОТ И ЗАКАЗ)
+// Клики в каталоге
 if (grid) {
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".product-card");
     if (!card) return;
 
-    // 1. Если нажали на кнопку "i" (переворачиваем и выходим)
     if (e.target.closest(".btn-info")) {
       e.stopPropagation(); 
       card.classList.add("flipped");
       return;
     }
 
-    // 2. Если карточка УЖЕ перевернута, то любой клик по ней возвращает её обратно
     if (card.classList.contains("flipped")) {
       card.classList.remove("flipped");
       return; 
     }
 
-    // 3. Если карточка НЕ перевернута, открываем окно заказа
     currentProduct.brand = card.getAttribute("data-brand");
     currentProduct.name = card.getAttribute("data-name");
     
@@ -338,7 +334,7 @@ if (modal) {
   });
 }
 
-// --- ОТПРАВКА ЗАКАЗА ЧЕРЕЗ FORMSPREE ---
+// --- ОТПРАВКА ОДИНОЧНОГО ЗАКАЗА ---
 if (submitOrderBtn) {
   submitOrderBtn.addEventListener("click", () => {
     const vol = modalVolume.value;
@@ -409,39 +405,197 @@ if (submitOrderBtn) {
   });
 }
 
-// --- Кнопка скролла Вверх / Вниз (в одной точке) ---
-const scrollBtn = document.getElementById("toTop");
-const scrollIcon = document.getElementById("scrollIcon");
+// ==========================================
+// ЛОГИКА КОРЗИНЫ
+// ==========================================
 
-if (scrollBtn && scrollIcon) {
-  // Функция, которая обновляет вид кнопки при скролле
+let cart = JSON.parse(localStorage.getItem("egi_cart")) || [];
+
+const cartBtn = document.getElementById("cartBtn");
+const cartModal = document.getElementById("cartModal");
+const closeCartBtn = document.getElementById("closeCart");
+const cartCount = document.getElementById("cartCount");
+const cartItemsList = document.getElementById("cartItemsList");
+const cartEmptyMsg = document.getElementById("cartEmptyMsg");
+const cartFormWrapper = document.getElementById("cartFormWrapper");
+const addToCartBtn = document.getElementById("addToCartBtn");
+const submitCartOrderBtn = document.getElementById("submitCartOrder");
+
+// Обновление интерфейса корзины
+function updateCartUI() {
+  if (!cartCount) return;
+  cartCount.textContent = cart.length;
+  
+  if (cart.length === 0) {
+    cartEmptyMsg.style.display = "block";
+    cartFormWrapper.style.display = "none";
+    cartItemsList.innerHTML = "";
+    return;
+  }
+
+  cartEmptyMsg.style.display = "none";
+  cartFormWrapper.style.display = "block";
+  
+  cartItemsList.innerHTML = cart.map((item, index) => `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <h5>${escapeHtml(item.name)}</h5>
+        <span>${escapeHtml(item.brand)} | ${item.volume} мл — ${(parseInt(item.volume) * 100).toLocaleString("ru-RU")} ₽</span>
+      </div>
+      <button class="cart-item-remove" data-index="${index}" title="Удалить">✕</button>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".cart-item-remove").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const idx = parseInt(e.target.getAttribute("data-index"));
+      cart.splice(idx, 1);
+      localStorage.setItem("egi_cart", JSON.stringify(cart));
+      updateCartUI();
+    });
+  });
+}
+
+// Добавление в корзину
+if (addToCartBtn) {
+  addToCartBtn.addEventListener("click", () => {
+    const vol = modalVolume.value;
+    cart.push({
+      brand: currentProduct.brand,
+      name: currentProduct.name,
+      volume: vol
+    });
+    localStorage.setItem("egi_cart", JSON.stringify(cart));
+    updateCartUI();
+    alert("Аромат добавлен в корзину!");
+    closeModal();
+  });
+}
+
+// Открытие / Закрытие корзины
+if (cartBtn) {
+  cartBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    updateCartUI();
+    cartModal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  });
+}
+if (closeCartBtn) {
+  closeCartBtn.addEventListener("click", () => {
+    cartModal.classList.remove("active");
+    document.body.style.overflow = "";
+  });
+}
+if (cartModal) {
+  cartModal.addEventListener("click", (e) => {
+    if (e.target === cartModal) {
+      cartModal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  });
+}
+
+// Отправка всей корзины
+if (submitCartOrderBtn) {
+  submitCartOrderBtn.addEventListener("click", () => {
+    const name = document.getElementById("cartName").value.trim();
+    const contact = document.getElementById("cartContact").value.trim();
+    const comment = document.getElementById("cartComment").value.trim();
+
+    if (name.length < 2) {
+      alert("Пожалуйста, введите ваше имя.");
+      return;
+    }
+    const phoneRegex = /^\+?\d{10,15}$/;
+    const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/;
+    if (!phoneRegex.test(contact) && !tgRegex.test(contact)) {
+      alert("Пожалуйста, введите корректный номер телефона или ник в Telegram.");
+      return;
+    }
+
+    let itemsText = "";
+    let totalPrice = 0;
+    cart.forEach((item, i) => {
+      const price = parseInt(item.volume) * 100;
+      totalPrice += price;
+      itemsText += `${i + 1}. ${item.brand} — ${item.name} (${item.volume} мл) — ${price.toLocaleString("ru-RU")} ₽\n`;
+    });
+
+    const originalText = submitCartOrderBtn.innerHTML;
+    submitCartOrderBtn.innerHTML = "Отправка...";
+    submitCartOrderBtn.disabled = true;
+
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqpaeq";
+
+    const iframe = document.createElement('iframe');
+    iframe.name = 'hidden_iframe_cart';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const form = document.createElement('form');
+    form.action = FORMSPREE_ENDPOINT;
+    form.method = 'POST';
+    form.target = 'hidden_iframe_cart'; 
+
+    const fields = {
+      name: name,
+      email: "linashebik230@gmail.com", 
+      contact: contact,
+      comment: comment,
+      order_details: itemsText,
+      total: `Итого: ${totalPrice.toLocaleString("ru-RU")} ₽`,
+      _subject: `Новый заказ (Корзина): ${name} (${contact})`
+    };
+
+    for (const key in fields) {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields[key];
+      form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit(); 
+
+    setTimeout(() => {
+      alert('Заказ из корзины отправлен! Мы скоро свяжемся с вами.');
+      cart = [];
+      localStorage.setItem("egi_cart", JSON.stringify(cart));
+      updateCartUI();
+      cartModal.classList.remove("active");
+      document.body.style.overflow = "";
+      
+      document.body.removeChild(form);
+      document.body.removeChild(iframe);
+      submitCartOrderBtn.innerHTML = originalText;
+      submitCartOrderBtn.disabled = false;
+    }, 1000);
+  });
+}
+
+// --- Кнопка скролла Вверх / Вниз ---
+if (toTop && scrollIcon) {
   const updateScrollButton = () => {
     const isScrolledDown = window.scrollY > 300;
-
-    // Показываем кнопку, как только прокрутили чуть-чуть
     if (window.scrollY > 50) {
-      scrollBtn.classList.add("visible");
+      toTop.classList.add("visible");
     } else {
-      scrollBtn.classList.remove("visible");
+      toTop.classList.remove("visible");
     }
-
     if (isScrolledDown) {
-      // Если мы внизу — стрелка вверх, скроллим наверх
       scrollIcon.innerHTML = "&uarr;";
-      scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+      toTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      // Если мы вверху — стрелка вниз, скроллим в самый низ
       scrollIcon.innerHTML = "&darr;";
-      scrollBtn.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      toTop.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
   };
-
-  // Слушаем скролл
   window.addEventListener("scroll", updateScrollButton);
-  
-  // Вызываем сразу при загрузке страницы, чтобы кнопка вниз появилась, если мы вверху
   updateScrollButton();
 }
+
 // --- Меню ---
 const menuToggle = document.getElementById("menuToggle");
 const nav = document.getElementById("nav");
@@ -466,6 +620,7 @@ if (aboutSection) {
   observer.observe(aboutSection);
 }
 
-// Запуск
+// Инициализация
 updateBrandOptions();
 renderProducts();
+updateCartUI();
