@@ -315,8 +315,19 @@ if (submitOrderBtn) {
     const contact = modalContact.value.trim();
     const price = parseInt(vol) * 100;
 
-    if (!name || !contact) {
-      alert("Пожалуйста, заполните ваше имя и контакт для связи.");
+       // Проверка имени (хотя бы 2 буквы)
+    if (name.length < 2) {
+      alert("Пожалуйста, введите ваше имя (минимум 2 буквы).");
+      return;
+    }
+
+    // Проверка контакта: либо номер телефона, либо @username
+    // Регулярное выражение: начинается с + и цифр, ИЛИ начинается с @
+    const phoneRegex = /^(\+?\d{10,15})$/; // Для номера телефона (от 10 до 15 цифр)
+    const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/; // Для телеграма (от 4 до 32 символов)
+
+    if (!phoneRegex.test(contact) && !tgRegex.test(contact)) {
+      alert("Пожалуйста, введите корректный номер телефона (например, +79774872613) или ник в Telegram (например, @faputa_void).");
       return;
     }
 
