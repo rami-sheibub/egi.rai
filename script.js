@@ -271,6 +271,7 @@ const modalProductBrand = document.getElementById("modalProductBrand");
 const modalVolume = document.getElementById("modalVolume");
 const modalName = document.getElementById("modalName");
 const modalContact = document.getElementById("modalContact");
+const modalComment = document.getElementById("modalComment");
 
 let currentProduct = { brand: "", name: "" };
 
@@ -287,6 +288,7 @@ if (grid) {
     modalProductBrand.textContent = currentProduct.brand;
     modalName.value = "";
     modalContact.value = "";
+    modalComment.value = "";
     modalVolume.value = "5";
     
     modal.classList.add("active");
@@ -341,6 +343,7 @@ if (submitOrderBtn) {
       email: "linashebiк230@gmail.com", 
       // А контакт клиента (номер или @username) пишем в отдельное поле
       contact: contact, 
+      comment: modalComment.value.trim(),
       product: `${currentProduct.brand} — ${currentProduct.name}`,
       volume: vol + ' мл',
       price: price.toLocaleString("ru-RU") + ' ₽',
