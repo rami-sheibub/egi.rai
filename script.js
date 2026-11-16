@@ -214,11 +214,12 @@ function renderProducts() {
 
   const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
 
+  // Карточка целиком является кнопкой (data-атрибуты перенесены в article)
   grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category.toUpperCase();
 
-    return `<article class="product-card">
+    return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
       <div class="product-visual">
         <span class="product-category">${escapeHtml(categoryLabel)}</span>
         <div class="mini-perfume" aria-hidden="true"></div>
@@ -229,7 +230,6 @@ function renderProducts() {
         <div class="product-type">Масляный аромат</div>
         <div class="product-bottom">
           <div class="from-price">1 мл <b>100 ₽</b></div>
-          <button class="order-small" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}" aria-label="Заказать ${escapeHtml(item.name)}">&rarr;</button>
         </div>
       </div>
     </article>`;
@@ -271,24 +271,26 @@ const modalProductBrand = document.getElementById("modalProductBrand");
 const modalVolume = document.getElementById("modalVolume");
 const modalName = document.getElementById("modalName");
 const modalContact = document.getElementById("modalContact");
-const modalComment = document.getElementById("modalComment");
+const modalComment = document.getElementById("modalComment"); // Поле комментария
 
 let currentProduct = { brand: "", name: "" };
 
-// Открытие по клику на карточку
+// Открытие модального окна при клике на ЛЮБУЮ часть карточки
 if (grid) {
   grid.addEventListener("click", (e) => {
-    const btn = e.target.closest(".order-small");
-    if (!btn) return;
+    const card = e.target.closest(".product-card");
+    if (!card) return;
     
-    currentProduct.brand = btn.getAttribute("data-brand");
-    currentProduct.name = btn.getAttribute("data-name");
+    currentProduct.brand = card.getAttribute("data-brand");
+    currentProduct.name = card.getAttribute("data-name");
     
     modalProductName.textContent = currentProduct.name;
     modalProductBrand.textContent = currentProduct.brand;
+    
+    // Очищаем поля при открытии
     modalName.value = "";
     modalContact.value = "";
-    modalComment.value = "";
+    if (modalComment) modalComment.value = "";
     modalVolume.value = "5";
     
     modal.classList.add("active");
@@ -313,27 +315,25 @@ if (submitOrderBtn) {
     const vol = modalVolume.value;
     const name = modalName.value.trim();
     const contact = modalContact.value.trim();
-    const comment = modalComment ? modalComment.value.trim() : ""; // Защита, если поля нет
+    const comment = modalComment ? modalComment.value.trim() : "";
     const price = parseInt(vol) * 100;
 
-    // 1. Проверка имени
+    // 1. Проверка имени (минимум 2 буквы)
     if (name.length < 2) {
       alert("Пожалуйста, введите ваше имя (минимум 2 буквы).");
       return;
     }
 
-    // 2. Проверка контакта (Телефон или @username)
-    // Телефон: от 10 до 15 цифр (с плюсом или без)
-    const phoneRegex = /^\+?\d{10,15}$/; 
-    // Телеграм: начинается с @, буквы/цифры/подчеркивания, от 4 до 32 символов
-    const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/; 
+    // 2. Проверка контакта (телефон или @username)
+    const phoneRegex = /^\+?\d{10,15}$/;
+    const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/;
 
     if (!phoneRegex.test(contact) && !tgRegex.test(contact)) {
       alert("Пожалуйста, введите корректный номер телефона (например, +79774872613) или ник в Telegram (например, @username).");
       return;
     }
 
-    // Блокируем кнопку на время отправки
+    // Блокируем кнопку
     const originalBtnText = submitOrderBtn.innerHTML;
     submitOrderBtn.innerHTML = "Отправка...";
     submitOrderBtn.disabled = true;
@@ -353,19 +353,18 @@ if (submitOrderBtn) {
     form.method = 'POST';
     form.target = 'hidden_iframe'; 
 
-    // Собираем данные
+    // Собираем поля (email обязательно должен быть латиницей!)
     const fields = {
       name: name,
-      email: "linashebik230@gmail.com", // Ваш email (обязателен для Formspree)
+      email: "linashebiк230@gmail.com", // Убедитесь, что здесь АНГЛИЙСКАЯ k
       contact: contact,
-      comment: comment, // Передаем комментарий (если он есть)
+      comment: comment,
       product: `${currentProduct.brand} — ${currentProduct.name}`,
       volume: vol + ' мл',
       price: price.toLocaleString("ru-RU") + ' ₽',
       _subject: `Новый заказ: ${name} (${contact})`
     };
 
-    // Добавляем поля в форму
     for (const key in fields) {
       const input = document.createElement('input');
       input.type = 'hidden';
@@ -375,9 +374,9 @@ if (submitOrderBtn) {
     }
 
     document.body.appendChild(form);
-    form.submit(); // Отправляем
+    form.submit(); 
 
-    // Показываем успех через 1 секунду
+    // Успешное завершение
     setTimeout(() => {
       alert('Заказ отправлен! Мы скоро свяжемся с вами.');
       closeModal();
@@ -388,6 +387,7 @@ if (submitOrderBtn) {
     }, 1000);
   });
 }
+
 // --- Кнопки скролла Вверх / Вниз ---
 if (toTop) {
   toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
@@ -398,7 +398,7 @@ if (toBottom) {
 window.addEventListener("scroll", () => {
   const show = window.scrollY > 400;
   if (toTop) toTop.classList.toggle("visible", show);
-  if (toBottom) toBottom.classList.toggle("visible", !show); 
+  if (toBottom) toBottom.classList.toggle("visible", !show);
 });
 
 // --- Меню ---
