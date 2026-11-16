@@ -11,9 +11,16 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="about-page">
+  <!-- Фоновые облака -->
+  <div class="bg-clouds">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="cloud cloud-4"></div>
+  </div>
+
   <div class="announcement">EGI.RAI · ART OF SCENT</div>
 
-  <!-- Шапка оставляем как есть, но кнопку меняем на возврат в каталог -->
   <header class="header">
     <a class="logo" href="index.html" aria-label="EGI.RAI — на главную">
       <span class="logo-mark">E</span>
@@ -25,18 +32,9 @@
       <a href="index.html#contacts">Контакты</a>
       <a href="about.html" style="color: var(--gold);">О бренде</a>
     </nav>
-    <!-- Кнопка возврата в каталог вместо "Заказать" -->
     <a class="button button-gold" href="index.html#catalog" style="padding: 10px 20px; font-size: 11px; letter-spacing: 0.5px; border-radius: 8px; display: inline-flex;">К каталогу</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">☰</button>
   </header>
-
-  <!-- Фон с облаками -->
-  <div class="bg-clouds">
-    <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
-    <div class="cloud cloud-3"></div>
-    <div class="cloud cloud-4"></div>
-  </div>
 
   <main class="about-main">
     <!-- Анимированная луна -->
@@ -44,7 +42,7 @@
       <div class="moon-texture"></div>
     </div>
 
-       <!-- Текст, который выезжает за луной -->
+    <!-- Текст -->
     <section class="about-content">
       <p class="eyebrow">О БРЕНДЕ</p>
       <h2 style="font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,54px);line-height:1.15;margin:0 0 26px; color:var(--ink);">
@@ -64,12 +62,8 @@
       </p>
       
       <div style="margin-top: 30px;">
-        <a class="button button-gold" href="https://t.me/Faputa_void" target="_blank" rel="noopener">
-          Написать в Telegram
-        </a>
-        <a class="text-link" href="index.html#catalog" style="margin-left:20px;display:inline-block;">
-          Вернуться в каталог
-        </a>
+        <a class="button button-gold" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Написать в Telegram</a>
+        <a class="text-link" href="index.html#catalog" style="margin-left:20px;display:inline-block;">Вернуться в каталог</a>
       </div>
     </section>
   </main>
@@ -78,7 +72,7 @@
     <div class="footer-bottom" style="border-top: none; margin: 0; padding: 15px 8.5%;">
       <span>© 2026 EGI.RAI</span>
       <span>Создано с вниманием к деталям</span>
-      <a href="index.html">На главную </a>
+      <a href="index.html">На главную ↑</a>
     </div>
   </footer>
 
