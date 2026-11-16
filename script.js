@@ -322,30 +322,28 @@ if (submitOrderBtn) {
     submitOrderBtn.innerHTML = "Отправка...";
     submitOrderBtn.disabled = true;
 
+    // ВАША ССЫЛКА ИЗ FORMSPREE
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqpaeq";
 
-    // Создаем невидимый iframe, чтобы страница не перезагружалась
     const iframe = document.createElement('iframe');
     iframe.name = 'hidden_iframe';
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
 
-    // Создаем форму
     const form = document.createElement('form');
     form.action = FORMSPREE_ENDPOINT;
     form.method = 'POST';
     form.target = 'hidden_iframe'; 
 
-    // Добавляем поля
     const fields = {
       name: name,
-      contact: contact,
+      // ВАЖНО: Всегда отправляем ВАШ реальный email, чтобы Formspree не блокировал заявку
+      email: "linashebiк230@gmail.com", 
+      // А контакт клиента (номер или @username) пишем в отдельное поле
+      contact: contact, 
       product: `${currentProduct.brand} — ${currentProduct.name}`,
       volume: vol + ' мл',
       price: price.toLocaleString("ru-RU") + ' ₽',
-      // ВАЖНО: Formspree требует валидный email. 
-      // Вставляем ваш email, а контакт клиента пишем в отдельное поле.
-      email: "linashebiк230@gmail.com", 
       _subject: `Новый заказ: ${name} (${contact})`
     };
 
