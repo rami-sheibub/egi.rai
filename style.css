@@ -500,3 +500,26 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
     text-align: center;
   }
 }
+/* Исправление для липкой кнопки */
+#expandWrapper.is-sticky {
+  position: fixed !important;
+  bottom: 30px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important; /* Поверх всего */
+  margin: 0 !important;
+  background: rgba(20, 17, 14, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 12px 24px !important;
+  border-radius: 50px !important;
+  border: 1px solid var(--gold) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+#expandWrapper.is-sticky #expandBtn {
+  border: none !important;
+  background: transparent !important;
+  color: var(--gold) !important;
+  font-size: 14px !important;
+  padding: 0 !important;
+}
