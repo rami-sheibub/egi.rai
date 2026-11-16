@@ -523,3 +523,75 @@ button:active, .button:active {
 .cart-btn.bump {
   animation: cartPulse 0.4s ease;
 }
+
+/* ============================================
+   КРАСИВЫЕ ПОЛЯ ВВОДА (ФОРМЫ)
+   ============================================ */
+
+/* Стили для всех полей ввода (текст, селекты) */
+.modal-form input, 
+.modal-form select,
+#cartFormWrapper input {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: rgba(0, 0, 0, 0.3); /* Глубокий темный фон */
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Эффект при наведении на поле */
+.modal-form input:hover, 
+.modal-form select:hover,
+#cartFormWrapper input:hover {
+  border-color: rgba(201, 169, 110, 0.5); /* Полупрозрачное золото */
+}
+
+/* Эффект при клике (фокусе) на поле */
+.modal-form input:focus, 
+.modal-form select:focus,
+#cartFormWrapper input:focus {
+  border-color: var(--gold); /* Яркое золото */
+  background-color: rgba(201, 169, 110, 0.05); /* Легкий золотистый отблеск */
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.2); /* Мягкое свечение */
+}
+
+/* Стили для placeholder (текста-подсказки) */
+.modal-form input::placeholder,
+#cartFormWrapper input::placeholder {
+  color: #66605a; /* Приглушенный цвет */
+  font-style: italic;
+}
+
+/* Стили для label (подписи над полем) */
+.modal-form label,
+#cartFormWrapper label {
+  display: block;
+  font-size: 11px;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+/* Отступ для самого первого label в форме */
+.modal-form label:first-of-type {
+  margin-top: 10px;
+}
+
+/* Красивая стрелочка в выпадающем списке (select) */
+.modal-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a96e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px;
+  cursor: pointer;
+}
