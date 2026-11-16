@@ -147,14 +147,106 @@ button:active, .button:active {
 .product-visual{height:175px;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse, #2a2218 0%, #1c1714 55%, var(--dark) 78%);overflow:hidden;}
 .product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(201,169,110,.15);border-radius:50%}
 
-/* Плавность для флакона внутри карточки */
-.mini-perfume{
-  position:relative;z-index:1;width:56px;height:79px;
-  border-radius:8px 8px 12px 12px;
-  background:linear-gradient(90deg,#80633d,#e2c99b 30%,#b0905c 75%,#5b452c);
-  border:1px solid #b8a078;box-shadow:7px 10px 10px rgba(0,0,0,.3);
-  display:flex;align-items:center;justify-content:center;
+/* ---------- РЕАЛИСТИЧНЫЙ МИНИ-ФЛАКОН ---------- */
+.mini-perfume {
+  position: relative;
+  z-index: 1;
+  width: 56px;
+  height: 76px;
+  border-radius: 6px 6px 10px 10px;
+  /* Более реалистичный градиент стекла с отблесками */
+  background: linear-gradient(105deg, 
+    rgba(255,255,255,0.1) 0%, 
+    #d6b36c 15%, 
+    #f5dfaa 35%, 
+    #a57a3c 60%, 
+    #e1bd79 85%, 
+    rgba(0,0,0,0.1) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    inset 0 0 10px rgba(255,255,255,0.2), 
+    inset 0 -10px 15px rgba(0,0,0,0.3),
+    7px 12px 12px rgba(0,0,0,0.4); /* Глубокая тень */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+}
+
+/* Стеклянный блик (полоска света) */
+.mini-perfume::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  width: 6px;
+  height: 50px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  filter: blur(2px);
+  z-index: 2;
+}
+
+/* Крышка флакона (объемная и металлическая) */
+.mini-perfume::after {
+  content: "";
+  position: absolute;
+  top: -16px;
+  width: 24px;
+  height: 18px;
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(90deg, #3e3024, #a58b5e 30%, #e0c79a 50%, #65513a 70%, #33291e);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Этикетка на флаконе */
+.mini-perfume span {
+  position: relative;
+  z-index: 3;
+  font-family: "Playfair Display", serif;
+  color: #f3e3c7;
+  font-size: 18px;
+  border: 1px solid rgba(245,224,189,.4);
+  width: 32px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: rgba(30, 25, 20, 0.85);
+  border-radius: 2px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* --- Разные формы флаконов для разнообразия --- */
+.product-card:nth-child(3n+2) .mini-perfume {
+  height: 66px;
+  width: 64px;
+  border-radius: 12px 12px 8px 8px; /* Круглый флакон */
+  background: linear-gradient(105deg, #3a322b, #7a6a52 25%, #d6c09a 55%, #5b4b3a);
+}
+.product-card:nth-child(3n+2) .mini-perfume::after {
+  width: 18px; /* Узкая крышка */
+}
+
+.product-card:nth-child(3n) .mini-perfume {
+  height: 84px;
+  width: 46px;
+  border-radius: 4px 4px 8px 8px; /* Высокий флакон */
+  background: linear-gradient(105deg, #d6b36c, #f5dfaa 30%, #a57a3c 75%, #e1bd79);
+}
+.product-card:nth-child(3n) .mini-perfume::after {
+  width: 28px; height: 14px; /* Широкая плоская крышка */
+}
+
+.product-card:nth-child(4n) .mini-perfume {
+  background: linear-gradient(105deg, #c9c3b6, #fffdf3 30%, #9d9284 70%, #e8dec9); /* Светлое стекло */
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* Эффект парения и свечения при наведении на карточку */
+.product-card:hover .mini-perfume {
+  transform: translateY(-8px) scale(1.05);
+  filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 15px rgba(201, 169, 110, 0.4));
 }
 
 .product-card:hover .mini-perfume {
