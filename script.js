@@ -398,7 +398,22 @@ if (menuToggle && nav) {
     link.addEventListener("click", () => nav.classList.remove("open"))
   );
 }
+// --- АНИМАЦИЯ ПОЯВЛЕНИЯ БЛОКА "О НАС" ---
+const aboutSection = document.querySelector(".about.section");
 
+if (aboutSection) {
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Когда блок появился на экране, добавляем класс visible
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target); // Отключаем слежку, чтобы анимация сработала 1 раз
+      }
+    });
+  }, { threshold: 0.2 }); // Срабатывает, когда 20% блока показалось на экране
+
+  observer.observe(aboutSection);
+}
 // Запуск
 updateBrandOptions();
 renderProducts();
