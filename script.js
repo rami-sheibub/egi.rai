@@ -248,11 +248,13 @@ function renderProducts() {
     </article>`;
   }).join("");
 
-  if (expandWrapper && expandBtn) {
-    if (products.length > currentLimit) {
+   if (expandWrapper && expandBtn) {
+    if (products.length > currentLimit || isExpanded) {
       expandWrapper.style.display = "block";
+      // Меняем текст кнопки в зависимости от состояния
       expandBtn.innerHTML = isExpanded ? "Свернуть каталог" : "Развернуть каталог";
     } else {
+      // Скрываем кнопку только если товаров мало (меньше лимита)
       expandWrapper.style.display = "none";
     }
   }
@@ -272,7 +274,18 @@ if (brandFilter) {
   });
 }
 if (expandBtn) {
-  expandBtn.addEventListener("click", () => { isExpanded = !isExpanded; renderProducts(); });
+  expandBtn.addEventListener("click", (e) => { 
+    isExpanded = !isExpanded; 
+    renderProducts(); 
+    
+    // Если мы свернули каталог, плавно прокручиваем к началу сетки товаров
+    if (!isExpanded) {
+      const catalogSection = document.getElementById("catalog");
+      if (catalogSection) {
+        catalogSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  });
 }
 
 // --- МОДАЛЬНЫЕ ОКНА ---
