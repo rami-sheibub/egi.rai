@@ -27,47 +27,19 @@ a{color:inherit;text-decoration:none}
 button,input,select{font:inherit}
 
 /* ============================================
-   ФОНОВЫЕ ОБЛАКА ДЛЯ ВСЕГО САЙТА
+   ФОНОВЫЕ ОБЛАКА
    ============================================ */
-.bg-clouds {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.cloud {
-  position: absolute;
-  background: radial-gradient(circle, rgba(201, 169, 110, 0.05) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(40px);
-  animation: floatClouds linear infinite;
-}
-
+.bg-clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
+.cloud { position: absolute; background: radial-gradient(circle, rgba(201, 169, 110, 0.05) 0%, transparent 70%); border-radius: 50%; filter: blur(40px); animation: floatClouds linear infinite; }
 .cloud-1 { width: 400px; height: 400px; top: 10%; left: -10%; animation-duration: 40s; }
 .cloud-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; animation-duration: 50s; animation-direction: reverse; }
 .cloud-3 { width: 300px; height: 300px; top: 40%; left: 50%; animation-duration: 35s; }
 .cloud-4 { width: 500px; height: 500px; top: -10%; right: 20%; animation-duration: 60s; }
-
-@keyframes floatClouds {
-  0% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(100px) translateY(-50px); }
-  100% { transform: translateX(0) translateY(0); }
-}
+@keyframes floatClouds { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(100px) translateY(-50px); } 100% { transform: translateX(0) translateY(0); } }
 
 /* --- Базовые кнопки --- */
-button, .button {
-  border-radius: 8px;
-  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(201, 169, 110, 0.5);
-  cursor: pointer;
-}
-button:active, .button:active {
-  transform: translateY(2px) scale(0.98);
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
-}
+button, .button { border-radius: 8px; transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); border: 1px solid rgba(201, 169, 110, 0.5); cursor: pointer; }
+button:active, .button:active { transform: translateY(2px) scale(0.98); box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5); }
 
 /* ---------- Шапка ---------- */
 .announcement{background:#050403;color:var(--gold-light);text-align:center;padding:10px 16px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;}
@@ -84,22 +56,8 @@ button:active, .button:active {
 .header-order:hover span{color:#000}
 .menu-toggle{display:none;background:none;border:0;font-size:23px;color:var(--ink)}
 
-/* ---------- Кнопка корзины в шапке ---------- */
-.cart-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--gold);
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-size: 12px;
-  color: var(--gold);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  background: transparent;
-  margin-right: 15px;
-}
+/* ---------- Кнопка корзины ---------- */
+.cart-btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--gold); padding: 10px 15px; border-radius: 8px; font-size: 12px; color: var(--gold); cursor: pointer; text-decoration: none; transition: all 0.2s ease; background: transparent; margin-right: 15px; }
 .cart-btn:hover { background: var(--gold); color: #0d0b0a; }
 .cart-count { background: var(--gold); color: #000; border-radius: 50%; padding: 2px 7px; font-weight: bold; font-size: 10px; }
 .cart-btn:hover .cart-count { background: #000; color: var(--gold); }
@@ -173,15 +131,9 @@ button:active, .button:active {
 .search input{border:0;outline:0;background:transparent;width:100%;font-size:12px;color:var(--ink)}
 .result-line{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:18px}
 
-/* ---------- КАРТОЧКИ (3D-переворот) ---------- */
+/* ---------- КАРТОЧКИ ---------- */
 .product-grid{display:flex;flex-wrap:wrap;gap:18px}
-.product-card{
-  flex:1 1 calc(25% - 14px);min-width:200px;max-width:calc(25% - 14px);
-  height: 380px;
-  perspective: 1000px;
-  cursor:pointer;
-  opacity: 0; animation: slideUpFade 0.6s ease-out forwards;
-}
+.product-card{flex:1 1 calc(25% - 14px);min-width:200px;max-width:calc(25% - 14px);height: 380px;perspective: 1000px;cursor:pointer;opacity: 0; animation: slideUpFade 0.6s ease-out forwards;}
 .product-card:nth-child(1) { animation-delay: 0.1s; }
 .product-card:nth-child(2) { animation-delay: 0.15s; }
 .product-card:nth-child(3) { animation-delay: 0.2s; }
@@ -193,21 +145,18 @@ button:active, .button:active {
 
 .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
 .product-card.flipped .card-inner { transform: rotateY(180deg); }
-
 .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
 .card-front { background: var(--dark); border: 1px solid var(--line); display: flex; flex-direction: column; transition: border-color 0.3s, box-shadow 0.3s; }
 .product-card:hover .card-front { border-color: var(--gold); box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 25px rgba(201,169,110,0.3); }
 .card-back { background: var(--dark); border: 1px solid var(--gold); transform: rotateY(180deg); padding: 25px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1); }
 .card-back h4 { font-family: "Playfair Display", serif; color: var(--gold); font-size: 18px; margin-bottom: 15px; }
 .card-back p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
 .btn-info { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; background: rgba(20, 17, 14, 0.8); border: 1px solid var(--gold); color: var(--gold); font-family: "Playfair Display", serif; font-size: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all 0.2s; }
 .btn-info:hover { background: var(--gold); color: #000; }
 
 .product-visual{height:175px;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse, #2a2218 0%, #1c1714 55%, var(--dark) 78%);overflow:hidden;}
 .product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(201,169,110,.15);border-radius:50%}
 
-/* РЕАЛИСТИЧНЫЙ МИНИ-ФЛАКОН */
 .mini-perfume { position: relative; z-index: 1; width: 56px; height: 76px; border-radius: 6px 6px 10px 10px; background: linear-gradient(105deg, rgba(255,255,255,0.1) 0%, #d6b36c 15%, #f5dfaa 35%, #a57a3c 60%, #e1bd79 85%, rgba(0,0,0,0.1) 100%); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 10px rgba(255,255,255,0.2), inset 0 -10px 15px rgba(0,0,0,0.3), 7px 12px 12px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease; }
 .mini-perfume::before { content: ""; position: absolute; top: 10px; left: 8px; width: 6px; height: 50px; border-radius: 10px; background: rgba(255, 255, 255, 0.4); filter: blur(2px); z-index: 2; }
 .mini-perfume::after { content: ""; position: absolute; top: -16px; width: 24px; height: 18px; border-radius: 3px 3px 1px 1px; background: linear-gradient(90deg, #3e3024, #a58b5e 30%, #e0c79a 50%, #65513a 70%, #33291e); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 2px 4px rgba(0,0,0,0.4); }
@@ -227,7 +176,6 @@ button:active, .button:active {
 .product-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:15px;padding-top:12px}
 .from-price{font-size:11px;color:var(--muted)}
 .from-price b{font-size:14px;color:var(--gold-light);display:block;margin-top:3px}
-
 .order-small { display: none !important; }
 .empty-state{text-align:center;padding:50px;color:var(--muted);font-size:14px;}
 
@@ -251,28 +199,18 @@ button:active, .button:active {
 .about{display:flex;align-items:center;gap:10%;background:transparent; position: relative; z-index: 2;}
 .about-art{width:42%;display:flex;justify-content:center;align-items:center;min-height:360px;background:radial-gradient(ellipse, #1c1714 0%, #14110e 50%, var(--paper) 72%); position: relative; overflow: hidden; border-radius: 50%;}
 
-.about-circle {
-  /* ... остальные стили ... */
-  transform-style: preserve-3d;
-  animation: spinMoon3D 25s linear infinite;
-}
-  /* Текстура луны: свечение, тени и кратеры */
+.about-circle{
+  width:245px;height:245px;border-radius:50%;position:relative;
   background: 
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25) 0%, transparent 25%),
     radial-gradient(circle at 75% 65%, rgba(0,0,0,0.4) 0%, transparent 35%),
     radial-gradient(circle at 15% 85%, rgba(0,0,0,0.3) 0%, transparent 25%),
     radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
     linear-gradient(135deg, #e6cf9e 0%, #c9a96e 40%, #8b6c3e 100%);
-    
-  box-shadow: 
-    0 0 80px rgba(201, 169, 110, 0.4),
-    inset -25px -25px 50px rgba(0,0,0,0.6),
-    inset 5px 5px 15px rgba(255,255,255,0.3);
-    
+  box-shadow: 0 0 80px rgba(201, 169, 110, 0.4), inset -25px -25px 50px rgba(0,0,0,0.6), inset 5px 5px 15px rgba(255,255,255,0.3);
   z-index: 10;
   animation: spinMoon 25s linear infinite;
 }
-
 .about-circle::after {
   content: "";
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%;
@@ -283,7 +221,6 @@ button:active, .button:active {
     radial-gradient(circle at 40% 60%, rgba(0,0,0,0.2) 7%, transparent 8%);
   mix-blend-mode: multiply;
 }
-
 @keyframes spinMoon {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -312,13 +249,7 @@ button:active, .button:active {
 .footer-bottom a{color:var(--gold)}
 
 /* ---------- Кнопки Вверх/Вниз ---------- */
-.to-top {
-  position: fixed; right: 28px; bottom: 28px; width: 45px; height: 45px;
-  border: 1px solid var(--gold); background: var(--dark); color: var(--gold);
-  cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s, background .2s, transform .2s, box-shadow .2s;
-  font-size: 20px; display: flex; align-items: center; justify-content: center;
-  z-index: 40; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-}
+.to-top { position: fixed; right: 28px; bottom: 28px; width: 45px; height: 45px; border: 1px solid var(--gold); background: var(--dark); color: var(--gold); cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s, background .2s, transform .2s, box-shadow .2s; font-size: 20px; display: flex; align-items: center; justify-content: center; z-index: 40; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
 .to-top:hover { background: var(--gold); color: #0d0b0a; }
 .to-top.visible { opacity: 1; pointer-events: auto; }
 .to-top:active { transform: scale(0.9); box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5); }
@@ -333,7 +264,6 @@ button:active, .button:active {
 .modal-title { font-family: "Playfair Display", serif; font-size: 26px; color: var(--gold-light); margin: 0 0 5px; }
 .modal-brand { color: var(--gold); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 25px; }
 
-/* Красивые поля ввода */
 .modal-form label, #cartFormWrapper label { display: block; font-size: 11px; color: var(--gold-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 20px; font-weight: 600; }
 .modal-form input, .modal-form select, #cartFormWrapper input { width: 100%; padding: 14px 16px; background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-family: inherit; font-size: 14px; transition: all 0.3s ease; outline: none; box-sizing: border-box; }
 .modal-form input:hover, .modal-form select:hover, #cartFormWrapper input:hover { border-color: rgba(201, 169, 110, 0.5); }
@@ -359,7 +289,7 @@ button:active, .button:active {
 .cart-btn.bump { animation: cartPulse 0.4s ease; }
 
 /* ============================================
-   СТИЛИЗАЦИЯ ПОЛЗУНКОВ (СКРОЛЛБАРОВ)
+   СТИЛИЗАЦИЯ ПОЛЗУНКОВ
    ============================================ */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--paper); }
@@ -461,27 +391,13 @@ button:active, .button:active {
 .about-page { overflow: hidden; }
 .about-main { position: relative; z-index: 2; width: 100%; height: calc(100vh - 82px); display: flex; align-items: center; justify-content: center; }
 
-/* Луна с 3D-вращением (без вылета) */
+/* Луна с двумя анимациями (полет и вращение) */
 .moon-container {
-  position: absolute; 
-  width: 200px; 
-  height: 200px; 
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 20%), 
-              radial-gradient(circle at 70% 60%, rgba(0,0,0,0.3) 0%, transparent 30%), 
-              linear-gradient(135deg, #e6cf9e 0%, #c9a96e 50%, #8b6c3e 100%);
+  position: absolute; width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 20%), radial-gradient(circle at 70% 60%, rgba(0,0,0,0.3) 0%, transparent 30%), linear-gradient(135deg, #e6cf9e 0%, #c9a96e 50%, #8b6c3e 100%);
   box-shadow: 0 0 80px rgba(201, 169, 110, 0.3), inset -20px -20px 40px rgba(0,0,0,0.5);
   z-index: 10;
-  transform-style: preserve-3d; /* Для объемного 3D-эффекта */
-  
-  /* Только 3D-вращение, без полета */
-  animation: spinMoon3D 20s linear infinite; 
-}
-
-/* Объемное 3D-вращение по диагонали (вправо) */
-@keyframes spinMoon3D {
-  0% { transform: rotate3d(1, 1, 0, 0deg); }
-  100% { transform: rotate3d(1, 1, 0, 360deg); }
+  animation: spinMoon 20s linear infinite, flyToCorner 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
 }
 .moon-texture {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%;
@@ -489,7 +405,7 @@ button:active, .button:active {
   mix-blend-mode: multiply;
 }
 
-/* НОВАЯ ТРАЕКТОРИЯ ПОЛЕТА (ВПРАВО-ВВЕРХ) */
+/* Траектория полета (ВПРАВО-ВВЕРХ) */
 @keyframes flyToCorner {
   0% { 
     transform: translate(0, 0) scale(1); 
@@ -497,7 +413,7 @@ button:active, .button:active {
   }
   100% { 
     transform: translate(calc(50vw + 100px), calc(-50vh + 100px)) scale(0.4); 
-    opacity: 0; /* Плавно исчезает за краем */
+    opacity: 0;
   }
 }
 
