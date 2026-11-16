@@ -213,23 +213,43 @@ function renderProducts() {
 
   const visibleProducts = isExpanded ? products : products.slice(0, currentLimit);
 
-  // ДОБАВЛЕНА БУКВА "E" ВНУТРЬ ФЛАКОНА
+  // СТРУКТУРА ДЛЯ ПЕРЕВОРОТА КАРТОЧЕК
   grid.innerHTML = visibleProducts.map((item) => {
     const brand = item.brand || "Коллекция EGI.RAI";
     const categoryLabel = item.category.toUpperCase();
+    
+    // Заглушка для нот (потом можно добавить поле "notes" в базу)
+    const notes = item.notes || "Информация о нотах временно отсутствует.";
 
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
-      <div class="product-visual">
-        <span class="product-category">${escapeHtml(categoryLabel)}</span>
-        <div class="mini-perfume" aria-hidden="true"><span>E</span></div>
-      </div>
-      <div class="product-info">
-        <div class="product-brand">${escapeHtml(brand)}</div>
-        <div class="product-name">${escapeHtml(item.name)}</div>
-        <div class="product-type">Масляный аромат</div>
-        <div class="product-bottom">
-          <div class="from-price">1 мл <b>100 ₽</b></div>
+      <div class="card-inner">
+        
+        <!-- ЛИЦЕВАЯ СТОРОНА -->
+        <div class="card-front">
+          <button class="btn-info" title="Узнать ноты">i</button>
+          <div class="product-visual">
+            <span class="product-category">${escapeHtml(categoryLabel)}</span>
+            <div class="mini-perfume" aria-hidden="true"><span>E</span></div>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">${escapeHtml(brand)}</div>
+            <div class="product-name">${escapeHtml(item.name)}</div>
+            <div class="product-type">Масляный аромат</div>
+            <div class="product-bottom">
+              <div class="from-price">1 мл <b>100 ₽</b></div>
+            </div>
+          </div>
         </div>
+
+        <!-- ОБРАТНАЯ СТОРОНА (НОТЫ) -->
+        <div class="card-back">
+          <h4>${escapeHtml(item.name)}</h4>
+          <div class="card-notes">
+            <p>${escapeHtml(notes)}</p>
+          </div>
+          <button class="btn-back">Вернуться</button>
+        </div>
+
       </div>
     </article>`;
   }).join("");
@@ -274,23 +294,41 @@ const modalComment = document.getElementById("modalComment");
 
 let currentProduct = { brand: "", name: "" };
 
+// ОБРАБОТЧИК КЛИКОВ (ПЕРЕВОРОТ И ЗАКАЗ)
 if (grid) {
   grid.addEventListener("click", (e) => {
+    // 1. Если нажали на кнопку "i" (перевернуть)
+    if (e.target.closest(".btn-info")) {
+      e.stopPropagation(); 
+      const card = e.target.closest(".product-card");
+      if (card) card.classList.add("flipped");
+      return;
+    }
+
+    // 2. Если нажали на кнопку "Вернуться" (перевернуть обратно)
+    if (e.target.closest(".btn-back")) {
+      e.stopPropagation();
+      const card = e.target.closest(".product-card");
+      if (card) card.classList.remove("flipped");
+      return;
+    }
+
+    // 3. Если нажали на саму карточку (открываем окно заказа)
     const card = e.target.closest(".product-card");
-    if (!card) return;
-    
-    currentProduct.brand = card.getAttribute("data-brand");
-    currentProduct.name = card.getAttribute("data-name");
-    
-    modalProductName.textContent = currentProduct.name;
-    modalProductBrand.textContent = currentProduct.brand;
-    modalName.value = "";
-    modalContact.value = "";
-    if (modalComment) modalComment.value = "";
-    modalVolume.value = "5";
-    
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
+    if (card && !card.classList.contains("flipped")) {
+      currentProduct.brand = card.getAttribute("data-brand");
+      currentProduct.name = card.getAttribute("data-name");
+      
+      modalProductName.textContent = currentProduct.name;
+      modalProductBrand.textContent = currentProduct.brand;
+      modalName.value = "";
+      modalContact.value = "";
+      if (modalComment) modalComment.value = "";
+      modalVolume.value = "5";
+      
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
   });
 }
 
@@ -398,22 +436,21 @@ if (menuToggle && nav) {
     link.addEventListener("click", () => nav.classList.remove("open"))
   );
 }
+
 // --- АНИМАЦИЯ ПОЯВЛЕНИЯ БЛОКА "О НАС" ---
 const aboutSection = document.querySelector(".about.section");
-
 if (aboutSection) {
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Когда блок появился на экране, добавляем класс visible
         entry.target.classList.add("visible");
-        obs.unobserve(entry.target); // Отключаем слежку, чтобы анимация сработала 1 раз
+        obs.unobserve(entry.target); 
       }
     });
-  }, { threshold: 0.2 }); // Срабатывает, когда 20% блока показалось на экране
-
+  }, { threshold: 0.2 });
   observer.observe(aboutSection);
 }
+
 // Запуск
 updateBrandOptions();
 renderProducts();
