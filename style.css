@@ -20,9 +20,41 @@ body{
   font-family:"DM Sans",sans-serif;font-size:14px;
   color-scheme:dark;
   animation: fadeInPage 0.8s ease-out forwards;
+  position: relative;
+  overflow-x: hidden;
 }
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit}
+
+/* ============================================
+   ФОНОВЫЕ ОБЛАКА ДЛЯ ВСЕГО САЙТА
+   ============================================ */
+.bg-clouds {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1; /* Уводим на задний план */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cloud {
+  position: absolute;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.04) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: floatClouds linear infinite;
+}
+
+.cloud-1 { width: 400px; height: 400px; top: 10%; left: -10%; animation-duration: 40s; }
+.cloud-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; animation-duration: 50s; animation-direction: reverse; }
+.cloud-3 { width: 300px; height: 300px; top: 40%; left: 50%; animation-duration: 35s; }
+.cloud-4 { width: 500px; height: 500px; top: -10%; right: 20%; animation-duration: 60s; }
+
+@keyframes floatClouds {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(100px) translateY(-50px); }
+  100% { transform: translateX(0) translateY(0); }
+}
 
 /* --- Базовые кнопки --- */
 button, .button {
@@ -68,22 +100,9 @@ button:active, .button:active {
   background: transparent;
   margin-right: 15px;
 }
-.cart-btn:hover {
-  background: var(--gold);
-  color: #0d0b0a;
-}
-.cart-count {
-  background: var(--gold);
-  color: #000;
-  border-radius: 50%;
-  padding: 2px 7px;
-  font-weight: bold;
-  font-size: 10px;
-}
-.cart-btn:hover .cart-count {
-  background: #000;
-  color: var(--gold);
-}
+.cart-btn:hover { background: var(--gold); color: #0d0b0a; }
+.cart-count { background: var(--gold); color: #000; border-radius: 50%; padding: 2px 7px; font-weight: bold; font-size: 10px; }
+.cart-btn:hover .cart-count { background: #000; color: var(--gold); }
 
 /* ---------- Hero ---------- */
 .hero{min-height:590px;display:flex;align-items:stretch;background:var(--cream);padding:0 8.5% 0 10%;overflow:hidden;}
@@ -128,7 +147,7 @@ button:active, .button:active {
 .note-b{left:2%;bottom:28%;font-size:9px;letter-spacing:2px;transform:rotate(-90deg);color:var(--muted)}
 
 /* ---------- Преимущества ---------- */
-.benefits{display:flex;justify-content:center;gap:8%;padding:28px 7%;border-bottom:1px solid var(--line);background:var(--dark);}
+.benefits{display:flex;justify-content:center;gap:8%;padding:28px 7%;border-bottom:1px solid var(--line);background:var(--dark);position:relative; z-index: 2;}
 .benefits>div{display:flex;align-items:center;gap:13px}
 .benefit-icon{width:37px;height:37px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:19px;}
 .benefits b,.benefits small{display:block}
@@ -136,13 +155,13 @@ button:active, .button:active {
 .benefits small{font-size:11px;color:var(--muted);margin-top:5px}
 
 /* ---------- Секции ---------- */
-.section{padding:95px 9%}
+.section{padding:95px 9%; position: relative; z-index: 2;}
 .section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:40px}
 .section-heading h2,.about h2,.contact-banner h2{font-size:clamp(36px,4vw,52px);line-height:1.13;margin:0}
 .section-sub{max-width:330px;color:var(--muted);font-size:13px;line-height:1.8;margin:0 0 4px}
 
 /* ---------- Каталог ---------- */
-.catalog{background:var(--paper)}
+.catalog{background:transparent;} /* Прозрачный фон, чтобы облака были видны */
 .catalog-layout{display:flex;gap:28px;align-items:flex-start}
 .catalog-main{flex:1;min-width:0}
 .catalog-tools{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:25px}
@@ -213,14 +232,14 @@ button:active, .button:active {
 .empty-state{text-align:center;padding:50px;color:var(--muted);font-size:14px;}
 
 /* ---------- Цитата ---------- */
-.quote-band{background:#050403;color:var(--ink);padding:66px 20px;text-align:center}
+.quote-band{background:#050403;color:var(--ink);padding:66px 20px;text-align:center;position:relative; z-index: 2;}
 .quote-mark{font-family:"Playfair Display",serif;font-size:70px;line-height:.8;color:var(--gold)}
 .quote-band p{font-family:"Playfair Display",serif;font-size:clamp(24px,3vw,38px);line-height:1.4;margin:18px 0}
 .quote-band em{color:var(--gold-light)}
 .quote-band>span{font-size:9px;letter-spacing:3px;color:var(--muted)}
 
 /* ---------- Цены ---------- */
-.prices{background:var(--cream)}
+.prices{background:transparent; position: relative; z-index: 2;}
 .price-unified{max-width:640px;margin:0 auto;background:var(--dark);border:1px solid var(--gold);border-radius:10px;padding:40px 32px;text-align:center;}
 .price-unified .big{font-size:clamp(2rem,5vw,3rem);color:var(--gold-light);margin:15px 0 5px;font-family:"Playfair Display",serif;}
 .price-unified p{color:var(--muted); font-size:13px; margin:5px 0;}
@@ -229,26 +248,23 @@ button:active, .button:active {
 .vol-row span{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:8px 18px;font-size:12px;color:var(--gold-light); font-weight:600;}
 
 /* ---------- О нас (с луной) ---------- */
-.about{display:flex;align-items:center;gap:10%;background:var(--paper)}
-.about-art{width:42%;display:flex;justify-content:center;align-items:center;min-height:360px;background:radial-gradient(ellipse, #1c1714 0%, #14110e 50%, var(--paper) 72%); position: relative; overflow: hidden;}
+.about{display:flex;align-items:center;gap:10%;background:transparent; position: relative; z-index: 2;}
+.about-art{width:42%;display:flex;justify-content:center;align-items:center;min-height:360px;background:radial-gradient(ellipse, #1c1714 0%, #14110e 50%, var(--paper) 72%); position: relative; overflow: hidden; border-radius: 50%;}
 
-/* Стили для луны вместо старого круга */
+/* Стили для луны */
 .about-circle{
   width:245px;height:245px;border-radius:50%;position:relative;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   
-  /* Текстура луны (создана через градиенты) */
   background: 
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 20%),
     radial-gradient(circle at 70% 60%, rgba(0,0,0,0.3) 0%, transparent 30%),
     linear-gradient(135deg, #e6cf9e 0%, #c9a96e 50%, #8b6c3e 100%);
   box-shadow: 0 0 80px rgba(201, 169, 110, 0.3), inset -20px -20px 40px rgba(0,0,0,0.5);
   z-index: 10;
-  /* Плавное вращение, без вылета */
   animation: spinMoon 20s linear infinite;
 }
 
-/* Кратеры на луне */
 .about-circle:before {
   content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%;
   background-image: 
@@ -258,12 +274,10 @@ button:active, .button:active {
   mix-blend-mode: multiply;
 }
 
-/* Настраиваем текст и убираем старую рамку */
 .about-circle:after { display: none; }
 .about-circle>span{font-family:"Playfair Display",serif;font-size:27px;letter-spacing:4px; position: relative; z-index: 2; color: #0d0b0a; font-weight: bold;}
 .about-circle>i{font-size:8px;letter-spacing:2px;font-style:normal;margin-top:8px; position: relative; z-index: 2; color: #0d0b0a; font-weight: bold;}
 
-/* Маленький флакончик внутри луны */
 .mini-bottle{
   width:35px;height:47px;margin-top:20px;
   background:linear-gradient(90deg,#6c5030,#dfc28b,#8b6738);
@@ -272,7 +286,6 @@ button:active, .button:active {
   position: relative; z-index: 2;
 }
 
-/* Ключевые кадры для вращения */
 @keyframes spinMoon {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -282,13 +295,14 @@ button:active, .button:active {
 .about-copy h2{margin-bottom:23px}
 .about-copy>p:not(.eyebrow){font-size:13px;line-height:1.95;color:var(--muted);max-width:440px}
 .about-copy .text-link{display:inline-block;margin-top:15px}
+
 /* ---------- Контакты ---------- */
-.contact-banner{display:flex;align-items:center;justify-content:space-between;gap:30px;background:var(--dark);padding:55px 10%; border-top:1px solid var(--line);}
+.contact-banner{display:flex;align-items:center;justify-content:space-between;gap:30px;background:var(--dark);padding:55px 10%; border-top:1px solid var(--line);position:relative; z-index: 2;}
 .contact-banner .eyebrow{color:var(--gold)}
 .contact-banner h2{font-size:42px}
 
 /* ---------- Подвал ---------- */
-.footer{padding:40px 8.5% 20px;background:#050403;color:var(--ink); border-top:1px solid var(--line);}
+.footer{padding:40px 8.5% 20px;background:#050403;color:var(--ink); border-top:1px solid var(--line);position:relative; z-index: 2;}
 .footer-logo{display:inline-flex}
 .footer-logo .logo-mark{color:var(--gold);border-color:var(--gold)}
 .footer-logo small{color:var(--muted)}
@@ -321,13 +335,9 @@ button:active, .button:active {
 .modal-title { font-family: "Playfair Display", serif; font-size: 26px; color: var(--gold-light); margin: 0 0 5px; }
 .modal-brand { color: var(--gold); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 25px; }
 
-/* Красивые поля ввода в модальных окнах */
-.modal-form label, #cartFormWrapper label {
-  display: block; font-size: 11px; color: var(--gold-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 20px; font-weight: 600;
-}
-.modal-form input, .modal-form select, #cartFormWrapper input {
-  width: 100%; padding: 14px 16px; background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-family: inherit; font-size: 14px; transition: all 0.3s ease; outline: none; box-sizing: border-box;
-}
+/* Красивые поля ввода */
+.modal-form label, #cartFormWrapper label { display: block; font-size: 11px; color: var(--gold-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 20px; font-weight: 600; }
+.modal-form input, .modal-form select, #cartFormWrapper input { width: 100%; padding: 14px 16px; background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-family: inherit; font-size: 14px; transition: all 0.3s ease; outline: none; box-sizing: border-box; }
 .modal-form input:hover, .modal-form select:hover, #cartFormWrapper input:hover { border-color: rgba(201, 169, 110, 0.5); }
 .modal-form input:focus, .modal-form select:focus, #cartFormWrapper input:focus { border-color: var(--gold); background-color: rgba(201, 169, 110, 0.05); box-shadow: 0 0 12px rgba(201, 169, 110, 0.2); }
 .modal-form input::placeholder, #cartFormWrapper input::placeholder { color: #66605a; font-style: italic; }
@@ -353,13 +363,10 @@ button:active, .button:active {
 /* ============================================
    СТИЛИЗАЦИЯ ПОЛЗУНКОВ (СКРОЛЛБАРОВ)
    ============================================ */
-/* Для Chrome, Safari, Edge */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--paper); }
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; border: 2px solid var(--paper); }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
-/* Для Firefox */
 * { scrollbar-width: thin; scrollbar-color: var(--line) var(--paper); }
 
 /* ============================================
@@ -453,135 +460,37 @@ button:active, .button:active {
 /* ============================================
    СТИЛИ ДЛЯ СТРАНИЦЫ "О БРЕНДЕ"
    ============================================ */
+.about-page { overflow: hidden; }
+.about-main { position: relative; z-index: 2; width: 100%; height: calc(100vh - 82px); display: flex; align-items: center; justify-content: center; }
 
-.about-page {
-  overflow: hidden; /* Отключаем прокрутку, всё в одном экране */
-  background-color: var(--paper);
-}
-
-/* --- Фон с облаками --- */
-.bg-clouds {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* Тусклые золотистые облака */
-.cloud {
-  position: absolute;
-  background: radial-gradient(circle, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(40px);
-  animation: floatClouds linear infinite;
-}
-
-.cloud-1 { width: 400px; height: 400px; top: 10%; left: -10%; animation-duration: 40s; }
-.cloud-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; animation-duration: 50s; animation-direction: reverse; }
-.cloud-3 { width: 300px; height: 300px; top: 40%; left: 50%; animation-duration: 35s; }
-.cloud-4 { width: 500px; height: 500px; top: -10%; right: 20%; animation-duration: 60s; }
-
-@keyframes floatClouds {
-  0% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(100px) translateY(-50px); }
-  100% { transform: translateX(0) translateY(0); }
-}
-
-/* --- Луна --- */
-.about-main {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: calc(100vh - 82px); /* Высота экрана минус шапка */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* Луна с двумя анимациями (полет и вращение) */
 .moon-container {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  /* Текстура луны (создана через градиенты) */
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 20%),
-    radial-gradient(circle at 70% 60%, rgba(0,0,0,0.3) 0%, transparent 30%),
-    linear-gradient(135deg, #e6cf9e 0%, #c9a96e 50%, #8b6c3e 100%);
+  position: absolute; width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 20%), radial-gradient(circle at 70% 60%, rgba(0,0,0,0.3) 0%, transparent 30%), linear-gradient(135deg, #e6cf9e 0%, #c9a96e 50%, #8b6c3e 100%);
   box-shadow: 0 0 80px rgba(201, 169, 110, 0.3), inset -20px -20px 40px rgba(0,0,0,0.5);
   z-index: 10;
-  /* Анимации: вращение + полет в угол */
-  animation: 
-    spinMoon 20s linear infinite,
-    flyToCorner 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
+  animation: spinMoon 20s linear infinite, flyToCorner 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
 }
-
-/* Текстура на луне (кратеры) */
 .moon-texture {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  border-radius: 50%;
-  background-image: 
-    radial-gradient(circle at 40% 20%, rgba(0,0,0,0.15) 10%, transparent 15%),
-    radial-gradient(circle at 70% 70%, rgba(0,0,0,0.1) 8%, transparent 12%),
-    radial-gradient(circle at 20% 80%, rgba(0,0,0,0.15) 12%, transparent 18%);
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%;
+  background-image: radial-gradient(circle at 40% 20%, rgba(0,0,0,0.15) 10%, transparent 15%), radial-gradient(circle at 70% 70%, rgba(0,0,0,0.1) 8%, transparent 12%), radial-gradient(circle at 20% 80%, rgba(0,0,0,0.15) 12%, transparent 18%);
   mix-blend-mode: multiply;
 }
-
-/* Анимация вращения */
-@keyframes spinMoon {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Анимация полета в правый верхний угол */
 @keyframes flyToCorner {
-  0% { 
-    transform: translate(0, 0) scale(1); 
-    opacity: 0.8;
-  }
-  100% { 
-    transform: translate(calc(50vw - 120px), calc(-50vh + 100px)) scale(0.6); 
-    opacity: 1;
-  }
+  0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  100% { transform: translate(calc(50vw - 120px), calc(-50vh + 100px)) scale(0.6); opacity: 1; }
 }
 
-/* --- Текст, выезжающий за луной --- */
+/* Текст на странице "О бренде" */
 .about-content {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 700px;
-  opacity: 0;
-  /* Текст появляется после того, как луна улетит */
-  animation: fadeInText 1s ease-out 2s forwards;
-  z-index: 5;
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 700px; opacity: 0; animation: fadeInText 1s ease-out 2s forwards; z-index: 5;
 }
-
-.about-content p {
-  line-height: 1.95;
-  color: var(--muted);
-  max-width: 640px;
-  margin: 0 0 16px;
-  font-size: 15px;
-}
-
-/* Анимация появления текста снизу вверх */
+.about-content p { line-height: 1.95; color: var(--muted); max-width: 640px; margin: 0 0 16px; font-size: 15px; }
 @keyframes fadeInText {
-  0% { 
-    opacity: 0; 
-    transform: translate(-50%, calc(-50% + 40px)); 
-  }
-  100% { 
-    opacity: 1; 
-    transform: translate(-50%, -50%); 
-  }
+  0% { opacity: 0; transform: translate(-50%, calc(-50% + 40px)); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
 }
 
-/* Адаптив для мобильных */
 @media (max-width: 720px) {
   .moon-container { width: 140px; height: 140px; }
   @keyframes flyToCorner {
