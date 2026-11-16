@@ -121,14 +121,13 @@ button:active, .button:active {
 .search input{border:0;outline:0;background:transparent;width:100%;font-size:12px;color:var(--ink)}
 .result-line{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:18px}
 
-/* ---------- КАРТОЧКИ (исправлены отступы) ---------- */
+/* ---------- КАРТОЧКИ (3D-переворот) ---------- */
 .product-grid{display:flex;flex-wrap:wrap;gap:18px}
 .product-card{
   flex:1 1 calc(25% - 14px);min-width:200px;max-width:calc(25% - 14px);
-  background:var(--dark);border:1px solid var(--line);border-radius:12px;
-  transition:transform .2s,border-color .2s,box-shadow .2s;
-  display:flex;flex-direction:column;cursor:pointer;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);position:relative;overflow:hidden;
+  height: 380px; /* Фиксированная высота для 3D */
+  perspective: 1000px; /* Для 3D-эффекта */
+  cursor:pointer;
   opacity: 0; animation: slideUpFade 0.6s ease-out forwards;
 }
 .product-card:nth-child(1) { animation-delay: 0.1s; }
@@ -140,55 +139,107 @@ button:active, .button:active {
 .product-card:nth-child(7) { animation-delay: 0.4s; }
 .product-card:nth-child(8) { animation-delay: 0.45s; }
 
-.product-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 8px 20px rgba(0,0,0,0.4), 0 0 25px rgba(201,169,110,0.3);}
-.product-card:active{transform:translateY(2px) scale(0.98);box-shadow:inset 0 4px 10px rgba(0,0,0,0.5);border-color:var(--gold-light);}
+/* Контейнер для переворота */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* Класс, который переворачивает карточку */
+.product-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Лицевая и обратная стороны */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Лицевая сторона */
+.card-front {
+  background: var(--dark);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.product-card:hover .card-front {
+  border-color: var(--gold);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 25px rgba(201,169,110,0.3);
+}
+
+/* Обратная сторона (Ноты) */
+.card-back {
+  background: var(--dark);
+  border: 1px solid var(--gold);
+  transform: rotateY(180deg);
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1);
+}
+.card-back h4 {
+  font-family: "Playfair Display", serif;
+  color: var(--gold);
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+.card-back p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Кнопка "i" */
+.btn-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(20, 17, 14, 0.8);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+}
+.btn-info:hover {
+  background: var(--gold);
+  color: #000;
+}
 
 .product-visual{height:175px;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse, #2a2218 0%, #1c1714 55%, var(--dark) 78%);overflow:hidden;}
 .product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(201,169,110,.15);border-radius:50%}
 
-/* ---------- РЕАЛИСТИЧНЫЙ МИНИ-ФЛАКОН ---------- */
-.mini-perfume {
-  position: relative;
-  z-index: 1;
-  width: 56px;
-  height: 76px;
-  border-radius: 6px 6px 10px 10px;
-  background: linear-gradient(105deg, rgba(255,255,255,0.1) 0%, #d6b36c 15%, #f5dfaa 35%, #a57a3c 60%, #e1bd79 85%, rgba(0,0,0,0.1) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 0 10px rgba(255,255,255,0.2), inset 0 -10px 15px rgba(0,0,0,0.3), 7px 12px 12px rgba(0,0,0,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
-}
-
-.mini-perfume::before {
-  content: ""; position: absolute; top: 10px; left: 8px; width: 6px; height: 50px; border-radius: 10px;
-  background: rgba(255, 255, 255, 0.4); filter: blur(2px); z-index: 2;
-}
-
-.mini-perfume::after {
-  content: ""; position: absolute; top: -16px; width: 24px; height: 18px; border-radius: 3px 3px 1px 1px;
-  background: linear-gradient(90deg, #3e3024, #a58b5e 30%, #e0c79a 50%, #65513a 70%, #33291e);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 2px 4px rgba(0,0,0,0.4);
-}
-
-.mini-perfume span {
-  position: relative; z-index: 3; font-family: "Playfair Display", serif; color: #f3e3c7; font-size: 18px;
-  border: 1px solid rgba(245,224,189,.4); width: 32px; height: 34px; display: grid; place-items: center;
-  background: rgba(30, 25, 20, 0.85); border-radius: 2px; box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
-}
-
+/* РЕАЛИСТИЧНЫЙ МИНИ-ФЛАКОН */
+.mini-perfume { position: relative; z-index: 1; width: 56px; height: 76px; border-radius: 6px 6px 10px 10px; background: linear-gradient(105deg, rgba(255,255,255,0.1) 0%, #d6b36c 15%, #f5dfaa 35%, #a57a3c 60%, #e1bd79 85%, rgba(0,0,0,0.1) 100%); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 10px rgba(255,255,255,0.2), inset 0 -10px 15px rgba(0,0,0,0.3), 7px 12px 12px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease; }
+.mini-perfume::before { content: ""; position: absolute; top: 10px; left: 8px; width: 6px; height: 50px; border-radius: 10px; background: rgba(255, 255, 255, 0.4); filter: blur(2px); z-index: 2; }
+.mini-perfume::after { content: ""; position: absolute; top: -16px; width: 24px; height: 18px; border-radius: 3px 3px 1px 1px; background: linear-gradient(90deg, #3e3024, #a58b5e 30%, #e0c79a 50%, #65513a 70%, #33291e); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 2px 4px rgba(0,0,0,0.4); }
+.mini-perfume span { position: relative; z-index: 3; font-family: "Playfair Display", serif; color: #f3e3c7; font-size: 18px; border: 1px solid rgba(245,224,189,.4); width: 32px; height: 34px; display: grid; place-items: center; background: rgba(30, 25, 20, 0.85); border-radius: 2px; box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
 .product-card:nth-child(3n+2) .mini-perfume { height: 66px; width: 64px; border-radius: 12px 12px 8px 8px; background: linear-gradient(105deg, #3a322b, #7a6a52 25%, #d6c09a 55%, #5b4b3a); }
 .product-card:nth-child(3n+2) .mini-perfume::after { width: 18px; }
 .product-card:nth-child(3n) .mini-perfume { height: 84px; width: 46px; border-radius: 4px 4px 8px 8px; background: linear-gradient(105deg, #d6b36c, #f5dfaa 30%, #a57a3c 75%, #e1bd79); }
 .product-card:nth-child(3n) .mini-perfume::after { width: 28px; height: 14px; }
 .product-card:nth-child(4n) .mini-perfume { background: linear-gradient(105deg, #c9c3b6, #fffdf3 30%, #9d9284 70%, #e8dec9); border-color: rgba(255,255,255,0.4); }
-
-.product-card:hover .mini-perfume {
-  transform: translateY(-8px) scale(1.05);
-  filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 15px rgba(201, 169, 110, 0.4));
-}
+.product-card:hover .mini-perfume { transform: translateY(-8px) scale(1.05); filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 15px rgba(201, 169, 110, 0.4)); }
 
 .product-category{position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:1px;color:var(--gold)}
 .product-info{padding:17px 15px 15px;display:flex;flex-direction:column;flex:1}
@@ -319,7 +370,7 @@ button:active, .button:active {
   .filters{gap:6px; width: 100%;}
   .filter{padding:9px 11px; flex: 1;}
   .search{width:100%}
-  .product-card{flex:1 1 calc(50% - 5px);max-width:calc(50% - 5px);min-width:0}
+  .product-card{flex:1 1 calc(50% - 5px);max-width:calc(50% - 5px);min-width:0; height: 360px;}
   .product-grid{gap:10px}
   .product-visual{height:145px}
   .product-info{padding:13px 11px}
@@ -344,7 +395,7 @@ button:active, .button:active {
   .hero-notes{gap:12px}
   .hero-notes strong{font-size:16px}
   .hero-notes span{font-size:9px}
-  .product-card{flex:1 1 100%;max-width:100%}
+  .product-card{flex:1 1 100%;max-width:100%; height: 340px;}
   .product-grid{gap:8px}
   .product-name{font-size:14px}
   .product-visual{height:125px}
@@ -369,144 +420,3 @@ button:active, .button:active {
 .hero-copy .hero-actions { animation-delay: 0.4s; }
 .hero-copy .hero-notes { animation-delay: 0.5s; }
 @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
-
-/* ============================================
-   АНИМАЦИЯ ПОЯВЛЕНИЯ ДЛЯ БЛОКА "О НАС"
-   ============================================ */
-
-/* Начальное состояние (скрыто и сдвинуто) */
-.about-art, .about-copy {
-  opacity: 0;
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-/* Сдвигаем картинку (круг) влево */
-.about-art {
-  transform: translateX(-40px);
-}
-
-/* Сдвигаем текст вправо */
-.about-copy {
-  transform: translateX(40px);
-}
-
-/* Класс, который добавляется через JS, когда блок появляется на экране */
-.about.section.visible .about-art,
-.about.section.visible .about-copy {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ============================================
-   3D ПЕРЕВОРОТ КАРТОЧКИ
-   ============================================ */
-
-/* Контейнер для переворота */
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transform-style: preserve-3d;
-}
-
-/* Класс, который переворачивает карточку */
-.product-card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
-
-/* Лицевая и обратная стороны */
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* Лицевая сторона (на месте) */
-.card-front {
-  background: var(--dark);
-  display: flex;
-  flex-direction: column;
-}
-
-/* Обратная сторона (повернута на 180 градусов) */
-.card-back {
-  background: var(--dark);
-  border: 1px solid var(--gold);
-  transform: rotateY(180deg);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1);
-}
-
-.card-back h4 {
-  font-family: "Playfair Display", serif;
-  color: var(--gold);
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.card-back p {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-/* Кнопка "i" на лицевой стороне */
-.btn-info {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(20, 17, 14, 0.8);
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  font-family: "Playfair Display", serif;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.2s;
-}
-
-.btn-info:hover {
-  background: var(--gold);
-  color: #000;
-}
-
-/* Кнопка "Назад" на обратной стороне */
-.btn-back {
-  margin-top: 15px;
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 10px;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.2s;
-}
-
-.btn-back:hover {
-  background: var(--gold);
-  color: #000;
-}
-
-/* Чтобы карточка не прыгала при перевороте, задаем ей фиксированную высоту */
-.product-card {
-  height: 380px; /* Подберите подходящую высоту */
-  perspective: 1000px; /* Для 3D-эффекта */
-}
