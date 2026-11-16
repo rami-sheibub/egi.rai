@@ -396,3 +396,117 @@ button:active, .button:active {
   opacity: 1;
   transform: translateX(0);
 }
+
+/* ============================================
+   3D ПЕРЕВОРОТ КАРТОЧКИ
+   ============================================ */
+
+/* Контейнер для переворота */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* Класс, который переворачивает карточку */
+.product-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Лицевая и обратная стороны */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Лицевая сторона (на месте) */
+.card-front {
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Обратная сторона (повернута на 180 градусов) */
+.card-back {
+  background: var(--dark);
+  border: 1px solid var(--gold);
+  transform: rotateY(180deg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1);
+}
+
+.card-back h4 {
+  font-family: "Playfair Display", serif;
+  color: var(--gold);
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card-back p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Кнопка "i" на лицевой стороне */
+.btn-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(20, 17, 14, 0.8);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: "Playfair Display", serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+}
+
+.btn-info:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+/* Кнопка "Назад" на обратной стороне */
+.btn-back {
+  margin-top: 15px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.btn-back:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+/* Чтобы карточка не прыгала при перевороте, задаем ей фиксированную высоту */
+.product-card {
+  height: 380px; /* Подберите подходящую высоту */
+  perspective: 1000px; /* Для 3D-эффекта */
+}
