@@ -152,7 +152,7 @@ const genderFilter = document.getElementById("genderFilter");
 const brandFilter = document.getElementById("brandFilter");
 const expandWrapper = document.getElementById("expandWrapper");
 const expandBtn = document.getElementById("expandBtn");
-const originalParentOfBtn = expandWrapper ? expandWrapper.parentNode : null; // Запоминаем оригинальное место
+const originalParentOfBtn = expandWrapper ? expandWrapper.parentNode : null;
 
 const toTop = document.getElementById("toTop");
 const scrollIcon = document.getElementById("scrollIcon");
@@ -236,7 +236,7 @@ function renderProducts() {
             <div class="product-name">${escapeHtml(item.name)}</div>
             <div class="product-type">Масляный аромат</div>
             <div class="product-bottom">
-              <div class="from-price">1 мл <b>100 ₽</b></div>
+              <!-- Цена убрана из карточки -->
             </div>
           </div>
         </div>
@@ -252,21 +252,19 @@ function renderProducts() {
     </article>`;
   }).join("");
 
-  // ИСПРАВЛЕННАЯ ЛОГИКА КНОПКИ РАЗВЕРНУТЬ/СВЕРНУТЬ
   if (expandWrapper && expandBtn) {
     if (products.length > currentLimit || isExpanded) {
       expandWrapper.style.display = "block";
       expandBtn.innerHTML = isExpanded ? "Свернуть каталог" : "Развернуть каталог";
       
-      // Если каталог развернут, делаем кнопку липкой
       if (isExpanded) {
         if (document.body !== expandWrapper.parentNode) {
-          document.body.appendChild(expandWrapper); // Переносим в body, чтобы не ломался position: fixed
+          document.body.appendChild(expandWrapper); 
         }
         expandWrapper.classList.add("is-sticky");
       } else {
         if (originalParentOfBtn && expandWrapper.parentNode !== originalParentOfBtn) {
-          originalParentOfBtn.appendChild(expandWrapper); // Возвращаем на место
+          originalParentOfBtn.appendChild(expandWrapper); 
         }
         expandWrapper.classList.remove("is-sticky");
       }
@@ -294,14 +292,12 @@ if (brandFilter) {
   });
 }
 
-// Плавная прокрутка при сворачивании и перенос кнопки
 if (expandBtn) {
   expandBtn.addEventListener("click", () => { 
     isExpanded = !isExpanded; 
     renderProducts(); 
     
     if (!isExpanded) {
-      // Если сворачиваем — убираем "липкость", возвращаем кнопку и скроллим наверх
       if (expandWrapper) {
         expandWrapper.classList.remove("is-sticky");
         if (originalParentOfBtn && expandWrapper.parentNode !== originalParentOfBtn) {
