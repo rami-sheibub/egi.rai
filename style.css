@@ -524,7 +524,7 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
     min-width: 0 !important;
     height: 320px;
   }
-  .product-visual{height:130px}
+  .product-visual{height:150px; display:flex; align-items:center; justify-content:center;}
   .product-info{padding:10px}
   
   /* НАЗВАНИЕ В КАРТОЧКЕ НА ТЕЛЕФОНЕ */
