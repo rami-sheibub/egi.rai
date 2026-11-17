@@ -235,9 +235,6 @@ function renderProducts() {
             <div class="product-brand">${escapeHtml(brand)}</div>
             <div class="product-name">${escapeHtml(item.name)}</div>
             <div class="product-type">Масляный аромат</div>
-            <div class="product-bottom">
-              <!-- Цена убрана из карточки -->
-            </div>
           </div>
         </div>
 
