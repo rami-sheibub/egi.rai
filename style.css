@@ -67,10 +67,9 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .cart-count { background: var(--gold); color: #000; border-radius: 50%; padding: 2px 7px; font-weight: bold; font-size: 10px; }
 .cart-btn:hover .cart-count { background: #000; color: var(--gold); }
 
-/* ---------- ОБЩИЙ СТИЛЬ ДЛЯ ОСТРОВКОВ (СЕКЦИЙ) ---------- */
+/* ---------- ОБЩИЙ СТИЛЬ ДЛЯ СЕКЦИЙ (ЗАМЕНА ТУМАНА НА ГРАДИЕНТ) ---------- */
 .section, .benefits, .contact-banner, .about-art {
-  background: rgba(28, 23, 20, 0.4) !important;
-  backdrop-filter: blur(12px);
+  background: linear-gradient(145deg, rgba(35, 29, 24, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%) !important;
   border: 1px solid rgba(201, 169, 110, 0.15);
   border-radius: 20px;
   margin: 40px auto;
@@ -78,8 +77,8 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.hero { background: transparent !important; border: none; margin: 0; max-width: 100%; backdrop-filter: none; box-shadow: none; }
-.footer { background: #050403 !important; border-radius: 0; margin: 0; max-width: 100%; border: none; border-top: 1px solid var(--line); backdrop-filter: none; }
+.hero { background: transparent !important; border: none; margin: 0; max-width: 100%; box-shadow: none; }
+.footer { background: #050403 !important; border-radius: 0; margin: 0; max-width: 100%; border: none; border-top: 1px solid var(--line); }
 
 /* ---------- Hero ---------- */
 .hero{min-height:590px;display:flex;align-items:stretch;padding:0 8.5% 0 10%;overflow:hidden;}
@@ -104,7 +103,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .hero-notes strong{font-family:"DM Sans", sans-serif; font-size:18px;font-weight: 600;color:var(--gold-light);line-height: 1;}
 .hero-notes span{font-size:10px;color:var(--muted);line-height: 1.2;}
 
-.hero-art{position:relative;width:46%;min-height:570px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 48%, #2a2218 0%, #1c1714 25%, #14110e 57%, transparent 72%);opacity: 0;animation: fadeInArt 1.2s ease-out 0.3s forwards; border: none; backdrop-filter: none;}
+.hero-art{position:relative;width:46%;min-height:570px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 48%, #2a2218 0%, #1c1714 25%, #14110e 57%, transparent 72%);opacity: 0;animation: fadeInArt 1.2s ease-out 0.3s forwards; border: none;}
 .art-orbit{position:absolute;border:1px solid rgba(201,169,110,.15);border-radius:50%;width:380px;height:380px}
 .orbit-two{width:470px;height:470px;border-color:rgba(201,169,110,.08)}
 .art-glow{position:absolute;width:240px;height:290px;background:rgba(201,169,110,.1);filter:blur(45px);border-radius:50%}
@@ -151,7 +150,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .search input{border:0;outline:0;background:transparent;width:100%;font-size:12px;color:var(--ink)}
 .result-line{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:18px}
 
-/* ---------- КАРТОЧКИ ---------- */
+/* ---------- КАРТОЧКИ (ЗАМЕНА ТУМАНА НА ГРАДИЕНТ) ---------- */
 .product-grid{display:flex;flex-wrap:wrap;gap:18px}
 .product-card{
   flex:1 1 calc(25% - 14px);min-width:200px;max-width:calc(25% - 14px);
@@ -176,7 +175,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
   background: radial-gradient(circle at 50% 50%, #2a2218 0%, var(--dark) 80%);
   border: 1px solid var(--line); 
   display: flex; flex-direction: column; 
-  padding: 20px; /* Отступы для контента */
+  padding: 20px;
   transition: border-color 0.3s, box-shadow 0.3s; 
 }
 
@@ -202,7 +201,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 
 /* --- Блок с флаконом --- */
 .product-visual {
-  flex: 1; /* Занимает всё свободное место сверху, выталкивая текст вниз */
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -222,7 +221,6 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .product-card:nth-child(4n) .mini-perfume { background: linear-gradient(105deg, #c9c3b6, #fffdf3 30%, #9d9284 70%, #e8dec9); border-color: rgba(255,255,255,0.4); }
 .product-card:hover .mini-perfume { transform: translateY(-8px) scale(1.05); filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 15px rgba(201, 169, 110, 0.4)); }
 
-/* Категория в левом верхнем углу */
 .product-category {
   position: absolute;
   top: 12px;
@@ -234,7 +232,6 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
   z-index: 10;
 }
 
-/* Блок с текстом */
 .product-info {
   flex: 0 0 auto;
   display: flex;
@@ -260,7 +257,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .empty-state{text-align:center;padding:50px;color:var(--muted);font-size:14px;}
 
 /* ---------- Цитата ---------- */
-.quote-band{background:rgba(5, 4, 3, 0.7) !important; color:var(--ink);padding:66px 20px;text-align:center;position:relative; z-index: 2; border-radius: 20px; max-width: 1300px; margin: 40px auto; border: 1px solid rgba(201, 169, 110, 0.15); backdrop-filter: blur(12px);}
+.quote-band{background:rgba(5, 4, 3, 0.7) !important; color:var(--ink);padding:66px 20px;text-align:center;position:relative; z-index: 2; border-radius: 20px; max-width: 1300px; margin: 40px auto; border: 1px solid rgba(201, 169, 110, 0.15);}
 .quote-mark{font-family:"Playfair Display",serif;font-size:70px;line-height:.8;color:var(--gold)}
 .quote-band p{font-family:"Playfair Display",serif;font-size:clamp(24px,3vw,38px);line-height:1.4;margin:18px 0}
 .quote-band em{color:var(--gold-light)}
@@ -277,7 +274,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 
 /* ---------- О нас (с луной) ---------- */
 .about{display:flex;align-items:center;gap:10%;position: relative; z-index: 2; padding: 60px 6%;}
-.about-art{width:42%;display:flex;justify-content:center;align-items:center;min-height:360px; position: relative; overflow: hidden; border-radius: 50%; border: none; backdrop-filter: none; background: transparent; box-shadow: none;}
+.about-art{width:42%;display:flex;justify-content:center;align-items:center;min-height:360px; position: relative; overflow: hidden; border-radius: 50%; border: none;}
 
 .about-circle{
   width:245px;height:245px;border-radius:50%;position:relative;
@@ -287,7 +284,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
     radial-gradient(circle at 15% 85%, rgba(0,0,0,0.3) 0%, transparent 25%),
     radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
     linear-gradient(135deg, #e6cf9e 0%, #c9a96e 40%, #8b6c3e 100%);
-  box-shadow: 0 0 80px rgba(201, 169, 110, 0.4), inset -25px -25px 50px rgba(0,0,0,0.6), inset 5px 5px 15px rgba(255,255,255,0.3);
+  box-shadow: inset -25px -25px 50px rgba(0,0,0,0.6), inset 5px 5px 15px rgba(255,255,255,0.3);
   z-index: 10;
   animation: spinMoon 25s linear infinite;
 }
@@ -335,7 +332,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .to-top:active { transform: scale(0.9); box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5); }
 
 /* ---------- МОДАЛЬНОЕ ОКНО ---------- */
-.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); z-index: 100; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
 .modal-overlay.active { display: flex; opacity: 1; }
 .modal-content { background: var(--dark); border: 1px solid var(--gold); border-radius: 12px; padding: 40px; width: 90%; max-width: 450px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(20px); transition: transform 0.3s ease; }
 .modal-overlay.active .modal-content { transform: translateY(0); }
@@ -380,7 +377,6 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   z-index: 9999 !important;
   margin: 0 !important;
   background: rgba(20, 17, 14, 0.95) !important;
-  backdrop-filter: blur(10px) !important;
   padding: 12px 24px !important;
   border-radius: 50px !important;
   border: 1px solid var(--gold) !important;
@@ -444,7 +440,7 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
 /* Текст на странице "О бренде" */
 .about-content {
   position: absolute; left: 35%; top: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 700px; opacity: 0; animation: fadeInText 1s ease-out 2s forwards; z-index: 5;
-  background: rgba(28, 23, 20, 0.5); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 1px solid rgba(201, 169, 110, 0.2);
+  background: linear-gradient(145deg, rgba(35, 29, 24, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%); padding: 40px; border-radius: 20px; border: 1px solid rgba(201, 169, 110, 0.2);
 }
 .about-content p { line-height: 1.95; color: var(--muted); max-width: 640px; margin: 0 0 16px; font-size: 15px; }
 @keyframes fadeInText {
@@ -472,7 +468,7 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .header{height:70px; padding: 0 15px;}
   .logo{font-size:16px;}
   .logo-mark{width:30px; height:30px; font-size:20px;}
-  .nav{display:none;position:absolute;top:70px;left:0;right:0;padding:20px 6%;background:rgba(13, 11, 10, 0.95);backdrop-filter: blur(10px);border-bottom:1px solid var(--line);flex-direction:column;gap:20px;}
+  .nav{display:none;position:absolute;top:70px;left:0;right:0;padding:20px 6%;background:rgba(13, 11, 10, 0.95);border-bottom:1px solid var(--line);flex-direction:column;gap:20px;}
   .nav.open{display:flex}
   
   /* УМЕНЬШЕННАЯ КНОПКА TELEGRAM В ШАПКЕ */
@@ -624,7 +620,7 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
     width: 100%; 
     max-width: 100%; 
     padding: 20px; 
-    background: rgba(28, 23, 20, 0.7); 
+    background: linear-gradient(145deg, rgba(35, 29, 24, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%); 
     border-radius: 15px;
     border: 1px solid rgba(201, 169, 110, 0.2);
     margin: 0 auto 20px auto;
