@@ -169,17 +169,17 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 
 .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
 .product-card.flipped .card-inner { transform: rotateY(180deg); }
-.card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
+.card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
 
 /* Лицевая сторона с радиальным градиентом */
 .card-front { 
   background: radial-gradient(circle at 50% 50%, #2a2218 0%, var(--dark) 80%);
   border: 1px solid var(--line); 
   display: flex; flex-direction: column; 
-  justify-content: center;
+  justify-content: center; /* Центрируем весь контент (флакон + текст) */
   align-items: center;
-  transition: border-color 0.3s, box-shadow 0.3s; 
   position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s; 
 }
 
 /* Свечение только при наведении */
@@ -191,7 +191,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .card-back { 
   background: var(--dark); 
   border: 1px solid var(--gold); 
-  transform: rotateY(180deg) translateZ(1px); 
+  transform: rotateY(180deg); 
   padding: 25px 20px; 
   display: flex; flex-direction: column; 
   justify-content: center; align-items: center; 
@@ -203,7 +203,16 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .btn-info { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; background: rgba(20, 17, 14, 0.8); border: 1px solid var(--gold); color: var(--gold); font-family: "Playfair Display", serif; font-size: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all 0.2s; }
 .btn-info:hover { background: var(--gold); color: #000; }
 
-.product-visual{position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 125px;margin:0 0 10px 0;padding:10px 0 0;overflow:visible;}
+/* Блок с флаконом */
+.product-visual{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:130px; /* Фиксированная высота, чтобы не прыгало */
+  margin-bottom: 10px;
+  overflow:visible;
+}
 .product-visual:before{content:"";position:absolute;width:115px;height:115px;border:1px solid rgba(201,169,110,.15);border-radius:50%}
 
 .mini-perfume { position: relative; z-index: 1; width: 56px; height: 76px; border-radius: 6px 6px 10px 10px; background: linear-gradient(105deg, rgba(255,255,255,0.1) 0%, #d6b36c 15%, #f5dfaa 35%, #a57a3c 60%, #e1bd79 85%, rgba(0,0,0,0.1) 100%); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 10px rgba(255,255,255,0.2), inset 0 -10px 15px rgba(0,0,0,0.3), 7px 12px 12px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease; }
@@ -217,16 +226,17 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .product-card:nth-child(4n) .mini-perfume { background: linear-gradient(105deg, #c9c3b6, #fffdf3 30%, #9d9284 70%, #e8dec9); border-color: rgba(255,255,255,0.4); }
 .product-card:hover .mini-perfume { transform: translateY(-8px) scale(1.05); filter: drop-shadow(0px 15px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 15px rgba(201, 169, 110, 0.4)); }
 
-.product-category{position:absolute; top:12px; left:12px; font-size:9px; letter-spacing:1px; color:var(--gold); text-transform:uppercase; z-index:5;}
-.product-info{padding:0 15px 15px;display:flex;flex-direction:column;flex:0 0 auto; justify-content:center; align-items:center; text-align:center;}
-.product-brand{font-size:12px;letter-spacing:1.1px;color:var(--gold);text-transform:uppercase;margin-bottom:7px; font-weight:600;}
+/* САМАЯ ВАЖНАЯ ЧАСТЬ: Категория теперь привязана к .card-front */
+.product-category{position:absolute; top:12px; left:12px; font-size:9px; letter-spacing:1px; color:var(--gold); z-index: 10;}
 
-/* УВЕЛИЧЕННЫЙ ШРИФТ НАЗВАНИЯ */
+/* Текстовая часть */
+.product-info{padding:0 15px 15px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.product-brand{font-size:10px;letter-spacing:1.1px;color:var(--gold);text-transform:uppercase;margin-bottom:7px; font-weight: 600;}
+
 .product-name{
   font-family:"Playfair Display",serif;
   font-size: 20px; 
   line-height:1.25;
-  min-height:0;
   margin:0;
   color:var(--ink);
   font-weight: 500;
@@ -234,10 +244,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 
 .product-type{color:var(--muted);font-size:10px;margin-top:9px}
 .product-bottom{display:none !important;}
-
-/* Скрываем цену внутри карточки, как вы просили */
 .from-price { display: none; } 
-
 .order-small { display: none !important; }
 .empty-state{text-align:center;padding:50px;color:var(--muted);font-size:14px;}
 
@@ -269,7 +276,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
     radial-gradient(circle at 15% 85%, rgba(0,0,0,0.3) 0%, transparent 25%),
     radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
     linear-gradient(135deg, #e6cf9e 0%, #c9a96e 40%, #8b6c3e 100%);
-  box-shadow: inset -25px -25px 50px rgba(0,0,0,0.6), inset 5px 5px 15px rgba(255,255,255,0.3);
+  box-shadow: 0 0 80px rgba(201, 169, 110, 0.4), inset -25px -25px 50px rgba(0,0,0,0.6), inset 5px 5px 15px rgba(255,255,255,0.3);
   z-index: 10;
   animation: spinMoon 25s linear infinite;
 }
@@ -369,21 +376,6 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
 }
 #expandWrapper.is-sticky #expandBtn { border: none !important; background: transparent !important; color: var(--gold) !important; font-size: 14px !important; padding: 0 !important; }
-
-#expandBtn {
-  border: none !important;
-  background: rgba(20, 17, 14, 0.95) !important;
-  color: var(--gold) !important;
-  font-size: 14px !important;
-  padding: 12px 24px !important;
-  border-radius: 50px !important;
-  border: 1px solid var(--gold) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
-}
-#expandBtn:hover {
-  background: var(--gold) !important;
-  color: #0d0b0a !important;
-}
 
 /* ============================================
    СТИЛИЗАЦИЯ ПОЛЗУНКОВ
@@ -542,14 +534,8 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
     min-width: 0 !important;
     height: 320px;
   }
-  .product-visual{
-    flex:0 0 100px;
-    margin: 0 0 8px 0;
-    padding: 14px 0 0;
-  }
-  .product-info{
-    padding: 0 8px 8px;
-  }
+  .product-visual{height:110px;} /* Уменьшаем высоту на мобилке */
+  .product-info{padding:0 8px 8px;}
   
   /* НАЗВАНИЕ В КАРТОЧКЕ НА ТЕЛЕФОНЕ */
   .product-name{
@@ -559,7 +545,7 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   }
   
   .product-category{font-size:8px; top: 8px; left: 8px;}
-  .product-brand { font-size: 10px; }
+  .product-brand { font-size: 9px; }
   .product-type { display: none; }
 
   /* Цены */
