@@ -619,29 +619,18 @@ function createStars() {
   }
 }
 
+// --- ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ ---
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    document.documentElement.classList.toggle("light-theme");
+    const isLight = document.documentElement.classList.contains("light-theme");
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+}
+
 // Запуск
 createStars();
 updateBrandOptions();
 renderProducts();
 updateCartUI();
-
-/*
-СПИСОК АРОМАТОВ, ДЛЯ КОТОРЫХ НУЖНО ДОБАВИТЬ НОТЫ:
-1. Shaikh 70 (Мужские)
-2. Shaikh 77 (Мужские)
-3. Parade of Stars 1001 Nights Sharazad (Женские)
-4. Pheromone Cleopatra (Женские)
-5. Madawi 40 Years Gold Edition (Унисекс)
-6. Shaikh AI Sheyukh (Унисекс)
-7. Tilia Parfums TILIA (Унисекс)
-8. Entrigue Parfums Entrigue Devil's (Унисекс)
-9. Chabrawichi Nefertity (Унисекс)
-10. Anna Sui Lucky Wish / Soblazn (Унисекс)
-11. Mesk (Унисекс)
-12. Quartana ANDROMEDA (Унисекс)
-13. Pheromone Red sea (Унисекс)
-14. Pheromone Hormone (Унисекс)
-15. ZAM ZAM (Унисекс)
-16. GABA Hormone (Унисекс)
-17. Genyum Painter (Унисекс)
-*/
