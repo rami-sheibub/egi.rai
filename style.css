@@ -44,12 +44,25 @@ a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; }
 
 /* ФОН */
-.bg-clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; display: none; }
-html.light-theme .bg-clouds { display: block; } /* Облака ТОЛЬКО в светлой теме */
+.bg-clouds { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  z-index: -1; 
+  pointer-events: none; 
+  overflow: hidden; 
+  display: none; /* По умолчанию (в темной теме) скрыто */
+}
+html.light-theme .bg-clouds { 
+  display: block; /* Показываем ТОЛЬКО в светлой теме */
+}
 
 .cloud { 
   position: absolute; 
-  background: radial-gradient(circle, rgba(212, 160, 23, 0.1) 0%, transparent 70%); 
+  /* Янтарно-золотистый цвет с прозрачностью 25% */
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.25) 0%, transparent 70%); 
   border-radius: 50%; 
   filter: blur(60px); 
   animation: floatClouds linear infinite; 
@@ -58,9 +71,23 @@ html.light-theme .bg-clouds { display: block; } /* Облака ТОЛЬКО в 
 .cloud-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; animation-duration: 50s; animation-direction: reverse; }
 .cloud-3 { width: 300px; height: 300px; top: 40%; left: 50%; animation-duration: 35s; }
 .cloud-4 { width: 500px; height: 500px; top: -10%; right: 20%; animation-duration: 60s; }
-@keyframes floatClouds { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(100px) translateY(-50px); } 100% { transform: translateX(0) translateY(0); } }
 
-.bg-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; overflow: hidden; }
+@keyframes floatClouds { 
+  0% { transform: translateX(0) translateY(0); } 
+  50% { transform: translateX(100px) translateY(-50px); } 
+  100% { transform: translateX(0) translateY(0); } 
+}
+
+.bg-stars { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  z-index: -2; 
+  pointer-events: none; 
+  overflow: hidden; 
+}
 .star { 
   position: absolute; 
   background-color: #fff; 
@@ -73,7 +100,12 @@ html.light-theme .bg-clouds { display: block; } /* Облака ТОЛЬКО в 
   box-shadow: 0 0 8px 2px rgba(201, 169, 110, 0.8); 
 }
 html.light-theme .star { background-color: var(--gold); opacity: 0.3; box-shadow: 0 0 4px 1px rgba(184, 134, 11, 0.4); }
-@keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.2; transform: scale(0.8); } }
+
+@keyframes twinkle { 
+  0% { opacity: 0.2; transform: scale(0.8); } 
+  50% { opacity: 1; transform: scale(1.2); } 
+  100% { opacity: 0.2; transform: scale(0.8); } 
+}
 
 /* КНОПКИ */
 button, .button { border-radius: 8px; transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s; box-shadow: 0 4px 6px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1); border: 1px solid rgba(201, 169, 110, 0.5); cursor: pointer; }
@@ -211,7 +243,7 @@ html.light-theme .hero-btn:active {
 }
 
 /* ============================================
-   БОЛЬШОЙ ФЛАКОН В HERO (УВЕЛИЧЕН)
+   БОЛЬШОЙ ФЛАКОН В HERO
    ============================================ */
 .hero-art { position: relative; width: 52%; min-height: 900px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
 .art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 580px; height: 580px; }
@@ -371,7 +403,7 @@ html.light-theme .hero-btn:active {
 }
 
 /* ============================================
-   МИНИ-ФЛАКОНЫ В КАТАЛОГЕ (БЕЗ АНИМАЦИИ)
+   МИНИ-ФЛАКОНЫ В КАТАЛОГЕ
    ============================================ */
 .product-visual { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: visible; }
 .product-visual:before { content: ""; position: absolute; width: 115px; height: 115px; border: 1px solid rgba(201,169,110,0.15); border-radius: 50%; }
@@ -506,7 +538,7 @@ html.light-theme .hero-btn:active {
 .section-heading h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.13; margin: 0; }
 .section-sub { max-width: 330px; color: var(--muted); font-size: 13px; line-height: 1.8; margin: 0 0 4px; }
 
-/* ПРОМО-АКЦИЯ 3+1 (В ПРАВОМ ВЕРХНЕМ УГЛУ) */
+/* ПРОМО-АКЦИЯ 3+1 */
 .promo-banner {
   position: relative;
   display: flex;
@@ -766,8 +798,6 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
 }
 
 @media(max-width: 720px) {
-  /* Убрали display: none для облаков, они теперь видны в светлой теме везде */
-  
   .announcement { font-size: 9px; letter-spacing: 1px; padding: 8px; }
   .header { height: 70px; padding: 0 15px; }
   .header-actions { gap: 10px; }
