@@ -99,7 +99,7 @@ html.light-theme .cart-count { background: #fff; color: var(--gold); }
 
 /* ОБЩИЕ БЛОКИ */
 .section, .contact-inner { background: var(--island-bg) !important; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 20px; margin: 40px auto; max-width: 1300px; box-shadow: 0 10px 30px var(--shadow); }
-.hero { background: transparent !important; border: none; margin: 0; max-width: 100%; box-shadow: none; min-height: 750px; display: flex; align-items: stretch; padding: 0 8.5% 0 10%; overflow: hidden; }
+.hero { background: transparent !important; border: none; margin: 0; max-width: 100%; box-shadow: none; min-height: 100vh; padding: 0 8.5% 40px 10%; display: flex; align-items: stretch; overflow: hidden; }
 .footer { background: var(--announcement-bg) !important; border-radius: 0; margin: 0; max-width: 100%; border: none; border-top: 1px solid var(--line); }
 
 /* HERO */
@@ -110,15 +110,89 @@ html.light-theme .cart-count { background: #fff; color: var(--gold); }
 .hero h1 { font-size: clamp(48px, 5.2vw, 76px); line-height: 1.04; margin: 0 0 24px; }
 .hero h1 em, h2 em, .quote-band em { font-weight: 700; color: var(--gold); font-style: normal; }
 .hero-text { max-width: 440px; line-height: 1.9; color: var(--muted); font-size: 14px; }
-.hero-btn { margin-top: 30px; align-self: flex-start; }
 
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 26px; padding: 16px 22px; font-size: 11px; letter-spacing: .3px; }
 .button:hover { transform: translateY(-2px); }
 .button-gold { background: var(--gold); color: #0d0b0a; font-weight: 600; }
 html.light-theme .button-gold { color: #fff; }
 .button-gold:hover { background: var(--gold-light); }
+
 .text-link { font-size: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; transition: 0.2s; }
 .text-link:hover { border-color: var(--gold); }
+
+/* Контурная кнопка "О бренде" */
+.text-link-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  padding: 12px 24px;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  border-radius: 8px;
+  background: transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.text-link-outline:hover {
+  background: var(--gold);
+  color: var(--paper);
+  border-color: var(--gold);
+}
+html.light-theme .text-link-outline:hover {
+  color: #fff;
+}
+
+/* Акцентная кнопка "Выбрать аромат" с объёмом */
+.hero-btn {
+  margin-top: 36px;
+  align-self: flex-start;
+  padding: 20px 38px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  border-radius: 10px;
+  box-shadow:
+    0 6px 0 #8c7345,
+    0 10px 24px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.25);
+  transform: translateY(0);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s;
+}
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 #8c7345,
+    0 16px 30px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.hero-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 2px 0 #8c7345,
+    0 4px 10px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+html.light-theme .hero-btn {
+  box-shadow:
+    0 6px 0 #8a6408,
+    0 10px 24px rgba(60,40,10,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+}
+html.light-theme .hero-btn:hover {
+  box-shadow:
+    0 9px 0 #8a6408,
+    0 16px 30px rgba(60,40,10,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+}
+html.light-theme .hero-btn:active {
+  box-shadow:
+    0 2px 0 #8a6408,
+    0 4px 10px rgba(60,40,10,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
 
 .hero-art { position: relative; width: 46%; min-height: 720px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
 .art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 380px; height: 380px; }
@@ -230,7 +304,7 @@ html.light-theme .price-unified .big { color: var(--gold); }
 .vol-row span { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 8px 18px; font-size: 12px; color: var(--gold-light); font-weight: 600; }
 html.light-theme .vol-row span { color: var(--gold); background: var(--dark); }
 
-/* БЛОК КОНТАКТОВ (адреса) */
+/* БЛОК КОНТАКТОВ */
 .contact-section { max-width: 1300px; margin: 40px auto; padding: 0 6%; }
 .contact-inner { display: flex; gap: 60px; padding: 60px 8%; margin: 0 !important; align-items: flex-start; justify-content: space-between; }
 .contact-copy { flex: 1; }
@@ -361,11 +435,11 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .cart-count { font-size: 10px; padding: 2px 6px; }
   .to-top { width: 40px; height: 40px; font-size: 18px; }
 
-  .hero { flex-direction: column; padding: 0 7%; min-height: auto; }
+  .hero { flex-direction: column; padding: 0 7% 30px; min-height: 100vh; }
   .hero-copy { width: 100%; padding: 40px 0 20px; text-align: center; align-items: center; justify-content: center; }
   .hero h1 { font-size: 38px; }
   .hero-text { font-size: 13px; }
-  .hero-btn { align-self: center; }
+  .hero-btn { align-self: center; padding: 18px 32px; }
   .hero-art { width: 100%; min-height: 250px; margin-top: 10px; }
   .art-orbit { width: 160px; height: 160px; }
   .orbit-two { width: 200px; height: 200px; }
@@ -392,9 +466,20 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .product-grid { gap: 10px; }
   .product-card { flex: 0 0 calc(50% - 5px) !important; max-width: calc(50% - 5px) !important; min-width: 0 !important; height: 320px; perspective: 1000px; -webkit-perspective: 1000px; }
   .card-inner { -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
-  .card-front, .card-back { -webkit-backface-visibility: hidden !important; backface-visibility: hidden !important; -webkit-transform: translateZ(0); transform: translateZ(0); }
+  .card-front {
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-transform: rotateY(0deg) translateZ(1px);
+    transform: rotateY(0deg) translateZ(1px);
+    padding: 15px 10px;
+  }
+  .card-back {
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-transform: rotateY(180deg) translateZ(1px);
+    transform: rotateY(180deg) translateZ(1px);
+  }
   .product-card.flipped .card-inner { -webkit-transform: rotateY(180deg); transform: rotateY(180deg); }
-  .card-front { padding: 15px 10px; }
   .product-name { font-size: 15px !important; line-height: 1.2; }
   .product-category { font-size: 8px; top: 8px; left: 8px; }
   .product-brand { font-size: 9px; }
