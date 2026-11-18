@@ -195,7 +195,7 @@ html.light-theme .hero-btn:active {
 }
 
 /* ============================================
-   НОВЫЙ ФЛАКОН С ЖИДКОСТЬЮ И ОБЪЕМОМ
+   НОВЫЙ ФЛАКОН С ЖИДКОСТЬЮ И ОБЪЕМОМ (СИНХРОНИЗАЦИЯ)
    ============================================ */
 .hero-art { position: relative; width: 46%; min-height: 720px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
 .art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 380px; height: 380px; }
@@ -210,10 +210,10 @@ html.light-theme .hero-btn:active {
   flex-direction: column;
   align-items: center;
   transform: rotate(-4deg);
-  /* Плавная левитация и пульсация тени */
+  /* Синхронизированная левитация, тень и покачивание */
   animation: 
-    floatBottle 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite,
-    shadowPulse 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    floatBottle 7s ease-in-out infinite,
+    shadowPulse 7s ease-in-out infinite;
   transition: filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .bottle:hover {
@@ -265,20 +265,10 @@ html.light-theme .hero-btn:active {
   height: 85%;
   background: linear-gradient(180deg, rgba(201, 169, 110, 0.7) 0%, rgba(139, 108, 62, 0.9) 100%);
   z-index: 1;
-  animation: liquidWave 8s cubic-bezier(0.4, 0.1, 0.6, 0.9) infinite alternate;
+  /* Синхронизировано с левитацией: 7s ease-in-out */
+  animation: liquidWave 7s ease-in-out infinite;
 }
-.bottle-liquid::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: -50%;
-  width: 200%;
-  height: 20px;
-  background: rgba(255, 235, 200, 0.35);
-  border-radius: 50%;
-  animation: waveMove 6s cubic-bezier(0.4, 0.1, 0.6, 0.9) infinite;
-  filter: blur(2px);
-}
+/* Убрано странное свечение на поверхности (был ::before) */
 .bottle-liquid::after {
   content: "";
   position: absolute;
@@ -364,16 +354,13 @@ html.light-theme .hero-btn:active {
 }
 
 /* ============================================
-   ПЛАВНЫЕ АНИМАЦИИ (ПЛАВНЫЙ FLOW)
+   ПЛАВНЫЕ АНИМАЦИИ (СИНХРОНИЗИРОВАННЫЕ)
    ============================================ */
+/* Покачивание жидкости (в такт левитации 7s) */
 @keyframes liquidWave {
-  0% { height: 83%; }
-  100% { height: 87%; }
-}
-@keyframes waveMove {
-  0% { transform: translateX(0) rotate(0deg); }
-  50% { transform: translateX(30%) rotate(1.5deg); }
-  100% { transform: translateX(0) rotate(0deg); }
+  0% { height: 84%; transform: skewX(0deg); }
+  50% { height: 87%; transform: skewX(1.5deg); }
+  100% { height: 84%; transform: skewX(0deg); }
 }
 @keyframes shineMove {
   0% { transform: translateX(0) scaleY(1); opacity: 0.7; }
@@ -389,21 +376,6 @@ html.light-theme .hero-btn:active {
   0% { filter: drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.4)); }
   50% { filter: drop-shadow(15px 40px 35px rgba(0, 0, 0, 0.65)); }
   100% { filter: drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.4)); }
-}
-/* Анимации для флакона */
-@keyframes liquidWave {
-  0% { height: 82%; }
-  100% { height: 86%; }
-}
-@keyframes waveMove {
-  0% { transform: translateX(0) rotate(0deg); }
-  50% { transform: translateX(25%) rotate(2deg); }
-  100% { transform: translateX(0) rotate(0deg); }
-}
-@keyframes shadowPulse {
-  0% { filter: drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.5)); }
-  50% { filter: drop-shadow(15px 35px 30px rgba(0, 0, 0, 0.7)); }
-  100% { filter: drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.5)); }
 }
 
 .art-caption { position: absolute; bottom: 38px; left: 9%; right: 9%; display: flex; justify-content: space-between; font-size: 9px; letter-spacing: 1.5px; color: var(--muted); }
