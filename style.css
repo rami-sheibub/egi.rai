@@ -75,21 +75,34 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
   align-items: flex-end;
 }
 
-.cart-btn { 
-  display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--gold); 
-  padding: 10px 15px; border-radius: 50px; font-size: 12px; color: var(--gold); 
-  cursor: pointer; text-decoration: none; transition: all 0.2s ease; background: var(--dark); 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+/* Кнопка корзины — теперь как .button-gold */
+.cart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold);
+  color: #0d0b0a;
+  padding: 14px 22px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(201, 169, 110, 0.5);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: transform 0.1s ease, background 0.2s;
 }
-.cart-btn:hover { background: var(--gold); color: #0d0b0a; }
-.cart-count { background: var(--gold); color: #000; border-radius: 50%; padding: 2px 7px; font-weight: bold; font-size: 10px; }
-.cart-btn:hover .cart-count { background: #000; color: var(--gold); }
+.cart-btn:hover { background: var(--gold-light); }
+.cart-btn:active { transform: translateY(2px) scale(0.98); }
+.cart-count { background: #0d0b0a; color: var(--gold); border-radius: 50%; padding: 2px 8px; font-weight: bold; font-size: 11px; }
+.cart-btn:hover .cart-count { background: #000; color: var(--gold-light); }
 
-.to-top { 
-  width: 45px; height: 45px; border: 1px solid var(--gold); background: var(--dark); color: var(--gold); 
-  cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s, background .2s, transform .2s; 
-  font-size: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
+.to-top {
+  width: 45px; height: 45px; border: 1px solid var(--gold); background: var(--dark); color: var(--gold);
+  cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s, background .2s, transform .2s;
+  font-size: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 .to-top:hover { background: var(--gold); color: #0d0b0a; }
 .to-top.visible { opacity: 1; pointer-events: auto; }
@@ -114,10 +127,15 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .eyebrow{font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:700;margin:0 0 20px}
 .eyebrow span{display:inline-block;width:24px;height:1px;background:var(--gold);vertical-align:middle;margin-right:8px}
 
-/* Заголовки оставляем Playfair для красоты */
-.hero h1,h2{font-family:"Playfair Display",serif;font-weight:500;letter-spacing:-1.6px;color:var(--ink)}
+/* Заголовки — теперь DM Sans */
+.hero h1, h2 {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+}
 .hero h1{font-size:clamp(48px,5.2vw,76px);line-height:1.04;margin:0 0 24px}
-.hero h1 em,h2 em,.quote-band em{font-weight:500;color:var(--gold);font-style:normal}
+.hero h1 em,h2 em,.quote-band em{font-weight:700;color:var(--gold);font-style:normal}
 .hero-text{max-width:440px;line-height:1.9;color:var(--muted);font-size:14px}
 .hero-actions{display:flex;align-items:center;gap:28px;margin-top:25px}
 .button{display:inline-flex;align-items:center;justify-content:center;gap:26px;padding:16px 22px;font-size:11px;letter-spacing:.3px;}
@@ -127,6 +145,12 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .text-link{font-size:12px;border-bottom:1px solid var(--line);padding-bottom:8px; transition:0.2s}
 .text-link:hover{border-color:var(--gold)}
 .text-link span{color:var(--gold);margin-left:8px}
+
+/* Сдвиг hero-копии вверх-влево (Z-паттерн) */
+.hero-copy {
+  padding-top: 50px;
+  justify-content: flex-start;
+}
 
 .hero-art{position:relative;width:46%;min-height:570px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 48%, #2a2218 0%, #1c1714 25%, #14110e 57%, transparent 72%);opacity: 0;animation: fadeInArt 1.2s ease-out 0.3s forwards; border: none;}
 .art-orbit{position:absolute;border:1px solid rgba(201,169,110,.15);border-radius:50%;width:380px;height:380px}
@@ -148,13 +172,13 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .note-a{right:3%;top:26%}
 .note-b{left:2%;bottom:28%;font-size:9px;letter-spacing:2px;transform:rotate(-90deg);color:var(--muted)}
 
-/* ---------- НОВЫЙ БЛОК: ДВА ОСТРОВКА ---------- */
+/* ---------- БЛОК: ДВА ОСТРОВКА ---------- */
 .features-row {
   display: flex;
   max-width: 1300px;
   margin: 40px auto;
   gap: 20px;
-  padding: 0 6%; /* Выравниваем отступы как у секций */
+  padding: 0 6%;
 }
 
 .benefits-island {
@@ -166,7 +190,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 }
 .benefits-list {
   display: flex;
-  flex-direction: row; /* В строчку */
+  flex-direction: row;
   gap: 30px;
   width: 100%;
   justify-content: space-between;
@@ -178,7 +202,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .benefits small { font-size: 11px; color: var(--muted); margin-top: 3px; font-family: "DM Sans", sans-serif; }
 
 .actions-island {
-  flex: 0 0 300px; /* Фиксированная ширина справа */
+  flex: 0 0 300px;
   margin: 0 !important;
   padding: 30px;
   display: flex;
@@ -227,29 +251,28 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .product-card.flipped .card-inner { transform: rotateY(180deg); }
 .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
 
-/* Лицевая сторона */
-.card-front { 
+.card-front {
   background: radial-gradient(circle at 50% 50%, #2a2218 0%, var(--dark) 80%);
-  border: 1px solid var(--line); 
-  display: flex; flex-direction: column; 
+  border: 1px solid var(--line);
+  display: flex; flex-direction: column;
   padding: 20px;
-  transition: border-color 0.3s, box-shadow 0.3s; 
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.product-card:hover .card-front { 
-  border-color: var(--gold); 
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 25px rgba(201,169,110,0.3); 
+.product-card:hover .card-front {
+  border-color: var(--gold);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 25px rgba(201,169,110,0.3);
 }
 
-.card-back { 
-  background: var(--dark); 
-  border: 1px solid var(--gold); 
-  transform: rotateY(180deg); 
-  padding: 25px 20px; 
-  display: flex; flex-direction: column; 
-  justify-content: center; align-items: center; 
-  text-align: center; 
-  box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1); 
+.card-back {
+  background: var(--dark);
+  border: 1px solid var(--gold);
+  transform: rotateY(180deg);
+  padding: 25px 20px;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1);
 }
 .card-back h4 { font-family: "Playfair Display", serif; color: var(--gold); font-size: 18px; margin-bottom: 15px; }
 .card-back p { font-size: 13px; color: var(--muted); line-height: 1.6; }
@@ -301,7 +324,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .product-brand{font-size:10px;letter-spacing:1.1px;color:var(--gold);text-transform:uppercase;margin-bottom:7px}
 .product-name{
   font-family:"Playfair Display",serif;
-  font-size: 20px; 
+  font-size: 20px;
   line-height:1.25;
   margin:0;
   color:var(--ink);
@@ -309,7 +332,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 }
 .product-type{color:var(--muted);font-size:10px;margin-top:9px}
 .product-bottom{display:none !important;}
-.from-price { display: none; } 
+.from-price { display: none; }
 .order-small { display: none !important; }
 .empty-state{text-align:center;padding:50px;color:var(--muted);font-size:14px;}
 
@@ -444,7 +467,6 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
 .about-page { overflow-x: hidden; }
 .about-main { position: relative; z-index: 2; width: 100%; min-height: calc(100vh - 82px); display: flex; align-items: center; justify-content: center; }
 
-/* Луна с двумя анимациями (полет и вращение) */
 .moon-container {
   position: absolute; width: 200px; height: 200px; border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 20%), radial-gradient(circle at 70% 60%, rgba(0,0,0,0.3) 0%, transparent 30%), linear-gradient(135deg, #e6cf9e 0%, #c9a96e 50%, #8b6c3e 100%);
@@ -458,20 +480,24 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   mix-blend-mode: multiply;
 }
 
-/* Траектория полета (в правый верхний угол) */
 @keyframes flyToCorner {
-  0% { 
-    transform: translate(0, 0) scale(1); 
-  }
-  100% { 
-    transform: translate(calc(50vw - 120px), calc(-50vh + 150px)) scale(0.5); 
-  }
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(calc(50vw - 120px), calc(-50vh + 150px)) scale(0.5); }
 }
+@keyframes spinMoon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-/* Текст на странице "О бренде" */
+/* Текст на странице "О бренде" — сдвинут вверх-влево */
 .about-content {
-  position: absolute; left: 35%; top: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 700px; opacity: 0; animation: fadeInText 1s ease-out 2s forwards; z-index: 5;
-  background: linear-gradient(145deg, rgba(35, 29, 24, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%); padding: 40px; border-radius: 20px; border: 1px solid rgba(201, 169, 110, 0.2);
+  position: absolute;
+  left: 32%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  width: 90%; max-width: 700px;
+  opacity: 0;
+  animation: fadeInText 1s ease-out 2s forwards;
+  z-index: 5;
+  background: linear-gradient(145deg, rgba(35, 29, 24, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%);
+  padding: 40px; border-radius: 20px; border: 1px solid rgba(201, 169, 110, 0.2);
 }
 .about-content p { line-height: 1.95; color: var(--muted); max-width: 640px; margin: 0 0 16px; font-size: 15px; }
 @keyframes fadeInText {
@@ -488,22 +514,24 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .hero{padding-left:6%;padding-right:5%}
   .section{padding:40px 4%; margin: 20px 10px;}
   .product-card{flex:1 1 calc(33.333% - 12px);max-width:calc(33.333% - 12px)}
-  
-  /* Островки на планшете */
+
+  /* Островки на планшете/узком: кнопки ВЫШЕ списка */
   .features-row { flex-direction: column; padding: 0 4%; gap: 15px;}
-  .actions-island { flex: auto; }
+  .actions-island { flex: auto; order: -1; }
   .benefits-list { flex-direction: column; gap: 15px;}
 }
 
 @media(max-width:720px){
+  /* Убираем туман на телефоне — остаются только звёзды (свечение) */
+  .bg-clouds { display: none; }
+
   /* Шапка */
   .announcement{font-size:9px;letter-spacing:1px;padding:8px;}
   .header{height:70px; padding: 0 15px;}
   .logo{font-size:16px;}
   .logo-mark{width:30px; height:30px; font-size:20px;}
   .nav{display:none;}
-  
-  /* УМЕНЬШЕННАЯ КНОПКА TELEGRAM В ШАПКЕ */
+
   .header .button-gold {
     padding: 8px 12px !important;
     font-size: 10px !important;
@@ -515,20 +543,19 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
 
   .header-order{display: none;}
   .menu-toggle{display:block; margin-left: 10px;}
-  
-  /* Корзина и стрелка в правом нижнем углу */
+
+  /* Корзина и стрелка */
   .floating-bottom-right { bottom: 15px; right: 15px; gap: 10px; }
-  .cart-btn { padding: 8px 12px; font-size: 11px; }
-  .cart-count { font-size: 9px; padding: 2px 5px; }
+  .cart-btn { padding: 10px 16px; font-size: 12px; gap: 8px; }
+  .cart-count { font-size: 10px; padding: 2px 6px; }
   .to-top { width: 40px; height: 40px; font-size: 18px; }
 
   /* Главный экран */
   .hero{flex-direction:column;padding:0 7%; min-height: auto;}
-  .hero-copy{width:100%;padding:40px 0 20px; text-align: center; align-items: center;}
+  .hero-copy{width:100%;padding:40px 0 20px; text-align: center; align-items: center; justify-content: center;}
   .hero h1{font-size:38px;}
   .hero-text{font-size:13px;}
-  
-  /* УМЕНЬШЕННАЯ КАРТИНКА ФЛАКОНА НА ТЕЛЕФОНЕ */
+
   .hero-art{width:100%;min-height:250px; margin-top: 10px;}
   .art-orbit{width:160px;height:160px}
   .orbit-two{width:200px;height:200px}
@@ -561,23 +588,16 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .filter{padding:12px; font-size: 13px; border-radius: 8px; width: 100%;}
   .search{width:100%; padding: 12px 0;}
 
-  /* КАРТОЧКИ (строго 2 в ряд на телефоне) */
+  /* КАРТОЧКИ (2 в ряд) */
   .product-grid{gap:10px;}
   .product-card{
-    flex: 0 0 calc(50% - 5px) !important; 
-    max-width: calc(50% - 5px) !important; 
+    flex: 0 0 calc(50% - 5px) !important;
+    max-width: calc(50% - 5px) !important;
     min-width: 0 !important;
     height: 320px;
   }
   .card-front { padding: 15px 10px; }
-  
-  /* НАЗВАНИЕ В КАРТОЧКЕ НА ТЕЛЕФОНЕ */
-  .product-name{
-    font-size: 15px !important; 
-    min-height: 0;
-    line-height: 1.2;
-  }
-  
+  .product-name{ font-size: 15px !important; min-height: 0; line-height: 1.2; }
   .product-category{font-size:8px; top: 8px; left: 8px;}
   .product-brand { font-size: 9px; }
   .product-type { display: none; }
@@ -587,7 +607,7 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .price-unified .big { font-size: 28px; }
   .vol-row { gap: 8px; }
   .vol-row span { font-size: 11px; padding: 6px 12px; }
-  
+
   /* Подвал */
   .footer{padding:30px 15px 20px}
   .footer-bottom{flex-wrap:wrap; justify-content: center; text-align: center; gap: 10px;}
@@ -597,43 +617,41 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   /* Модальные окна */
   .modal-content { padding: 25px 20px; width: 95%; max-height: 90vh; overflow-y: auto; }
   .modal-title { font-size: 22px; }
-  
+
   /* Липкая кнопка "Свернуть" */
   #expandWrapper.is-sticky { bottom: 80px !important; width: 90%; }
-  
+
   /* ===== СТРАНИЦА "О БРЕНДЕ" НА ТЕЛЕФОНЕ ===== */
   .about-page { overflow-y: auto; }
-  
-  .about-main { 
-    height: auto; 
-    min-height: calc(100vh - 70px); 
-    flex-direction: column; 
-    justify-content: flex-start; 
-    padding: 40px 15px; 
+
+  .about-main {
+    height: auto;
+    min-height: calc(100vh - 70px);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 40px 15px;
   }
 
-  /* Луна просто крутится сверху, без полета */
-  .moon-container { 
-    position: relative; 
-    width: 140px; 
-    height: 140px; 
-    margin: 0 auto 30px auto; 
-    animation: spinMoon 20s linear infinite; 
+  .moon-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 30px auto;
+    animation: spinMoon 20s linear infinite;
     box-shadow: inset -10px -10px 20px rgba(0,0,0,0.5);
   }
 
-  /* Текст под луной */
   .about-content {
-    position: relative; 
-    left: auto; 
-    top: auto; 
+    position: relative;
+    left: auto;
+    top: auto;
     transform: none;
     opacity: 1;
     animation: none;
-    width: 100%; 
-    max-width: 100%; 
-    padding: 20px; 
-    background: linear-gradient(145deg, rgba(35, 29, 24, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%); 
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+    background: linear-gradient(145deg, rgba(35, 29, 24, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%);
     border-radius: 15px;
     border: 1px solid rgba(201, 169, 110, 0.2);
     margin: 0 auto 20px auto;
@@ -643,16 +661,9 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .about-content p { font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
   .about-content .button-gold { margin-top: 10px; width: 100%; }
   .about-content .text-link { margin-left: 0 !important; margin-top: 15px; display: block; text-align: center; }
-  
-  /* Убираем фиксированный подвал на странице О бренде, чтобы не закрывал текст */
-  .about-page .footer {
-    position: relative;
-    background: transparent;
-  }
-  .about-page .footer-bottom {
-    border-top: none;
-    padding-top: 0;
-  }
+
+  .about-page .footer { position: relative; background: transparent; }
+  .about-page .footer-bottom { border-top: none; padding-top: 0; }
 }
 
 @media(max-width:390px){
@@ -660,5 +671,5 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .product-card{height: 300px;}
   .logo { font-size: 14px; }
   .logo-mark { width: 26px; height: 26px; font-size: 16px; }
-  .cart-btn { font-size: 10px; padding: 6px 8px;}
+  .cart-btn { font-size: 11px; padding: 8px 12px;}
 }
