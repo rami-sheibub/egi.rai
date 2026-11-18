@@ -267,7 +267,7 @@ html.light-theme .hero-btn:active {
 .bottle-shine::after { content: ""; position: absolute; top: 20px; left: 25px; width: 8px; height: 120px; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%); filter: blur(1px); }
 
 /* ============================================
-   МИНИ-ФЛАКОНЫ В КАТАЛОГЕ (БЕЗ АНИМАЦИИ)
+   МИНИ-ФЛАКОНЫ В КАТАЛОГЕ (ИСПРАВЛЕННЫЕ)
    ============================================ */
 .product-visual { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: visible; }
 .product-visual:before { content: ""; position: absolute; width: 115px; height: 115px; border: 1px solid rgba(201,169,110,0.15); border-radius: 50%; }
@@ -284,11 +284,11 @@ html.light-theme .hero-btn:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  /* Убрали overflow: hidden, чтобы не обрезалась крышка */
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
 }
 
-/* Жидкость внутри мини-флакона */
+/* Жидкость внутри мини-флакона (обрезается по контуру) */
 .mini-perfume::before {
   content: "";
   position: absolute;
@@ -298,9 +298,11 @@ html.light-theme .hero-btn:active {
   height: 75%;
   background: linear-gradient(180deg, rgba(201, 169, 110, 0.7) 0%, rgba(139, 108, 62, 0.95) 100%);
   z-index: 1;
+  /* Обрезаем жидкость по контуру флакона, чтобы она не вылезала */
+  clip-path: inset(0 0 0 0 round 6px 6px 10px 10px);
 }
 
-/* Крышка мини-флакона */
+/* Крышка мини-флакона (теперь не обрезается) */
 .mini-perfume::after {
   content: "";
   position: absolute;
@@ -313,7 +315,7 @@ html.light-theme .hero-btn:active {
   z-index: 5;
 }
 
-/* Блик на стекле (статичный) */
+/* Блик на стекле и этикетка */
 .mini-perfume span {
   position: relative;
   z-index: 4;
@@ -329,7 +331,6 @@ html.light-theme .hero-btn:active {
   border-radius: 2px;
   box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
-/* Дополнительный блик на стекле */
 .mini-perfume span::after {
   content: "";
   position: absolute;
@@ -342,11 +343,15 @@ html.light-theme .hero-btn:active {
   filter: blur(1px);
 }
 
-/* Вариации форм для разнообразия (сохранены) */
+/* Вариации форм (с учетом новых clip-path для жидкости) */
 .product-card:nth-child(3n+2) .mini-perfume { height: 66px; width: 64px; border-radius: 12px 12px 8px 8px; }
+.product-card:nth-child(3n+2) .mini-perfume::before { clip-path: inset(0 0 0 0 round 12px 12px 8px 8px); }
 .product-card:nth-child(3n+2) .mini-perfume::after { width: 18px; }
+
 .product-card:nth-child(3n) .mini-perfume { height: 84px; width: 46px; border-radius: 4px 4px 8px 8px; }
+.product-card:nth-child(3n) .mini-perfume::before { clip-path: inset(0 0 0 0 round 4px 4px 8px 8px); }
 .product-card:nth-child(3n) .mini-perfume::after { width: 28px; height: 14px; }
+
 .product-card:nth-child(4n) .mini-perfume { background: rgba(20, 15, 10, 0.4); border-color: rgba(255,255,255,0.4); }
 .product-card:nth-child(4n) .mini-perfume::before { background: linear-gradient(180deg, rgba(220, 220, 210, 0.7) 0%, rgba(160, 160, 150, 0.95) 100%); }
 
