@@ -222,6 +222,7 @@ function renderProducts() {
     const categoryLabel = item.category.toUpperCase();
     const notes = item.notes || "Информация о нотах временно отсутствует.";
 
+    // Упрощенный HTML карточки (без вложенных span, так как флакон - это картинка)
     return `<article class="product-card" data-brand="${escapeHtml(brand)}" data-name="${escapeHtml(item.name || "—")}">
       <div class="card-inner">
         
@@ -229,7 +230,7 @@ function renderProducts() {
           <button class="btn-info" title="Узнать ноты">i</button>
           <div class="product-visual">
             <span class="product-category">${escapeHtml(categoryLabel)}</span>
-            <div class="mini-perfume" aria-hidden="true"><span>E</span></div>
+            <div class="mini-perfume" aria-hidden="true"></div>
           </div>
           <div class="product-info">
             <div class="product-brand">${escapeHtml(brand)}</div>
@@ -635,12 +636,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const promoBanner = document.getElementById("promoBanner");
   if (promoBanner) {
     promoBanner.addEventListener("click", (e) => {
-      // Предотвращаем "проваливание" клика, чтобы не срабатывало что-то ещё
       e.stopPropagation();
       promoBanner.classList.toggle("active");
     });
 
-    // Закрытие тултипа, если кликнули мимо
     document.addEventListener("click", (e) => {
       if (!promoBanner.contains(e.target)) {
         promoBanner.classList.remove("active");
