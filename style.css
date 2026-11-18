@@ -98,10 +98,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .text-link:hover{border-color:var(--gold)}
 .text-link span{color:var(--gold);margin-left:8px}
 
-.hero-notes{display:flex;gap:35px;border-top:1px solid var(--line);margin-top:55px;padding-top:20px;width:90%;align-items: flex-start;}
-.hero-notes div{display:flex;flex-direction:column;gap:6px;}
-.hero-notes strong{font-family:"DM Sans", sans-serif; font-size:18px;font-weight: 600;color:var(--gold-light);line-height: 1;}
-.hero-notes span{font-size:10px;color:var(--muted);line-height: 1.2;}
+/* Убран блок hero-notes */
 
 .hero-art{position:relative;width:46%;min-height:570px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 48%, #2a2218 0%, #1c1714 25%, #14110e 57%, transparent 72%);opacity: 0;animation: fadeInArt 1.2s ease-out 0.3s forwards; border: none;}
 .art-orbit{position:absolute;border:1px solid rgba(201,169,110,.15);border-radius:50%;width:380px;height:380px}
@@ -123,13 +120,59 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .note-a{right:3%;top:26%}
 .note-b{left:2%;bottom:28%;font-size:9px;letter-spacing:2px;transform:rotate(-90deg);color:var(--muted)}
 
-/* ---------- Преимущества ---------- */
-.benefits{padding:30px 7%; display: flex; justify-content: center; gap: 8%; position: relative; z-index: 2;}
-.benefits>div{display:flex;align-items:center;gap:13px}
-.benefit-icon{width:37px;height:37px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:19px;}
-.benefits b,.benefits small{display:block}
-.benefits b{font-size:12px;font-weight:600;color:var(--ink)}
-.benefits small{font-size:11px;color:var(--muted);margin-top:5px}
+/* ---------- Преимущества и Кнопки (НОВЫЙ БЛОК) ---------- */
+.benefits {
+  padding: 30px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%; /* Урезали в половину */
+}
+.benefits-list > div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.benefit-icon {
+  width: 37px;
+  height: 37px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-size: 19px;
+  flex-shrink: 0;
+}
+.benefits b, .benefits small {
+  display: block;
+}
+.benefits b {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.benefits small {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.benefits-actions {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрируем кнопки в правой половине */
+  gap: 20px;
+}
 
 /* ---------- Секции ---------- */
 .section{padding:50px 6%; position: relative; z-index: 2;}
@@ -385,8 +428,6 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
 .hero-copy .eyebrow { animation-delay: 0.1s; }
 .hero-copy h1 { animation-delay: 0.2s; }
 .hero-copy .hero-text { animation-delay: 0.3s; }
-.hero-copy .hero-actions { animation-delay: 0.4s; }
-.hero-copy .hero-notes { animation-delay: 0.5s; }
 @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
 
 /* ============================================
@@ -437,10 +478,11 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .header{padding:0 4%}
   .nav{gap:18px}
   .hero{padding-left:6%;padding-right:5%}
-  .hero-notes{gap:20px}
   .section{padding:40px 4%; margin: 20px 10px;}
   .product-card{flex:1 1 calc(33.333% - 12px);max-width:calc(33.333% - 12px)}
-  .benefits{gap:4%}
+  .benefits{flex-direction:column; gap:30px;}
+  .benefits-list, .benefits-actions {width: 100%;}
+  .benefits-actions {align-items: flex-start;}
 }
 
 @media(max-width:720px){
@@ -449,8 +491,7 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .header{height:70px; padding: 0 15px;}
   .logo{font-size:16px;}
   .logo-mark{width:30px; height:30px; font-size:20px;}
-  .nav{display:none;position:absolute;top:70px;left:0;right:0;padding:20px 6%;background:rgba(13, 11, 10, 0.95);border-bottom:1px solid var(--line);flex-direction:column;gap:20px;}
-  .nav.open{display:flex}
+  .nav{display:none;}
   
   /* УМЕНЬШЕННАЯ КНОПКА TELEGRAM В ШАПКЕ */
   .header .button-gold {
@@ -474,13 +515,6 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .hero-copy{width:100%;padding:40px 0 20px; text-align: center; align-items: center;}
   .hero h1{font-size:38px;}
   .hero-text{font-size:13px;}
-  .hero-actions { justify-content: center; flex-wrap: wrap; gap: 15px; }
-  
-  /* Исправленный блок с цифрами на мобилке */
-  .hero-notes{margin-top:25px;width:100%;gap:15px; justify-content: center; border-top: none; padding-top: 0; align-items: center;}
-  .hero-notes div { align-items: center; }
-  .hero-notes strong{font-size:16px;}
-  .hero-notes span{font-size:9px; text-align: center;}
   
   /* УМЕНЬШЕННАЯ КАРТИНКА ФЛАКОНА НА ТЕЛЕФОНЕ */
   .hero-art{width:100%;min-height:250px; margin-top: 10px;}
@@ -497,7 +531,7 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .note-b { display: none; }
 
   /* Преимущества */
-  .benefits{padding:20px;display:grid;grid-template-columns:1fr;gap:15px; margin: 15px 10px;}
+  .benefits{padding:20px; margin: 15px 10px; gap: 20px;}
   .benefit-icon { width: 30px; height: 30px; font-size: 15px; }
   .benefits b { font-size: 13px; }
   .benefits small { font-size: 11px; }
