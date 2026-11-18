@@ -698,17 +698,19 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .art-orbit { width: 160px; height: 160px; }
   .orbit-two { width: 200px; height: 200px; }
   
-  /* Большой флакон на телефоне */
-  .bottle-body { width: 120px; height: 160px; border-radius: 12px 12px 20px 20px; }
-  .bottle-label { top: 45px; height: 60px; left: 10px; right: 10px; }
-  .bottle-label span { font-size: 15px; letter-spacing: 2px; }
-  .bottle-label i { font-size: 7px; letter-spacing: 2px; }
-  .bottle-label small { font-size: 5px; }
-  .bottle-cap { width: 48px; height: 42px; border-radius: 4px; }
-  .bottle-neck { width: 36px; height: 16px; }
-  .bottle-shine { height: 120px; width: 8px; left: 10px; }
-  .bottle-shine::after { height: 80px; left: 15px; width: 5px; }
-  
+   /* Большой флакон на телефоне (увеличен) */
+  .bottle-body { width: 200px; height: 265px; border-radius: 20px 20px 32px 32px; }
+  .bottle-label { top: 80px; height: 100px; left: 18px; right: 18px; gap: 6px; }
+  .bottle-label span { font-size: 24px; letter-spacing: 4px; }
+  .bottle-label i { font-size: 10px; letter-spacing: 4px; }
+  .bottle-label small { font-size: 7px; }
+  .bottle-cap { width: 76px; height: 64px; border-radius: 8px; }
+  .bottle-neck { width: 54px; height: 26px; }
+  .bottle-shine { height: 200px; width: 14px; left: 15px; top: 10px; }
+  .bottle-shine::after { height: 130px; left: 24px; width: 9px; top: 20px; }
+  .hero-art { min-height: 480px; }
+  .art-orbit { width: 280px; height: 280px; }
+  .orbit-two { width: 360px; height: 360px; }
   .note-a { right: 0; font-size: 9px; }
   .note-b { display: none; }
 
