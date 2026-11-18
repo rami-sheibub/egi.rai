@@ -195,14 +195,13 @@ html.light-theme .hero-btn:active {
 }
 
 /* ============================================
-   НОВЫЙ ФЛАКОН С ЖИДКОСТЬЮ И ОБЪЕМОМ (СИНХРОНИЗАЦИЯ)
+   ФЛАКОН С МНОГОСЛОЙНЫМИ ВОЛНАМИ
    ============================================ */
 .hero-art { position: relative; width: 46%; min-height: 720px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
 .art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 380px; height: 380px; }
 .orbit-two { width: 470px; height: 470px; border-color: rgba(201, 169, 110, 0.08); }
 .art-glow { position: absolute; width: 240px; height: 290px; background: rgba(201, 169, 110, 0.1); filter: blur(45px); border-radius: 50%; }
 
-/* --- Сам флакон (Левитация) --- */
 .bottle {
   position: relative;
   z-index: 2;
@@ -210,7 +209,6 @@ html.light-theme .hero-btn:active {
   flex-direction: column;
   align-items: center;
   transform: rotate(-4deg);
-  /* Синхронизированная левитация, тень и покачивание */
   animation: 
     floatBottle 7s ease-in-out infinite,
     shadowPulse 7s ease-in-out infinite;
@@ -222,145 +220,71 @@ html.light-theme .hero-btn:active {
   transform: translateY(-15px) rotate(2deg) scale(1.02);
 }
 
-/* Крышка (металлик) */
-.bottle-cap {
-  width: 64px;
-  height: 55px;
-  background: linear-gradient(90deg, #1a1511 0%, #4a3b2a 25%, #d4b47c 50%, #4a3b2a 75%, #1a1511 100%);
-  border-radius: 6px 6px 2px 2px;
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 5px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.4);
-  position: relative;
-  z-index: 5;
-}
+.bottle-cap { width: 64px; height: 55px; background: linear-gradient(90deg, #1a1511 0%, #4a3b2a 25%, #d4b47c 50%, #4a3b2a 75%, #1a1511 100%); border-radius: 6px 6px 2px 2px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 5px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.4); position: relative; z-index: 5; }
+.bottle-neck { width: 46px; height: 22px; background: linear-gradient(90deg, #30241a, #80694a, #e6cf9e, #80694a, #30241a); border: 1px solid rgba(0,0,0,0.5); border-bottom: none; z-index: 4; }
+.bottle-body { width: 195px; height: 260px; position: relative; border-radius: 20px 20px 30px 30px; background: rgba(20, 15, 10, 0.4); border: 1px solid rgba(230, 207, 158, 0.3); overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 10px 20px 30px rgba(0,0,0,0.4); z-index: 3; }
 
-/* Горлышко */
-.bottle-neck {
-  width: 46px;
-  height: 22px;
-  background: linear-gradient(90deg, #30241a, #80694a, #e6cf9e, #80694a, #30241a);
-  border: 1px solid rgba(0,0,0,0.5);
-  border-bottom: none;
-  z-index: 4;
-}
-
-/* Корпус */
-.bottle-body {
-  width: 195px;
-  height: 260px;
-  position: relative;
-  border-radius: 20px 20px 30px 30px;
-  background: rgba(20, 15, 10, 0.4);
-  border: 1px solid rgba(230, 207, 158, 0.3);
-  overflow: hidden;
-  box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 10px 20px 30px rgba(0,0,0,0.4);
-  z-index: 3;
-}
-
-/* 1. Слой жидкости (ЗАДНИЙ ПЛАН) */
+/* ЖИДКОСТЬ С ВОЛНАМИ */
 .bottle-liquid {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 85%;
-  background: linear-gradient(180deg, rgba(201, 169, 110, 0.7) 0%, rgba(139, 108, 62, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(201, 169, 110, 0.6) 0%, rgba(139, 108, 62, 0.95) 100%);
   z-index: 1;
-  /* Синхронизировано с левитацией: 7s ease-in-out */
-  animation: liquidWave 7s ease-in-out infinite;
+  /* Плавное покачивание уровня */
+  animation: liquidLevel 7s ease-in-out infinite;
 }
-/* Убрано странное свечение на поверхности (был ::before) */
+
+/* Волна 1 (Задняя, широкая) */
+.bottle-liquid::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -50%;
+  width: 200%;
+  height: 25px;
+  background: rgba(230, 207, 158, 0.3);
+  border-radius: 50%;
+  animation: waveFlow 8s linear infinite;
+}
+
+/* Волна 2 (Передняя, узкая и светлая) */
 .bottle-liquid::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 30% 80%, rgba(255,255,255,0.2) 0%, transparent 60%);
+  top: -8px;
+  left: -50%;
+  width: 200%;
+  height: 15px;
+  background: rgba(255, 245, 220, 0.45);
+  border-radius: 50%;
+  animation: waveFlow 6s linear infinite reverse;
 }
 
-/* 2. Задняя стеклянная стенка */
-.bottle-glass-back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px 20px 30px 30px;
-  box-shadow: inset 5px 5px 15px rgba(255,255,255,0.1), inset -5px -5px 15px rgba(0,0,0,0.8);
-  z-index: 2;
-}
-
-/* 3. Этикетка */
-.bottle-label {
-  position: absolute;
-  left: 15px;
-  right: 15px;
-  top: 80px;
-  height: 100px;
-  border: 1px solid rgba(246,225,185,0.6);
-  background: rgba(15, 12, 10, 0.85);
-  backdrop-filter: blur(2px);
-  color: #e4c89c;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  z-index: 3;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
+/* Блики и объем стекла */
+.bottle-glass-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px 20px 30px 30px; box-shadow: inset 5px 5px 15px rgba(255,255,255,0.1), inset -5px -5px 15px rgba(0,0,0,0.8); z-index: 2; }
+.bottle-label { position: absolute; left: 15px; right: 15px; top: 80px; height: 100px; border: 1px solid rgba(246,225,185,0.6); background: rgba(15, 12, 10, 0.85); backdrop-filter: blur(2px); color: #e4c89c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; z-index: 3; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 .bottle-label span { font-family: "Playfair Display", serif; font-size: 22px; letter-spacing: 3px; }
 .bottle-label i { font-size: 9px; letter-spacing: 4px; font-style: normal; color: var(--gold); }
 .bottle-label small { font-size: 7px; letter-spacing: 1.5px; opacity: 0.7; }
-
-/* 4. Переднее стекло и блики (ПЕРЕДНИЙ ПЛАН) */
-.bottle-glass-front {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px 20px 30px 30px;
-  z-index: 4;
-  pointer-events: none;
-  overflow: hidden;
-  box-shadow: inset -10px -10px 30px rgba(0,0,0,0.5), inset 10px 10px 30px rgba(255,255,255,0.05);
-}
-
-/* Блики на стекле (медленное покачивание) */
-.bottle-shine {
-  position: absolute;
-  top: 10px;
-  left: 15px;
-  width: 12px;
-  height: 200px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
-  filter: blur(2px);
-  opacity: 0.8;
-  animation: shineMove 10s ease-in-out infinite;
-}
-.bottle-shine::after {
-  content: "";
-  position: absolute;
-  top: 20px;
-  left: 25px;
-  width: 8px;
-  height: 120px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
-  filter: blur(1px);
-}
+.bottle-glass-front { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px 20px 30px 30px; z-index: 4; pointer-events: none; overflow: hidden; box-shadow: inset -10px -10px 30px rgba(0,0,0,0.5), inset 10px 10px 30px rgba(255,255,255,0.05); }
+.bottle-shine { position: absolute; top: 10px; left: 15px; width: 12px; height: 200px; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 50%, transparent 100%); filter: blur(2px); opacity: 0.8; animation: shineMove 10s ease-in-out infinite; }
+.bottle-shine::after { content: ""; position: absolute; top: 20px; left: 25px; width: 8px; height: 120px; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%); filter: blur(1px); }
 
 /* ============================================
-   ПЛАВНЫЕ АНИМАЦИИ (СИНХРОНИЗИРОВАННЫЕ)
+   ПЛАВНЫЕ АНИМАЦИИ (ВОЛНЫ И ЛЕВИТАЦИЯ)
    ============================================ */
-/* Покачивание жидкости (в такт левитации 7s) */
-@keyframes liquidWave {
-  0% { height: 84%; transform: skewX(0deg); }
-  50% { height: 87%; transform: skewX(1.5deg); }
-  100% { height: 84%; transform: skewX(0deg); }
+@keyframes liquidLevel {
+  0% { height: 83%; }
+  50% { height: 86%; }
+  100% { height: 83%; }
+}
+@keyframes waveFlow {
+  0% { transform: translateX(0) scaleY(1); }
+  50% { transform: translateX(20%) scaleY(1.1); }
+  100% { transform: translateX(0) scaleY(1); }
 }
 @keyframes shineMove {
   0% { transform: translateX(0) scaleY(1); opacity: 0.7; }
