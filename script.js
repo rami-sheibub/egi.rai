@@ -628,7 +628,26 @@ if (themeToggle) {
     localStorage.setItem("theme", isLight ? "light" : "dark");
   });
 }
+// ==========================================
+// ПРОМО-АКЦИЯ 3+1 (Тап на телефоне)
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+  const promoBanner = document.getElementById("promoBanner");
+  if (promoBanner) {
+    promoBanner.addEventListener("click", (e) => {
+      // Предотвращаем "проваливание" клика, чтобы не срабатывало что-то ещё
+      e.stopPropagation();
+      promoBanner.classList.toggle("active");
+    });
 
+    // Закрытие тултипа, если кликнули мимо
+    document.addEventListener("click", (e) => {
+      if (!promoBanner.contains(e.target)) {
+        promoBanner.classList.remove("active");
+      }
+    });
+  }
+});
 // Запуск
 createStars();
 updateBrandOptions();
