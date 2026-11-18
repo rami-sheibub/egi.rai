@@ -27,14 +27,9 @@
       <span>EGI<span class="gold">.</span>RAI<small>ART OF SCENT</small></span>
     </a>
     <nav class="nav" id="nav">
-      <!-- Ссылки убраны по просьбе -->
+      <!-- Ссылки убраны -->
     </nav>
     
-    <a href="#" id="cartBtn" class="cart-btn">
-      <span class="cart-icon">Корзина</span>
-      <span id="cartCount" class="cart-count">0</span>
-    </a>
-
     <a class="button button-gold" href="https://t.me/Faputa_void" target="_blank" rel="noopener" style="padding: 10px 20px; font-size: 11px; letter-spacing: 0.5px; border-radius: 8px; display: inline-flex;">Написать в Telegram</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">☰</button>
   </header>
@@ -64,18 +59,21 @@
       </div>
     </section>
 
-    <!-- Переделанный блок преимуществ и кнопок -->
-    <section class="benefits">
-      <div class="benefits-list">
-        <div><span class="benefit-icon">✧</span><div><b>140+ ароматов</b><small>Мужские · Женские · Унисекс</small></div></div>
-        <div><span class="benefit-icon">◈</span><div><b>Форматы от 5 до 100 мл</b><small>Масляные духи</small></div></div>
-        <div><span class="benefit-icon">♡</span><div><b>Заказ в Telegram</b><small>Быстро и удобно</small></div></div>
-      </div>
-      <div class="benefits-actions">
+    <!-- НОВЫЙ БЛОК С ДВУМЯ ОСТРОВКАМИ -->
+    <div class="features-row">
+      <section class="benefits-island">
+        <div class="benefits-list">
+          <div><span class="benefit-icon">✧</span><div><b>140+ ароматов</b><small>Мужские · Женские · Унисекс</small></div></div>
+          <div><span class="benefit-icon">◈</span><div><b>Форматы от 5 до 100 мл</b><small>Масляные духи</small></div></div>
+          <div><span class="benefit-icon">♡</span><div><b>Заказ в Telegram</b><small>Быстро и удобно</small></div></div>
+        </div>
+      </section>
+
+      <section class="actions-island">
         <a class="button button-gold" href="#catalog">Выбрать аромат</a>
         <a class="text-link" href="about.html">О бренде</a>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <section class="catalog section" id="catalog">
       <div class="section-heading">
@@ -177,9 +175,16 @@
     </div>
   </footer>
 
-  <button id="toTop" class="to-top" aria-label="Скролл">
-    <span id="scrollIcon">&darr;</span>
-  </button>
+  <!-- КНОПКИ В ПРАВОМ НИЖНЕМ УГЛУ -->
+  <div class="floating-bottom-right">
+    <a href="#" id="cartBtn" class="cart-btn">
+      <span class="cart-icon">Корзина</span>
+      <span id="cartCount" class="cart-count">0</span>
+    </a>
+    <button id="toTop" class="to-top" aria-label="Скролл">
+      <span id="scrollIcon">&darr;</span>
+    </button>
+  </div>
 
   <div id="orderModal" class="modal-overlay">
     <div class="modal-content">
