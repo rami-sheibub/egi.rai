@@ -94,12 +94,12 @@ html.light-theme .cart-btn { color: #fff; }
 html.light-theme .cart-count { background: #fff; color: var(--gold); }
 .cart-btn:hover .cart-count { background: #000; color: var(--gold-light); }
 
-/* Исправленная стрелка наверх */
+/* Исправленная стрелка наверх (без черного квадрата) */
 .to-top { 
   width: 45px; 
   height: 45px; 
   border: 1px solid var(--gold); 
-  background: var(--dark); /* Теперь фон плотный */
+  background: var(--dark); /* Плотный фон */
   color: var(--gold); 
   cursor: pointer; 
   opacity: 0; 
@@ -110,7 +110,7 @@ html.light-theme .cart-count { background: #fff; color: var(--gold); }
   align-items: center; 
   justify-content: center; 
   border-radius: 50%; 
-  box-shadow: 0 4px 10px var(--shadow); 
+  box-shadow: none; /* Убрали тень, которая создавала чёрное пятно */
 }
 html.light-theme .to-top { background: #fff; }
 .to-top:hover { background: var(--gold); color: var(--paper); }
