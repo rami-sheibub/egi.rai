@@ -67,8 +67,8 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .cart-count { background: var(--gold); color: #000; border-radius: 50%; padding: 2px 7px; font-weight: bold; font-size: 10px; }
 .cart-btn:hover .cart-count { background: #000; color: var(--gold); }
 
-/* ---------- ОБЩИЙ СТИЛЬ ДЛЯ СЕКЦИЙ (ЗАМЕНА ТУМАНА НА ГРАДИЕНТ) ---------- */
-.section, .benefits, .contact-banner, .about-art {
+/* ---------- ОБЩИЙ СТИЛЬ ДЛЯ СЕКЦИЙ (ГРАДИЕНТ) ---------- */
+.section, .benefits {
   background: linear-gradient(145deg, rgba(35, 29, 24, 0.9) 0%, rgba(15, 12, 10, 0.95) 100%) !important;
   border: 1px solid rgba(201, 169, 110, 0.15);
   border-radius: 20px;
@@ -134,7 +134,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 /* ---------- Секции ---------- */
 .section{padding:50px 6%; position: relative; z-index: 2;}
 .section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:40px}
-.section-heading h2,.about h2,.contact-banner h2{font-size:clamp(36px,4vw,52px);line-height:1.13;margin:0}
+.section-heading h2{font-size:clamp(36px,4vw,52px);line-height:1.13;margin:0}
 .section-sub{max-width:330px;color:var(--muted);font-size:13px;line-height:1.8;margin:0 0 4px}
 
 /* ---------- Каталог ---------- */
@@ -150,7 +150,7 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .search input{border:0;outline:0;background:transparent;width:100%;font-size:12px;color:var(--ink)}
 .result-line{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-bottom:18px}
 
-/* ---------- КАРТОЧКИ (ЗАМЕНА ТУМАНА НА ГРАДИЕНТ) ---------- */
+/* ---------- КАРТОЧКИ ---------- */
 .product-grid{display:flex;flex-wrap:wrap;gap:18px}
 .product-card{
   flex:1 1 calc(25% - 14px);min-width:200px;max-width:calc(25% - 14px);
@@ -272,47 +272,6 @@ button:active, .button:active { transform: translateY(2px) scale(0.98); box-shad
 .vol-row{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:30px}
 .vol-row span{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:8px 18px;font-size:12px;color:var(--gold-light); font-weight:600;}
 
-/* ---------- О нас (с луной) ---------- */
-.about{display:flex;align-items:center;gap:10%;position: relative; z-index: 2; padding: 60px 6%;}
-.about-art{width:42%;display:flex;justify-content:center;align-items:center;min-height:360px; position: relative; overflow: hidden; border-radius: 50%; border: none;}
-
-.about-circle{
-  width:245px;height:245px;border-radius:50%;position:relative;
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25) 0%, transparent 25%),
-    radial-gradient(circle at 75% 65%, rgba(0,0,0,0.4) 0%, transparent 35%),
-    radial-gradient(circle at 15% 85%, rgba(0,0,0,0.3) 0%, transparent 25%),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-    linear-gradient(135deg, #e6cf9e 0%, #c9a96e 40%, #8b6c3e 100%);
-  box-shadow: inset -25px -25px 50px rgba(0,0,0,0.6), inset 5px 5px 15px rgba(255,255,255,0.3);
-  z-index: 10;
-  animation: spinMoon 25s linear infinite;
-}
-.about-circle::after {
-  content: "";
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.2) 5%, transparent 6%),
-    radial-gradient(circle at 60% 80%, rgba(0,0,0,0.15) 8%, transparent 9%),
-    radial-gradient(circle at 80% 20%, rgba(0,0,0,0.1) 4%, transparent 5%),
-    radial-gradient(circle at 40% 60%, rgba(0,0,0,0.2) 7%, transparent 8%);
-  mix-blend-mode: multiply;
-}
-@keyframes spinMoon {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.about-copy{flex:1}
-.about-copy h2{margin-bottom:23px}
-.about-copy>p:not(.eyebrow){font-size:13px;line-height:1.95;color:var(--muted);max-width:440px}
-.about-copy .text-link{display:inline-block;margin-top:15px}
-
-/* ---------- Контакты ---------- */
-.contact-banner{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:55px 6%; position:relative; z-index: 2;}
-.contact-banner .eyebrow{color:var(--gold)}
-.contact-banner h2{font-size:42px}
-
 /* ---------- Подвал ---------- */
 .footer{padding:40px 8.5% 20px;background:#050403;color:var(--ink); border-top:1px solid var(--line);position:relative; z-index: 2;}
 .footer-logo{display:inline-flex}
@@ -368,7 +327,28 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
 @keyframes cartPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
 .cart-btn.bump { animation: cartPulse 0.4s ease; }
 
-/* ---------- ЛИПКАЯ КНОПКА ---------- */
+/* ---------- КНОПКА РАЗВЕРНУТЬ/СВЕРНУТЬ (ОКРУГЛАЯ) ---------- */
+#expandWrapper {
+  text-align: center;
+  margin-top: 40px;
+  display: none;
+}
+#expandBtn {
+  background: rgba(20, 17, 14, 0.95) !important;
+  color: var(--gold) !important;
+  border: 1px solid var(--gold) !important;
+  border-radius: 50px !important;
+  padding: 12px 32px !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+#expandBtn:hover {
+  background: var(--gold) !important;
+  color: #0d0b0a !important;
+}
+
+/* Состояние "прилипания" */
 #expandWrapper.is-sticky {
   position: fixed !important;
   bottom: 30px !important;
@@ -376,13 +356,15 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   transform: translateX(-50%) !important;
   z-index: 9999 !important;
   margin: 0 !important;
-  background: rgba(20, 17, 14, 0.95) !important;
-  padding: 12px 24px !important;
-  border-radius: 50px !important;
-  border: 1px solid var(--gold) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
 }
-#expandWrapper.is-sticky #expandBtn { border: none !important; background: transparent !important; color: var(--gold) !important; font-size: 14px !important; padding: 0 !important; }
+#expandWrapper.is-sticky #expandBtn {
+  border: 1px solid var(--gold) !important;
+  background: rgba(20, 17, 14, 0.95) !important;
+  color: var(--gold) !important;
+  font-size: 14px !important;
+  padding: 12px 32px !important;
+  border-radius: 50px !important;
+}
 
 /* ============================================
    СТИЛИЗАЦИЯ ПОЛЗУНКОВ
@@ -459,7 +441,6 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .section{padding:40px 4%; margin: 20px 10px;}
   .product-card{flex:1 1 calc(33.333% - 12px);max-width:calc(33.333% - 12px)}
   .benefits{gap:4%}
-  .about{gap:5%}
 }
 
 @media(max-width:720px){
@@ -559,18 +540,6 @@ select option:checked, select option:hover { background-color: var(--gold) !impo
   .price-unified .big { font-size: 28px; }
   .vol-row { gap: 8px; }
   .vol-row span { font-size: 11px; padding: 6px 12px; }
-
-  /* О нас */
-  .about{flex-direction:column;gap:20px; padding: 30px 15px;}
-  .about-art{width:100%;min-height:200px; margin-bottom: 10px;}
-  .about-circle { width: 180px; height: 180px; }
-  .about-copy{width:100%}
-  .about-copy h2 { font-size: 28px; }
-  .about-copy>p:not(.eyebrow){font-size: 12px;}
-
-  /* Контакты */
-  .contact-banner{padding:30px 15px; align-items:center; flex-direction:column; text-align: center; gap: 15px; margin: 15px 10px;}
-  .contact-banner h2{font-size:28px}
   
   /* Подвал */
   .footer{padding:30px 15px 20px}
