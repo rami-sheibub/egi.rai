@@ -195,7 +195,7 @@ html.light-theme .hero-btn:active {
 }
 
 /* ============================================
-   ФЛАКОН С МНОГОСЛОЙНЫМИ ВОЛНАМИ
+   БОЛЬШОЙ ФЛАКОН В HERO (С АНИМАЦИЕЙ)
    ============================================ */
 .hero-art { position: relative; width: 46%; min-height: 720px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
 .art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 380px; height: 380px; }
@@ -224,7 +224,6 @@ html.light-theme .hero-btn:active {
 .bottle-neck { width: 46px; height: 22px; background: linear-gradient(90deg, #30241a, #80694a, #e6cf9e, #80694a, #30241a); border: 1px solid rgba(0,0,0,0.5); border-bottom: none; z-index: 4; }
 .bottle-body { width: 195px; height: 260px; position: relative; border-radius: 20px 20px 30px 30px; background: rgba(20, 15, 10, 0.4); border: 1px solid rgba(230, 207, 158, 0.3); overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 10px 20px 30px rgba(0,0,0,0.4); z-index: 3; }
 
-/* ЖИДКОСТЬ С ВОЛНАМИ */
 .bottle-liquid {
   position: absolute;
   bottom: 0;
@@ -233,11 +232,8 @@ html.light-theme .hero-btn:active {
   height: 85%;
   background: linear-gradient(180deg, rgba(201, 169, 110, 0.6) 0%, rgba(139, 108, 62, 0.95) 100%);
   z-index: 1;
-  /* Плавное покачивание уровня */
   animation: liquidLevel 7s ease-in-out infinite;
 }
-
-/* Волна 1 (Задняя, широкая) */
 .bottle-liquid::before {
   content: "";
   position: absolute;
@@ -249,8 +245,6 @@ html.light-theme .hero-btn:active {
   border-radius: 50%;
   animation: waveFlow 8s linear infinite;
 }
-
-/* Волна 2 (Передняя, узкая и светлая) */
 .bottle-liquid::after {
   content: "";
   position: absolute;
@@ -263,7 +257,6 @@ html.light-theme .hero-btn:active {
   animation: waveFlow 6s linear infinite reverse;
 }
 
-/* Блики и объем стекла */
 .bottle-glass-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px 20px 30px 30px; box-shadow: inset 5px 5px 15px rgba(255,255,255,0.1), inset -5px -5px 15px rgba(0,0,0,0.8); z-index: 2; }
 .bottle-label { position: absolute; left: 15px; right: 15px; top: 80px; height: 100px; border: 1px solid rgba(246,225,185,0.6); background: rgba(15, 12, 10, 0.85); backdrop-filter: blur(2px); color: #e4c89c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; z-index: 3; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 .bottle-label span { font-family: "Playfair Display", serif; font-size: 22px; letter-spacing: 3px; }
@@ -274,7 +267,97 @@ html.light-theme .hero-btn:active {
 .bottle-shine::after { content: ""; position: absolute; top: 20px; left: 25px; width: 8px; height: 120px; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%); filter: blur(1px); }
 
 /* ============================================
-   ПЛАВНЫЕ АНИМАЦИИ (ВОЛНЫ И ЛЕВИТАЦИЯ)
+   МИНИ-ФЛАКОНЫ В КАТАЛОГЕ (БЕЗ АНИМАЦИИ)
+   ============================================ */
+.product-visual { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: visible; }
+.product-visual:before { content: ""; position: absolute; width: 115px; height: 115px; border: 1px solid rgba(201,169,110,0.15); border-radius: 50%; }
+
+.mini-perfume {
+  position: relative;
+  z-index: 1;
+  width: 56px;
+  height: 76px;
+  border-radius: 6px 6px 10px 10px;
+  background: rgba(20, 15, 10, 0.4);
+  border: 1px solid rgba(230, 207, 158, 0.3);
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.1), inset 0 -10px 15px rgba(0,0,0,0.4), 7px 12px 12px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+}
+
+/* Жидкость внутри мини-флакона */
+.mini-perfume::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 75%;
+  background: linear-gradient(180deg, rgba(201, 169, 110, 0.7) 0%, rgba(139, 108, 62, 0.95) 100%);
+  z-index: 1;
+}
+
+/* Крышка мини-флакона */
+.mini-perfume::after {
+  content: "";
+  position: absolute;
+  top: -16px;
+  width: 24px;
+  height: 18px;
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(90deg, #3e3024, #a58b5e 30%, #e0c79a 50%, #65513a 70%, #33291e);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.4);
+  z-index: 5;
+}
+
+/* Блик на стекле (статичный) */
+.mini-perfume span {
+  position: relative;
+  z-index: 4;
+  font-family: "Playfair Display", serif;
+  color: #f3e3c7;
+  font-size: 18px;
+  border: 1px solid rgba(245,224,189,0.4);
+  width: 32px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: rgba(30,25,20,0.85);
+  border-radius: 2px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+/* Дополнительный блик на стекле */
+.mini-perfume span::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  width: 5px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  filter: blur(1px);
+}
+
+/* Вариации форм для разнообразия (сохранены) */
+.product-card:nth-child(3n+2) .mini-perfume { height: 66px; width: 64px; border-radius: 12px 12px 8px 8px; }
+.product-card:nth-child(3n+2) .mini-perfume::after { width: 18px; }
+.product-card:nth-child(3n) .mini-perfume { height: 84px; width: 46px; border-radius: 4px 4px 8px 8px; }
+.product-card:nth-child(3n) .mini-perfume::after { width: 28px; height: 14px; }
+.product-card:nth-child(4n) .mini-perfume { background: rgba(20, 15, 10, 0.4); border-color: rgba(255,255,255,0.4); }
+.product-card:nth-child(4n) .mini-perfume::before { background: linear-gradient(180deg, rgba(220, 220, 210, 0.7) 0%, rgba(160, 160, 150, 0.95) 100%); }
+
+/* Ховер эффект для всего флакона */
+.product-card:hover .mini-perfume {
+  transform: translateY(-5px) scale(1.03);
+  filter: drop-shadow(0px 15px 20px rgba(0,0,0,0.6)) drop-shadow(0px 0px 15px rgba(201,169,110,0.4));
+}
+
+/* ============================================
+   АНИМАЦИИ
    ============================================ */
 @keyframes liquidLevel {
   0% { height: 83%; }
@@ -355,20 +438,6 @@ html.light-theme .card-back { background: var(--paper); }
 .btn-info { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; background: rgba(20,17,14,0.8); border: 1px solid var(--gold); color: var(--gold); font-family: "Playfair Display", serif; font-size: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all 0.2s; }
 html.light-theme .btn-info { background: rgba(255,255,255,0.8); }
 .btn-info:hover { background: var(--gold); color: #000; }
-
-.product-visual { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: visible; }
-.product-visual:before { content: ""; position: absolute; width: 115px; height: 115px; border: 1px solid rgba(201,169,110,0.15); border-radius: 50%; }
-
-.mini-perfume { position: relative; z-index: 1; width: 56px; height: 76px; border-radius: 6px 6px 10px 10px; background: linear-gradient(105deg, rgba(255,255,255,0.1) 0%, #d6b36c 15%, #f5dfaa 35%, #a57a3c 60%, #e1bd79 85%, rgba(0,0,0,0.1) 100%); border: 1px solid rgba(255,255,255,0.2); box-shadow: inset 0 0 10px rgba(255,255,255,0.2), inset 0 -10px 15px rgba(0,0,0,0.3), 7px 12px 12px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease; }
-.mini-perfume::before { content: ""; position: absolute; top: 10px; left: 8px; width: 6px; height: 50px; border-radius: 10px; background: rgba(255,255,255,0.4); filter: blur(2px); z-index: 2; }
-.mini-perfume::after { content: ""; position: absolute; top: -16px; width: 24px; height: 18px; border-radius: 3px 3px 1px 1px; background: linear-gradient(90deg, #3e3024, #a58b5e 30%, #e0c79a 50%, #65513a 70%, #33291e); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.4); }
-.mini-perfume span { position: relative; z-index: 3; font-family: "Playfair Display", serif; color: #f3e3c7; font-size: 18px; border: 1px solid rgba(245,224,189,0.4); width: 32px; height: 34px; display: grid; place-items: center; background: rgba(30,25,20,0.85); border-radius: 2px; box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
-.product-card:nth-child(3n+2) .mini-perfume { height: 66px; width: 64px; border-radius: 12px 12px 8px 8px; background: linear-gradient(105deg, #3a322b, #7a6a52 25%, #d6c09a 55%, #5b4b3a); }
-.product-card:nth-child(3n+2) .mini-perfume::after { width: 18px; }
-.product-card:nth-child(3n) .mini-perfume { height: 84px; width: 46px; border-radius: 4px 4px 8px 8px; background: linear-gradient(105deg, #d6b36c, #f5dfaa 30%, #a57a3c 75%, #e1bd79); }
-.product-card:nth-child(3n) .mini-perfume::after { width: 28px; height: 14px; }
-.product-card:nth-child(4n) .mini-perfume { background: linear-gradient(105deg, #c9c3b6, #fffdf3 30%, #9d9284 70%, #e8dec9); border-color: rgba(255,255,255,0.4); }
-.product-card:hover .mini-perfume { transform: translateY(-8px) scale(1.05); filter: drop-shadow(0px 15px 20px rgba(0,0,0,0.6)) drop-shadow(0px 0px 15px rgba(201,169,110,0.4)); }
 
 .product-category { position: absolute; top: 12px; left: 12px; font-size: 9px; letter-spacing: 1px; color: var(--gold); text-transform: uppercase; z-index: 10; }
 .product-info { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; padding-bottom: 5px; }
@@ -538,7 +607,7 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .art-orbit { width: 160px; height: 160px; }
   .orbit-two { width: 200px; height: 200px; }
   
-  /* Новый флакон на телефоне */
+  /* Большой флакон на телефоне */
   .bottle-body { width: 120px; height: 160px; border-radius: 12px 12px 20px 20px; }
   .bottle-label { top: 45px; height: 60px; left: 10px; right: 10px; }
   .bottle-label span { font-size: 15px; letter-spacing: 2px; }
