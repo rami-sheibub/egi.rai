@@ -44,9 +44,16 @@ a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; }
 
 /* ФОН */
-.bg-clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
-.cloud { position: absolute; background: radial-gradient(circle, rgba(201, 169, 110, 0.12) 0%, transparent 70%); border-radius: 50%; filter: blur(50px); animation: floatClouds linear infinite; }
-html.light-theme .cloud { background: radial-gradient(circle, rgba(212, 160, 23, 0.12) 0%, transparent 70%); }
+.bg-clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; display: none; }
+html.light-theme .bg-clouds { display: block; } /* Облака ТОЛЬКО в светлой теме */
+
+.cloud { 
+  position: absolute; 
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.1) 0%, transparent 70%); 
+  border-radius: 50%; 
+  filter: blur(60px); 
+  animation: floatClouds linear infinite; 
+}
 .cloud-1 { width: 400px; height: 400px; top: 10%; left: -10%; animation-duration: 40s; }
 .cloud-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; animation-duration: 50s; animation-direction: reverse; }
 .cloud-3 { width: 300px; height: 300px; top: 40%; left: 50%; animation-duration: 35s; }
@@ -54,9 +61,18 @@ html.light-theme .cloud { background: radial-gradient(circle, rgba(212, 160, 23,
 @keyframes floatClouds { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(100px) translateY(-50px); } 100% { transform: translateX(0) translateY(0); } }
 
 .bg-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; overflow: hidden; }
-.star { position: absolute; background-color: #fff; border-radius: 50%; box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.4); animation: twinkle linear infinite; }
-.star.gold { background-color: var(--gold-light); box-shadow: 0 0 6px 1px rgba(201, 169, 110, 0.6); }
-html.light-theme .star { background-color: var(--gold); opacity: 0.4; box-shadow: 0 0 4px 1px rgba(184, 134, 11, 0.4); }
+.star { 
+  position: absolute; 
+  background-color: #fff; 
+  border-radius: 50%; 
+  box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.6); 
+  animation: twinkle linear infinite; 
+}
+.star.gold { 
+  background-color: var(--gold-light); 
+  box-shadow: 0 0 8px 2px rgba(201, 169, 110, 0.8); 
+}
+html.light-theme .star { background-color: var(--gold); opacity: 0.3; box-shadow: 0 0 4px 1px rgba(184, 134, 11, 0.4); }
 @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.2; transform: scale(0.8); } }
 
 /* КНОПКИ */
@@ -750,7 +766,8 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
 }
 
 @media(max-width: 720px) {
-  .bg-clouds { display: none; }
+  /* Убрали display: none для облаков, они теперь видны в светлой теме везде */
+  
   .announcement { font-size: 9px; letter-spacing: 1px; padding: 8px; }
   .header { height: 70px; padding: 0 15px; }
   .header-actions { gap: 10px; }
