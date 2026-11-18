@@ -195,12 +195,12 @@ html.light-theme .hero-btn:active {
 }
 
 /* ============================================
-   БОЛЬШОЙ ФЛАКОН В HERO (С АНИМАЦИЕЙ)
+   БОЛЬШОЙ ФЛАКОН В HERO (УВЕЛИЧЕН ЕЩЁ БОЛЬШЕ)
    ============================================ */
-.hero-art { position: relative; width: 46%; min-height: 720px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
-.art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 380px; height: 380px; }
-.orbit-two { width: 470px; height: 470px; border-color: rgba(201, 169, 110, 0.08); }
-.art-glow { position: absolute; width: 240px; height: 290px; background: rgba(201, 169, 110, 0.1); filter: blur(45px); border-radius: 50%; }
+.hero-art { position: relative; width: 52%; min-height: 900px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
+.art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 580px; height: 580px; }
+.orbit-two { width: 700px; height: 700px; border-color: rgba(201, 169, 110, 0.08); }
+.art-glow { position: absolute; width: 380px; height: 460px; background: rgba(201, 169, 110, 0.12); filter: blur(65px); border-radius: 50%; }
 
 .bottle {
   position: relative;
@@ -215,15 +215,46 @@ html.light-theme .hero-btn:active {
   transition: filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .bottle:hover {
-  filter: drop-shadow(0px 30px 40px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 40px rgba(201, 169, 110, 0.4));
+  filter: drop-shadow(0px 30px 50px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 50px rgba(201, 169, 110, 0.4));
   animation-play-state: paused;
   transform: translateY(-15px) rotate(2deg) scale(1.02);
 }
 
-.bottle-cap { width: 64px; height: 55px; background: linear-gradient(90deg, #1a1511 0%, #4a3b2a 25%, #d4b47c 50%, #4a3b2a 75%, #1a1511 100%); border-radius: 6px 6px 2px 2px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 5px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.4); position: relative; z-index: 5; }
-.bottle-neck { width: 46px; height: 22px; background: linear-gradient(90deg, #30241a, #80694a, #e6cf9e, #80694a, #30241a); border: 1px solid rgba(0,0,0,0.5); border-bottom: none; z-index: 4; }
-.bottle-body { width: 195px; height: 260px; position: relative; border-radius: 20px 20px 30px 30px; background: rgba(20, 15, 10, 0.4); border: 1px solid rgba(230, 207, 158, 0.3); overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 10px 20px 30px rgba(0,0,0,0.4); z-index: 3; }
+/* Крышка */
+.bottle-cap {
+  width: 100px;
+  height: 85px;
+  background: linear-gradient(90deg, #1a1511 0%, #4a3b2a 25%, #d4b47c 50%, #4a3b2a 75%, #1a1511 100%);
+  border-radius: 10px 10px 4px 4px;
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.3), inset 0 -4px 8px rgba(0,0,0,0.5), 0 8px 18px rgba(0,0,0,0.45);
+  position: relative;
+  z-index: 5;
+}
 
+/* Горлышко */
+.bottle-neck {
+  width: 72px;
+  height: 35px;
+  background: linear-gradient(90deg, #30241a, #80694a, #e6cf9e, #80694a, #30241a);
+  border: 1px solid rgba(0,0,0,0.5);
+  border-bottom: none;
+  z-index: 4;
+}
+
+/* Корпус */
+.bottle-body {
+  width: 310px;
+  height: 410px;
+  position: relative;
+  border-radius: 32px 32px 48px 48px;
+  background: rgba(20, 15, 10, 0.4);
+  border: 1px solid rgba(230, 207, 158, 0.3);
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.85), 15px 30px 50px rgba(0,0,0,0.45);
+  z-index: 3;
+}
+
+/* Жидкость */
 .bottle-liquid {
   position: absolute;
   bottom: 0;
@@ -237,10 +268,10 @@ html.light-theme .hero-btn:active {
 .bottle-liquid::before {
   content: "";
   position: absolute;
-  top: -15px;
+  top: -25px;
   left: -50%;
   width: 200%;
-  height: 25px;
+  height: 40px;
   background: rgba(230, 207, 158, 0.3);
   border-radius: 50%;
   animation: waveFlow 8s linear infinite;
@@ -248,25 +279,80 @@ html.light-theme .hero-btn:active {
 .bottle-liquid::after {
   content: "";
   position: absolute;
-  top: -8px;
+  top: -12px;
   left: -50%;
   width: 200%;
-  height: 15px;
+  height: 25px;
   background: rgba(255, 245, 220, 0.45);
   border-radius: 50%;
   animation: waveFlow 6s linear infinite reverse;
 }
 
-.bottle-glass-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px 20px 30px 30px; box-shadow: inset 5px 5px 15px rgba(255,255,255,0.1), inset -5px -5px 15px rgba(0,0,0,0.8); z-index: 2; }
-.bottle-label { position: absolute; left: 15px; right: 15px; top: 80px; height: 100px; border: 1px solid rgba(246,225,185,0.6); background: rgba(15, 12, 10, 0.85); backdrop-filter: blur(2px); color: #e4c89c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; z-index: 3; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-.bottle-label span { font-family: "Playfair Display", serif; font-size: 22px; letter-spacing: 3px; }
-.bottle-label i { font-size: 9px; letter-spacing: 4px; font-style: normal; color: var(--gold); }
-.bottle-label small { font-size: 7px; letter-spacing: 1.5px; opacity: 0.7; }
-.bottle-glass-front { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px 20px 30px 30px; z-index: 4; pointer-events: none; overflow: hidden; box-shadow: inset -10px -10px 30px rgba(0,0,0,0.5), inset 10px 10px 30px rgba(255,255,255,0.05); }
-.bottle-shine { position: absolute; top: 10px; left: 15px; width: 12px; height: 200px; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 50%, transparent 100%); filter: blur(2px); opacity: 0.8; animation: shineMove 10s ease-in-out infinite; }
-.bottle-shine::after { content: ""; position: absolute; top: 20px; left: 25px; width: 8px; height: 120px; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%); filter: blur(1px); }
+.bottle-glass-back {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 32px 32px 48px 48px;
+  box-shadow: inset 8px 8px 25px rgba(255,255,255,0.1), inset -8px -8px 25px rgba(0,0,0,0.8);
+  z-index: 2;
+}
 
-/* ============================================
+/* Этикетка */
+.bottle-label {
+  position: absolute;
+  left: 25px; right: 25px;
+  top: 125px;
+  height: 160px;
+  border: 1px solid rgba(246,225,185,0.6);
+  background: rgba(15, 12, 10, 0.85);
+  backdrop-filter: blur(2px);
+  color: #e4c89c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 3;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+.bottle-label span { font-family: "Playfair Display", serif; font-size: 36px; letter-spacing: 5px; }
+.bottle-label i { font-size: 14px; letter-spacing: 6px; font-style: normal; color: var(--gold); }
+.bottle-label small { font-size: 10px; letter-spacing: 2.5px; opacity: 0.7; }
+
+/* Переднее стекло и блики */
+.bottle-glass-front {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 32px 32px 48px 48px;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+  box-shadow: inset -15px -15px 50px rgba(0,0,0,0.5), inset 15px 15px 50px rgba(255,255,255,0.05);
+}
+.bottle-shine {
+  position: absolute;
+  top: 15px;
+  left: 22px;
+  width: 18px;
+  height: 320px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  filter: blur(2.5px);
+  opacity: 0.8;
+  animation: shineMove 10s ease-in-out infinite;
+}
+.bottle-shine::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 38px;
+  width: 12px;
+  height: 190px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+  filter: blur(1.5px);
+}/* ============================================
    МИНИ-ФЛАКОНЫ В КАТАЛОГЕ (ИСПРАВЛЕННЫЕ)
    ============================================ */
 .product-visual { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: visible; }
