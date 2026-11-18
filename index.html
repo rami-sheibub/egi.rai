@@ -12,7 +12,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
+  <div class="bg-clouds">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="cloud cloud-4"></div>
+  </div>
 
   <div class="announcement">Масляные ароматы · Доставка и самовывоз · Заказы в Telegram</div>
 
@@ -22,9 +27,7 @@
       <span>EGI<span class="gold">.</span>RAI<small>ART OF SCENT</small></span>
     </a>
     <nav class="nav" id="nav">
-      <a href="#catalog">Каталог</a>
-      <a href="#prices">Цены</a>
-      <a href="about.html">О бренде</a>
+      <!-- Ссылки убраны по просьбе -->
     </nav>
     
     <a href="#" id="cartBtn" class="cart-btn">
@@ -42,15 +45,6 @@
         <p class="eyebrow"><span></span> АРОМАТ — ЭТО ВАША ИСТОРИЯ</p>
         <h1>Искусство<br>в каждом <em>аромате.</em></h1>
         <p class="hero-text">140+ ароматов: мужские, женские и унисекс. Найдите свой signature и закажите в Telegram.</p>
-        <div class="hero-actions">
-          <a class="button button-gold" href="#catalog">Выбрать аромат</a>
-          <a class="text-link" href="about.html">О бренде</a>
-        </div>
-        <div class="hero-notes">
-          <div><strong>140+</strong><span>ароматов в каталоге</span></div>
-          <div><strong>3</strong><span>коллекции</span></div>
-          <div><strong>EGI.RAI</strong><span>ваш аромат — ваш стиль</span></div>
-        </div>
       </div>
       <div class="hero-art" aria-label="Иллюстрация флакона духов">
         <div class="art-orbit orbit-one"></div>
@@ -70,10 +64,17 @@
       </div>
     </section>
 
+    <!-- Переделанный блок преимуществ и кнопок -->
     <section class="benefits">
-      <div><span class="benefit-icon">✦</span><div><b>140+ ароматов</b><small>Мужские · Женские · Унисекс</small></div></div>
-      <div><span class="benefit-icon">✦</span><div><b>Форматы от 5 до 100 мл</b><small>Масляные духи</small></div></div>
-      <div><span class="benefit-icon">✦</span><div><b>Заказ в Telegram</b><small>Быстро и удобно</small></div></div>
+      <div class="benefits-list">
+        <div><span class="benefit-icon">✧</span><div><b>140+ ароматов</b><small>Мужские · Женские · Унисекс</small></div></div>
+        <div><span class="benefit-icon">◈</span><div><b>Форматы от 5 до 100 мл</b><small>Масляные духи</small></div></div>
+        <div><span class="benefit-icon">♡</span><div><b>Заказ в Telegram</b><small>Быстро и удобно</small></div></div>
+      </div>
+      <div class="benefits-actions">
+        <a class="button button-gold" href="#catalog">Выбрать аромат</a>
+        <a class="text-link" href="about.html">О бренде</a>
+      </div>
     </section>
 
     <section class="catalog section" id="catalog">
