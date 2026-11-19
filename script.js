@@ -383,6 +383,35 @@ const cartEmptyMsg = document.getElementById("cartEmptyMsg");
 const cartFormWrapper = document.getElementById("cartFormWrapper");
 const addToCartBtn = document.getElementById("addToCartBtn");
 const submitCartOrderBtn = document.getElementById("submitCartOrder");
+const cartContactInput = document.getElementById("cartContact");
+
+if (cartContactInput) {
+  function formatPhone(value) {
+    let digits = value.replace(/\D/g, "");
+    if (digits.startsWith("8")) digits = "7" + digits.slice(1);
+    if (!digits.startsWith("7")) digits = "7" + digits;
+    digits = digits.slice(0, 11);
+
+    let result = "+7";
+    if (digits.length > 1) result += " (" + digits.slice(1, 4);
+    if (digits.length >= 5) result += ") " + digits.slice(4, 7);
+    if (digits.length >= 8) result += "-" + digits.slice(7, 9);
+    if (digits.length >= 10) result += "-" + digits.slice(9, 11);
+    return result;
+  }
+
+  cartContactInput.addEventListener("focus", () => {
+    if (!cartContactInput.value) cartContactInput.value = "+7 (";
+  });
+  cartContactInput.addEventListener("input", () => {
+    cartContactInput.value = formatPhone(cartContactInput.value);
+  });
+  cartContactInput.addEventListener("blur", () => {
+    if (cartContactInput.value === "+7 (" || cartContactInput.value === "+7") {
+      cartContactInput.value = "";
+    }
+  });
+}
 
 function updateCartUI() {
   if (!cartCount) return;
@@ -493,12 +522,13 @@ if (submitCartOrderBtn) {
       alert("Пожалуйста, введите ваше имя.");
       return;
     }
-    const phoneRegex = /^\+?\d{10,15}$/;
-    const tgRegex = /^@[a-zA-Z0-9_]{4,32}$/;
-    if (!phoneRegex.test(contact) && !tgRegex.test(contact)) {
-      alert("Пожалуйста, введите корректный номер телефона или ник в Telegram.");
+
+    const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+    if (!phoneRegex.test(contact)) {
+      alert("Пожалуйста, введите номер полностью: +7 (___) ___-__-__");
       return;
     }
+
 
     let itemsText = "";
     let totalPrice = 0;
