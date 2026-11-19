@@ -162,15 +162,18 @@ let activeBrand = "Все";
 let currentLimit = 12;
 let isExpanded = false;
 
+// ==========================================
+// БЛОКИРОВКА СКРОЛЛА (через класс body.no-scroll)
+// ==========================================
 function lockScroll() {
   const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
   document.body.style.paddingRight = scrollBarWidth + "px";
-  document.body.style.overflow = "hidden";
+  document.body.classList.add("no-scroll");
 }
 
 function unlockScroll() {
   document.body.style.paddingRight = "";
-  document.body.style.overflow = "";
+  document.body.classList.remove("no-scroll");
 }
 
 function updateBrandOptions() {
@@ -353,13 +356,13 @@ if (grid) {
     modalVolume.value = "5";
     
     modal.classList.add("active");
-    document.body.style.overflow = lockScroll();
+    lockScroll();
   });
 }
 
 function closeModal() {
   modal.classList.remove("active");
-  document.body.style.overflow = unlockScroll();
+  unlockScroll();
 }
 if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
 if (modal) {
@@ -494,20 +497,20 @@ if (cartBtn) {
     e.preventDefault();
     updateCartUI();
     cartModal.classList.add("active");
-    document.body.style.overflow = lockScroll();
+    lockScroll();
   });
 }
 if (closeCartBtn) {
   closeCartBtn.addEventListener("click", () => {
     cartModal.classList.remove("active");
-    document.body.style.overflow = unlockScroll();
+    unlockScroll();
   });
 }
 if (cartModal) {
   cartModal.addEventListener("click", (e) => {
     if (e.target === cartModal) {
       cartModal.classList.remove("active");
-      document.body.style.overflow = unlockScroll();
+      unlockScroll();
     }
   });
 }
@@ -581,7 +584,7 @@ if (submitCartOrderBtn) {
       localStorage.setItem("egi_cart", JSON.stringify(cart));
       updateCartUI();
       cartModal.classList.remove("active");
-      document.body.style.overflow = unlockScroll();
+      unlockScroll();
       
       document.body.removeChild(form);
       document.body.removeChild(iframe);
@@ -676,12 +679,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const promoBanner = document.getElementById("promoBanner");
   if (promoBanner) {
     promoBanner.addEventListener("click", (e) => {
-      // Предотвращаем "проваливание" клика, чтобы не срабатывало что-то ещё
       e.stopPropagation();
       promoBanner.classList.toggle("active");
     });
 
-    // Закрытие тултипа, если кликнули мимо
     document.addEventListener("click", (e) => {
       if (!promoBanner.contains(e.target)) {
         promoBanner.classList.remove("active");
