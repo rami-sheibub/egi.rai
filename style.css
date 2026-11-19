@@ -86,13 +86,50 @@ html.light-theme .theme-toggle .icon-moon { display: none; }
 
 /* ПЛАВАЮЩИЕ КНОПКИ */
 .floating-bottom-right { position: fixed; bottom: 28px; right: 28px; display: flex; flex-direction: column; gap: 15px; z-index: 100; align-items: flex-end; }
-.cart-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: #0d0b0a; padding: 14px 22px; border-radius: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.3px; border: 1px solid rgba(201, 169, 110, 0.5); cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.1); transition: transform 0.1s ease, background 0.2s; }
+
+.cart-btn { 
+  position: relative;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  width: 52px; 
+  height: 52px; 
+  background: var(--gold); 
+  color: #0d0b0a; 
+  border-radius: 50%; 
+  border: 1px solid rgba(201, 169, 110, 0.5); 
+  cursor: pointer; 
+  text-decoration: none; 
+  box-shadow: 0 4px 6px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.1); 
+  transition: transform 0.1s ease, background 0.2s; 
+}
 html.light-theme .cart-btn { color: #fff; }
 .cart-btn:hover { background: var(--gold-light); }
 .cart-btn:active { transform: translateY(2px) scale(0.98); }
-.cart-count { background: #0d0b0a; color: var(--gold); border-radius: 50%; padding: 2px 8px; font-weight: bold; font-size: 11px; }
+
+.cart-icon { width: 24px; height: 24px; }
+
+.cart-count { 
+  position: absolute; 
+  top: -4px; 
+  right: -4px; 
+  background: #0d0b0a; 
+  color: var(--gold); 
+  border-radius: 50%; 
+  min-width: 20px; 
+  height: 20px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold; 
+  font-size: 11px; 
+  border: 1px solid var(--gold);
+}
 html.light-theme .cart-count { background: #fff; color: var(--gold); }
 .cart-btn:hover .cart-count { background: #000; color: var(--gold-light); }
+
+
 
 /* Исправленная стрелка наверх (без черного квадрата) */
 .to-top { 
@@ -475,8 +512,9 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .header .button-gold { padding: 8px 12px !important; font-size: 10px !important; margin-left: 0; }
 
   .floating-bottom-right { bottom: 15px; right: 15px; gap: 10px; }
-  .cart-btn { padding: 10px 16px; font-size: 12px; }
-  .cart-count { font-size: 10px; padding: 2px 6px; }
+   .cart-btn { width: 46px; height: 46px; }
+  .cart-icon { width: 20px; height: 20px; }
+  .cart-count { font-size: 10px; min-width: 18px; height: 18px; }
   .to-top { width: 40px; height: 40px; font-size: 18px; }
 
   .hero { flex-direction: column; padding: 0 7% 30px; min-height: 100vh; }
