@@ -222,16 +222,19 @@
     </div>
   </footer>
 
-  <div class="floating-bottom-right">
-    <a href="#" id="cartBtn" class="cart-btn">
-      <span class="cart-icon">Корзина</span>
+   <div class="floating-bottom-right">
+    <a href="#" id="cartBtn" class="cart-btn" aria-label="Корзина">
+      <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
       <span id="cartCount" class="cart-count">0</span>
     </a>
     <button id="toTop" class="to-top" aria-label="Скролл">
       <span id="scrollIcon">&darr;</span>
     </button>
   </div>
-
   <div id="orderModal" class="modal-overlay">
     <div class="modal-content">
       <button class="modal-close" id="closeModal">✕</button>
