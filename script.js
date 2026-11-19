@@ -165,16 +165,12 @@ let isExpanded = false;
 // ==========================================
 // БЛОКИРОВКА СКРОЛЛА С СОХРАНЕНИЕМ ПОЗИЦИИ
 // ==========================================
-let savedScrollY = 0;
-
 function lockScroll() {
-  
   document.body.classList.add("no-scroll");
 }
 
 function unlockScroll() {
-
-  window.scrollTo(0, savedScrollY);
+  document.body.classList.remove("no-scroll");
 }
 
 function updateBrandOptions() {
