@@ -201,17 +201,131 @@ html.light-theme .hero-btn:active { box-shadow: 0 2px 0 #8a6408, 0 4px 10px rgba
 
 .bottle-cap { width: 100px; height: 85px; background: linear-gradient(90deg, #1a1511 0%, #4a3b2a 25%, #d4b47c 50%, #4a3b2a 75%, #1a1511 100%); border-radius: 10px 10px 4px 4px; box-shadow: inset 0 2px 6px rgba(255,255,255,0.3), inset 0 -4px 8px rgba(0,0,0,0.5), 0 8px 18px rgba(0,0,0,0.45); position: relative; z-index: 5; }
 .bottle-neck { width: 72px; height: 35px; background: linear-gradient(90deg, #30241a, #80694a, #e6cf9e, #80694a, #30241a); border: 1px solid rgba(0,0,0,0.5); border-bottom: none; z-index: 4; }
-.bottle-body { width: 310px; height: 410px; position: relative; border-radius: 32px 32px 48px 48px; background: rgba(20, 15, 10, 0.4); border: 1px solid rgba(230, 207, 158, 0.3); overflow: hidden; box-shadow: inset 0 0 30px rgba(0,0,0,0.85), 15px 30px 50px rgba(0,0,0,0.45); z-index: 3; }
-.bottle-liquid { position: absolute; bottom: 0; left: 0; width: 100%; height: 85%; background: linear-gradient(180deg, rgba(201, 169, 110, 0.6) 0%, rgba(139, 108, 62, 0.95) 100%); z-index: 1; animation: liquidLevel 7s ease-in-out infinite; }
+.bottle-body { 
+  width: 310px; 
+  height: 410px; 
+  position: relative; 
+  border-radius: 32px 32px 48px 48px; 
+  background: linear-gradient(160deg, rgba(255,255,255,0.18) 0%, rgba(30, 22, 15, 0.35) 35%, rgba(10, 7, 5, 0.55) 100%);
+  border: 1px solid rgba(230, 207, 158, 0.4); 
+  overflow: hidden; 
+  box-shadow: 
+    inset 0 0 30px rgba(0,0,0,0.7),
+    inset 0 1px 1px rgba(255,255,255,0.25),
+    15px 30px 50px rgba(0,0,0,0.45); 
+  z-index: 3; 
+}
+html.light-theme .bottle-body { 
+  background: linear-gradient(160deg, rgba(255,255,255,0.5) 0%, rgba(245, 237, 224, 0.35) 35%, rgba(200, 180, 140, 0.25) 100%);
+  border-color: rgba(184, 134, 11, 0.5);
+  box-shadow: 
+    inset 0 0 25px rgba(184, 134, 11, 0.15),
+    inset 0 1px 1px rgba(255,255,255,0.8),
+    10px 20px 40px rgba(120, 90, 40, 0.25);
+}
+
+.bottle-liquid { 
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 85%; 
+  background: linear-gradient(180deg, rgba(230, 195, 120, 0.85) 0%, rgba(184, 134, 11, 0.95) 100%);
+  z-index: 1; 
+  animation: liquidLevel 7s ease-in-out infinite; 
+  box-shadow: inset 0 8px 20px rgba(255, 230, 180, 0.35);
+}
 .bottle-liquid::before { content: ""; position: absolute; top: -25px; left: -50%; width: 200%; height: 40px; background: rgba(230, 207, 158, 0.3); border-radius: 50%; animation: waveFlow 8s linear infinite; }
 .bottle-liquid::after { content: ""; position: absolute; top: -12px; left: -50%; width: 200%; height: 25px; background: rgba(255, 245, 220, 0.45); border-radius: 50%; animation: waveFlow 6s linear infinite reverse; }
-.bottle-glass-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 32px 32px 48px 48px; box-shadow: inset 8px 8px 25px rgba(255,255,255,0.1), inset -8px -8px 25px rgba(0,0,0,0.8); z-index: 2; }
-.bottle-label { position: absolute; left: 25px; right: 25px; top: 125px; height: 160px; border: 1px solid rgba(246,225,185,0.6); background: rgba(15, 12, 10, 0.85); backdrop-filter: blur(2px); color: #e4c89c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; z-index: 3; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
+.bottle-glass-back { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  border-radius: 32px 32px 48px 48px; 
+  box-shadow: 
+    inset 8px 8px 25px rgba(255,255,255,0.15), 
+    inset -8px -8px 25px rgba(0,0,0,0.7); 
+  z-index: 2; 
+}
+html.light-theme .bottle-glass-back { 
+  box-shadow: 
+    inset 8px 8px 25px rgba(255,255,255,0.7), 
+    inset -8px -8px 25px rgba(120, 90, 40, 0.3); 
+}
+.bottle-label { 
+  position: absolute; 
+  left: 25px; 
+  right: 25px; 
+  top: 125px; 
+  height: 160px; 
+  border: 1px solid rgba(246,225,185,0.7); 
+  background: linear-gradient(180deg, rgba(25, 20, 15, 0.92) 0%, rgba(10, 7, 5, 0.95) 100%);
+  backdrop-filter: blur(3px); 
+  color: #e4c89c; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
+  z-index: 3; 
+  box-shadow: 
+    0 8px 25px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.08); 
+}
+html.light-theme .bottle-label { 
+  border-color: rgba(184, 134, 11, 0.6);
+  background: linear-gradient(180deg, rgba(255, 250, 240, 0.95) 0%, rgba(245, 237, 224, 0.98) 100%);
+  color: #8a6408;
+  box-shadow: 
+    0 8px 25px rgba(120, 90, 40, 0.25),
+    inset 0 1px 0 rgba(255,255,255,0.9); 
+}
+html.light-theme .bottle-label span { color: #b8860b; }
+html.light-theme .bottle-label i { color: #8a6408; }
+html.light-theme .bottle-label small { color: #7a6a52; opacity: 0.85; }
+
+
 .bottle-label span { font-family: "Playfair Display", serif; font-size: 36px; letter-spacing: 5px; }
 .bottle-label i { font-size: 14px; letter-spacing: 6px; font-style: normal; color: var(--gold); }
 .bottle-label small { font-size: 10px; letter-spacing: 2.5px; opacity: 0.7; }
-.bottle-glass-front { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 32px 32px 48px 48px; z-index: 4; pointer-events: none; overflow: hidden; box-shadow: inset -15px -15px 50px rgba(0,0,0,0.5), inset 15px 15px 50px rgba(255,255,255,0.05); }
-.bottle-shine { position: absolute; top: 15px; left: 22px; width: 18px; height: 320px; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 50%, transparent 100%); filter: blur(2.5px); opacity: 0.8; animation: shineMove 10s ease-in-out infinite; }
+.bottle-glass-front { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  border-radius: 32px 32px 48px 48px; 
+  z-index: 4; 
+  pointer-events: none; 
+  overflow: hidden; 
+  box-shadow: 
+    inset -15px -15px 50px rgba(0,0,0,0.5), 
+    inset 15px 15px 50px rgba(255,255,255,0.08); 
+}
+html.light-theme .bottle-glass-front { 
+  box-shadow: 
+    inset -10px -10px 30px rgba(120, 90, 40, 0.25), 
+    inset 15px 15px 50px rgba(255,255,255,0.6); 
+}
+
+.bottle-shine { 
+  position: absolute; 
+  top: 15px; 
+  left: 22px; 
+  width: 18px; 
+  height: 320px; 
+  border-radius: 50%; 
+  background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.15) 50%, transparent 100%); 
+  filter: blur(2.5px); 
+  opacity: 0.85; 
+  animation: shineMove 10s ease-in-out infinite; 
+}
+html.light-theme .bottle-shine { 
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 50%, transparent 100%); 
+  opacity: 0.9;
+}
 .bottle-shine::after { content: ""; position: absolute; top: 30px; left: 38px; width: 12px; height: 190px; border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%); filter: blur(1.5px); }
 
 /* АНИМАЦИИ */
