@@ -268,13 +268,12 @@
       <p class="eyebrow" style="margin-bottom: 5px;">ВАША КОРЗИНА</p>
       <h3 class="modal-title" style="margin-bottom: 20px;">Выбранные ароматы</h3>
       
-      <div id="cartItemsList" style="margin-bottom: 20px;"></div>
-      
+      <div id="cartItemsList" style="max-height: 250px; overflow-y: auto; margin-bottom: 20px;"></div>      
       <div id="cartEmptyMsg" style="text-align:center; color:var(--muted); padding: 20px;">
         Ваша корзина пока пуста. Выберите аромат из каталога.
       </div>
 
-      <div id="cartFormWrapper" style="display:none; border-top: 1px solid var(--line); padding-top: 15px;">
+      <div id="cartFormWrapper" style="display:none; border-top: 1px solid var(--line); padding-top: 15px; flex-shrink: 0;">
         <label>Ваше имя:</label>
         <input type="text" id="cartName" placeholder="Как к вам обращаться?">
         
