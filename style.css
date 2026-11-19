@@ -872,8 +872,6 @@ html.light-theme .about-content { border-color: rgba(138, 90, 18, 0.25); }
 /* Блокировка скролла страницы при открытой модалке */
 body.no-scroll {
   overflow: hidden !important;
-  position: fixed;
-  width: 100%;
 }
 
 /* Оверлей модалки */
@@ -1006,4 +1004,8 @@ html.light-theme .modal-content {
   #cartFormWrapper {
     max-height: 45vh;
   }
+}
+
+body.no-scroll {
+  overflow: hidden !important;
 }
