@@ -356,16 +356,18 @@ html.light-theme .vol-row span { color: var(--gold); background: var(--dark); }
 .contact-note { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 5px; }
 
 /* ПОДВАЛ */
-.footer { padding: 40px 8.5% 20px; background: var(--announcement-bg) !important; color: var(--ink); border-top: 1px solid var(--line); position: relative; z-index: 2; }
+.footer { padding: 28px 8.5% 0; background: var(--announcement-bg) !important; color: var(--ink); border-top: 1px solid var(--line); position: relative; z-index: 2; }
+.footer-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-bottom: 22px; flex-wrap: wrap; }
 .footer-logo { display: inline-flex; }
 .footer-logo .logo-mark { color: var(--gold); border-color: var(--gold); }
 .footer-logo small { color: var(--muted); }
-.footer > p { font-size: 12px; color: var(--muted); margin: 16px 0 22px; }
-.footer-contact { display: flex; gap: 25px; font-size: 11px; color: var(--muted); }
-.footer-contact a { color: var(--gold); transition: 0.2s; }
-.footer-contact a:hover { color: var(--gold-light); }
-.footer-bottom { border-top: 1px solid var(--line); margin-top: 30px; padding-top: 18px; display: flex; justify-content: space-between; gap: 15px; color: var(--muted); font-size: 10px; }
-.footer-bottom a { color: var(--gold); }
+
+.footer-tg-btn { display: inline-flex; align-items: center; gap: 9px; padding: 10px 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; color: var(--gold); border: 1px solid var(--gold); border-radius: 50px; background: transparent; transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s; }
+.footer-tg-btn svg { width: 16px; height: 16px; }
+.footer-tg-btn:hover { background: var(--gold); color: var(--paper); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(201,169,110,0.3); }
+html.light-theme .footer-tg-btn:hover { color: #fff; }
+
+.footer-bottom { border-top: 1px solid var(--line); padding: 16px 0; display: flex; justify-content: center; align-items: center; color: var(--muted); font-size: 10px; }
 
 /* МОДАЛЬНЫЕ ОКНА */
 .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); z-index: 100; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
@@ -452,6 +454,13 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .product-card { flex: 1 1 calc(33.333% - 12px); max-width: calc(33.333% - 12px); }
   .contact-inner { flex-direction: column; padding: 40px 30px; gap: 30px; }
   .contact-info { border-left: none; padding-left: 0; flex: auto; width: 100%; border-top: 1px solid var(--line); padding-top: 30px; }
+
+  /* --- ФИКС СТРАНИЦЫ "О БРЕНДЕ" НА ПЛАНШЕТЕ --- */
+  .about-main { flex-direction: column; align-items: center; justify-content: flex-start; min-height: auto; padding: 60px 4% 80px; gap: 30px; }
+  .moon-container { position: relative; width: 150px; height: 150px; animation: spinMoon 20s linear infinite; margin-bottom: 10px; flex-shrink: 0; }
+  .about-content { position: relative; left: auto; top: auto; transform: none; opacity: 1; animation: none; width: 100%; max-width: 700px; padding: 30px; }
+  .about-content h2 { font-size: clamp(28px, 5vw, 40px); }
+  .about-content p { font-size: 14px; }
 }
 
 @media(max-width: 720px) {
@@ -537,9 +546,10 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .contact-inner { padding: 30px 20px; margin: 15px 10px; }
   .addr-title { font-size: 18px; }
 
-  .footer { padding: 30px 15px 20px; }
-  .footer-bottom { flex-wrap: wrap; justify-content: center; text-align: center; gap: 10px; }
-
+    .footer { padding: 24px 15px 0; }
+  .footer-top { flex-direction: column; align-items: center; text-align: center; gap: 16px; padding-bottom: 18px; }
+  .footer-bottom { flex-wrap: wrap; justify-content: center; text-align: center; gap: 10px; padding: 14px 0; }
+   
   .about-main { flex-direction: column; padding: 100px 15px 80px; align-items: center; justify-content: flex-start; }
   .moon-container { width: 120px; height: 120px; animation: spinMoon 20s linear infinite; position: relative; margin-bottom: 30px; }
   .about-content { position: relative; left: auto; top: auto; transform: none; opacity: 1; animation: none; width: 100%; padding: 25px 20px; margin: 0 auto; }
