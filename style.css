@@ -669,11 +669,11 @@ html.light-theme .modal-overlay { background: rgba(60, 40, 10, 0.55); }
   background: var(--dark);
   border: 1px solid var(--gold);
   border-radius: 12px;
-  padding: 40px;
+  padding: 30px;
   width: 90%;
   max-width: 450px;
-  max-height: 85vh;
-  overflow-y: auto;
+  max-height: 85vh; /* Ограничиваем высоту */
+  overflow-y: auto; /* Скролл для всей модалки */
   position: relative;
   box-shadow: 0 20px 50px rgba(0,0,0,0.5);
   transform: translateY(20px);
@@ -683,10 +683,10 @@ html.light-theme .modal-overlay { background: rgba(60, 40, 10, 0.55); }
 html.light-theme .modal-content { background: var(--dark); box-shadow: 0 20px 50px rgba(90, 60, 15, 0.4); }
 .modal-overlay.active .modal-content { transform: translateY(0); }
 .modal-close {
-  position: sticky;
+  position: sticky; /* Прилипает к верху при скролле */
   top: 0;
   float: right;
-  margin: -20px -20px 0 0;
+  margin: -15px -15px 0 0; /* Подтягиваем в угол */
   background: var(--dark);
   border: none;
   color: var(--muted);
@@ -696,14 +696,17 @@ html.light-theme .modal-content { background: var(--dark); box-shadow: 0 20px 50
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 5;
-  transition: color 0.2s;
+  z-index: 10;
+  transition: color 0.2s, background 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.modal-close:hover { color: var(--gold); }
-.modal-close:hover { color: var(--gold); }
+.modal-close:hover {
+  color: var(--gold);
+  background: rgba(255, 255, 255, 0.05);
+}
+
 .modal-title { font-family: "Playfair Display", serif; font-size: 26px; color: var(--gold-light); margin: 0 0 5px; }
 html.light-theme .modal-title { color: var(--gold); }
 .modal-brand { color: var(--gold); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 25px; }
@@ -912,4 +915,19 @@ html.light-theme .about-content { border-color: rgba(138, 90, 18, 0.25); }
   .modal-title { font-size: 22px; }
   .cart-item-info h5 { font-size: 14px; }
   #cartItemsList { max-height: 200px !important; }
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 20px 15px;
+    max-height: 90vh; /* На телефоне даем чуть больше высоты */
+  }
+  
+  .modal-title {
+    font-size: 22px;
+  }
+  
+  .cart-item {
+    padding: 12px;
+  }
 }
