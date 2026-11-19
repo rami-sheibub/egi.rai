@@ -163,17 +163,18 @@ let currentLimit = 12;
 let isExpanded = false;
 
 // ==========================================
-// БЛОКИРОВКА СКРОЛЛА (через класс body.no-scroll)
+// БЛОКИРОВКА СКРОЛЛА С СОХРАНЕНИЕМ ПОЗИЦИИ
 // ==========================================
+let savedScrollY = 0;
+
 function lockScroll() {
-  const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-  document.body.style.paddingRight = scrollBarWidth + "px";
+  
   document.body.classList.add("no-scroll");
 }
 
 function unlockScroll() {
-  document.body.style.paddingRight = "";
-  document.body.classList.remove("no-scroll");
+
+  window.scrollTo(0, savedScrollY);
 }
 
 function updateBrandOptions() {
