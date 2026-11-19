@@ -661,51 +661,6 @@ html.light-theme .footer-tg-btn:hover { color: #fdf6e3; box-shadow: 0 6px 16px r
 
 .footer-bottom { border-top: 1px solid var(--line); padding: 16px 0; display: flex; justify-content: center; align-items: center; color: var(--muted); font-size: 10px; }
 
-/* МОДАЛЬНЫЕ ОКНА */
-.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); z-index: 100; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
-html.light-theme .modal-overlay { background: rgba(60, 40, 10, 0.55); }
-.modal-overlay.active { display: flex; opacity: 1; }
-.modal-content {
-  background: var(--dark);
-  border: 1px solid var(--gold);
-  border-radius: 12px;
-  padding: 30px;
-  width: 90%;
-  max-width: 450px;
-  max-height: 85vh; /* Ограничиваем высоту */
-  overflow-y: auto; /* Скролл для всей модалки */
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  transform: translateY(20px);
-  transition: transform 0.3s ease;
-  -webkit-overflow-scrolling: touch;
-}
-html.light-theme .modal-content { background: var(--dark); box-shadow: 0 20px 50px rgba(90, 60, 15, 0.4); }
-.modal-overlay.active .modal-content { transform: translateY(0); }
-.modal-close {
-  position: sticky; /* Прилипает к верху при скролле */
-  top: 0;
-  float: right;
-  margin: -15px -15px 0 0; /* Подтягиваем в угол */
-  background: var(--dark);
-  border: none;
-  color: var(--muted);
-  font-size: 22px;
-  line-height: 1;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-  transition: color 0.2s, background 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-close:hover {
-  color: var(--gold);
-  background: rgba(255, 255, 255, 0.05);
-}
 
 .modal-title { font-family: "Playfair Display", serif; font-size: 26px; color: var(--gold-light); margin: 0 0 5px; }
 html.light-theme .modal-title { color: var(--gold); }
@@ -910,24 +865,145 @@ html.light-theme .about-content { border-color: rgba(138, 90, 18, 0.25); }
      .footer-tg-btn span { display: none; }
 }
 
-@media (max-width: 600px) {
-  .modal-content { padding: 24px 18px; max-height: 90vh; }
-  .modal-title { font-size: 22px; }
-  .cart-item-info h5 { font-size: 14px; }
-  #cartItemsList { max-height: 200px !important; }
+/* ============================================
+   ФИКС КОРЗИНЫ И МОДАЛОК
+   ============================================ */
+
+/* Блокировка скролла страницы при открытой модалке */
+body.no-scroll {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
 }
 
+/* Оверлей модалки */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+html.light-theme .modal-overlay {
+  background: rgba(60, 40, 10, 0.55);
+}
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* Карточка модалки — фиксированная, БЕЗ собственного скролла */
+.modal-content {
+  position: relative;
+  background: var(--dark);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  padding: 34px 26px 24px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+html.light-theme .modal-content {
+  background: var(--dark);
+  box-shadow: 0 20px 50px rgba(90, 60, 15, 0.4);
+}
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+/* Шапка модалки не сжимается */
+.modal-content > .eyebrow,
+.modal-content > .modal-title,
+.modal-content > .modal-brand {
+  flex-shrink: 0;
+}
+
+/* Крестик закрытия — в правом верхнем углу карточки */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dark);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s;
+}
+.modal-close:hover {
+  background: var(--gold);
+  color: var(--dark);
+}
+
+/* Список товаров в корзине — своя прокрутка, занимает оставшееся место */
+#cartItemsList {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 16px;
+  padding-right: 4px;
+}
+
+/* Форма внизу — фиксирована, не растягивает карточку */
+#cartFormWrapper {
+  flex-shrink: 0;
+  max-height: 45vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid var(--line);
+  padding-top: 15px;
+  padding-right: 4px;
+}
+
+/* Мобильная адаптация */
 @media (max-width: 600px) {
-  .modal-content {
-    padding: 20px 15px;
-    max-height: 90vh; /* На телефоне даем чуть больше высоты */
+  .modal-overlay {
+    padding: 10px;
   }
-  
+  .modal-content {
+    padding: 34px 16px 18px;
+    max-height: 90vh;
+    border-radius: 14px;
+  }
+  .modal-close {
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
   .modal-title {
     font-size: 22px;
   }
-  
+  .cart-item-info h5 {
+    font-size: 14px;
+  }
   .cart-item {
     padding: 12px;
+  }
+  #cartFormWrapper {
+    max-height: 45vh;
   }
 }
