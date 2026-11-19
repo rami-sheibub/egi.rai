@@ -594,6 +594,9 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .about-content h2 { font-size: 24px; }
   .about-content p { font-size: 13px; }
   .about-content .text-link { margin-left: 0 !important; margin-top: 15px; display: block; text-align: center; }
+
+     .footer-tg-btn { padding: 8px 14px; font-size: 11px; }
+  .footer-tg-btn svg { width: 14px; height: 14px; }
 }
 
 @media(max-width: 390px) {
@@ -602,4 +605,5 @@ html.light-theme .moon-container { background: radial-gradient(circle at 30% 30%
   .logo { font-size: 14px; }
   .logo-mark { width: 26px; height: 26px; font-size: 16px; }
   .cart-btn { font-size: 10px; padding: 8px 12px; }
+     .footer-tg-btn span { display: none; } /* если добавишь span вокруг текста */
 }
