@@ -215,18 +215,66 @@ html.light-theme .footer { background: var(--island-bg) !important; }
 html.light-theme .button-gold { color: #fdf6e3; }
 .button-gold:hover { background: var(--gold-light); }
 
-.hero-btn { margin-top: 36px; align-self: flex-start; padding: 20px 38px; font-size: 14px; font-weight: 700; letter-spacing: 0.6px; border-radius: 10px; box-shadow: 0 6px 0 #8c7345, 0 10px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.25); transform: translateY(0); transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s; }
-.hero-btn:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #8c7345, 0 16px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3); }
-.hero-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #8c7345, 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2); }
-html.light-theme .hero-btn { box-shadow: 0 6px 0 #6b4f1a, 0 10px 24px rgba(60,40,10,0.3), inset 0 1px 0 rgba(255,255,255,0.5); }
-html.light-theme .hero-btn:hover { box-shadow: 0 9px 0 #6b4f1a, 0 16px 30px rgba(60,40,10,0.35), inset 0 1px 0 rgba(255,255,255,0.5); }
-html.light-theme .hero-btn:active { box-shadow: 0 2px 0 #6b4f1a, 0 4px 10px rgba(60,40,10,0.25), inset 0 1px 0 rgba(255,255,255,0.4); }
+.hero-btn {
+  position: relative;
+  margin-top: 36px;
+  align-self: flex-start;
+  padding: 20px 44px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  border-radius: 14px;
+  background: #c9a96e;
+  color: #1a130a;
+  border: 1px solid rgba(255, 240, 210, 0.35);
+  transform: translateY(0);
+  box-shadow:
+    0 4px 0 #8c7345,
+    0 10px 22px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.3s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px);
+  background: #d4b47c;
+  box-shadow:
+    0 7px 0 #8c7345,
+    0 14px 26px rgba(0, 0, 0, 0.45);
+}
+
+.hero-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #8c7345,
+    0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Светлая тема */
+html.light-theme .hero-btn {
+  background: #8a5a12;
+  color: #fdf6e3;
+  border-color: rgba(255, 245, 220, 0.4);
+  box-shadow:
+    0 4px 0 #5c3d0c,
+    0 10px 22px rgba(60, 40, 10, 0.3);
+}
+html.light-theme .hero-btn:hover {
+  background: #9a6714;
+  box-shadow:
+    0 7px 0 #5c3d0c,
+    0 14px 26px rgba(60, 40, 10, 0.35);
+}
+html.light-theme .hero-btn:active {
+  box-shadow:
+    0 1px 0 #5c3d0c,
+    0 4px 10px rgba(60, 40, 10, 0.3);
+}
 
 /* БОЛЬШОЙ ФЛАКОН В HERO */
 .hero-art { position: relative; width: 52%; min-height: 900px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
 
 /* Пирамиды — слева, на холмиках, только светлая тема */
-html.light-theme .hero .hero-copy::before {
+.hero .hero-copy::before {
   content: "";
   position: absolute;
   left: 2%;
@@ -244,8 +292,11 @@ html.light-theme .hero .hero-copy::before {
   clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
   filter: drop-shadow(0 10px 16px rgba(110, 70, 15, 0.3));
 }
+html:not(.light-theme) .hero .hero-copy::before {
+  left: 6%;
+}
  
-html.light-theme .hero .hero-copy::after {
+.hero .hero-copy::after {
   content: "";
   position: absolute;
   left: 18%;
@@ -271,7 +322,7 @@ html.light-theme .orbit-two { border-color: rgba(138, 90, 18, 0.12); }
 html.light-theme .art-glow { background: rgba(255, 250, 235, 0.7); }
 
 /* Третья пирамида — маленькая, справа от больших, только светлая тема */
-html.light-theme .hero-art::before {
+.hero-art::before {
   content: "";
   position: absolute;
   left: 12%;
@@ -1511,7 +1562,27 @@ html.light-theme .cart-total strong { color: var(--gold); }
   .logo-mark { width: 30px; height: 30px; font-size: 20px; }
   .theme-toggle { width: 36px; height: 36px; margin: 0; }
   .theme-toggle svg { width: 16px; height: 16px; }
-  .header .button-gold { padding: 8px 12px !important; font-size: 10px !important; margin-left: 0; }
+  .header .footer-tg-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    padding: 0;
+    gap: 0;
+    border-radius: 50%;
+    font-size: 0;
+    line-height: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .header .footer-tg-btn svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    flex-shrink: 0;
+    margin: 0;
+  }
 
   .floating-bottom-right { bottom: 15px; right: 15px; gap: 10px; }
   .cart-btn { width: 46px; height: 46px; }
@@ -1523,7 +1594,8 @@ html.light-theme .cart-total strong { color: var(--gold); }
   .hero-copy { width: 100%; padding: 40px 0 20px; text-align: center; align-items: center; justify-content: center; }
   .hero h1 { font-size: 38px; }
   .hero-text { font-size: 13px; }
-  .hero-btn { align-self: center; padding: 18px 32px; }
+  .hero-btn { align-self: center; padding: 18px 48px 18px 32px; font-size: 13px; }
+  .hero-btn::after { right: 18px; font-size: 16px; }
   .hero-art { width: 100%; min-height: 480px; margin-top: 10px; }
   .art-orbit { width: 280px; height: 280px; }
   .orbit-two { width: 360px; height: 360px; }
@@ -1621,9 +1693,10 @@ html.light-theme .cart-total strong { color: var(--gold); }
   .moon-container { width: 180px; height: 180px; margin: 0 auto 20px; }
 
   /* пирамиды на мобилке — скрыты */
-  html.light-theme .hero .hero-copy::before,
-  html.light-theme .hero .hero-copy::after,
-  html.light-theme .hero-art::before {
+  .hero .hero-copy::before,
+  .hero .hero-copy::after,
+  .hero-art::before,
+  .pyramid-mist {
     display: none;
   }
 }
@@ -1634,7 +1707,7 @@ html.light-theme .cart-total strong { color: var(--gold); }
   .logo { font-size: 14px; }
   .logo-mark { width: 26px; height: 26px; font-size: 16px; }
   .cart-btn { font-size: 10px; padding: 8px 12px; }
-  .footer-tg-btn span { display: none; }
+  .header .footer-tg-btn span { display: none; }
 }
 
 
@@ -1717,9 +1790,6 @@ html.light-theme .section-divider {
   pointer-events: none;
   z-index: 1;
   filter: blur(16px);
-  display: none;
-}
-html.light-theme .pyramid-mist {
   display: block;
 }
 
@@ -1892,4 +1962,154 @@ html.light-theme .sand-bg-image {
 
 html.light-theme .section-divider {
   display: none !important;
+}
+
+/* ============================================
+   ЛУНА ПОД КНОПКОЙ В HERO
+   ============================================ */
+.hero-moon {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-top: 38px;
+  margin-left: 8px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: heroMoonAppear 1s ease-out 0.5s forwards;
+}
+
+@keyframes heroMoonAppear {
+  to { opacity: 1; }
+}
+
+.hero-moon-texture {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, #f6f1e6 0%, #d9d2c2 18%, #a89d8a 42%, #6e6455 68%, #3a332a 88%, #1c1712 100%);
+  box-shadow:
+    inset -14px -11px 30px rgba(0, 0, 0, 0.65),
+    inset 9px 7px 20px rgba(255, 250, 235, 0.18),
+    0 0 30px rgba(230, 207, 158, 0.28),
+    0 0 60px rgba(201, 169, 110, 0.14);
+  animation: heroMoonGlow 8s ease-in-out infinite;
+}
+
+.hero-moon-texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 70% 65%, rgba(0,0,0,0.35) 0%, transparent 55%),
+    radial-gradient(circle at 20% 75%, rgba(0,0,0,0.28) 0%, transparent 45%);
+  mix-blend-mode: multiply;
+}
+
+.hero-moon-craters {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.hero-moon .crater {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 55%, transparent 75%);
+  box-shadow:
+    inset 1px 1px 2px rgba(0,0,0,0.55),
+    inset -1px -1px 2px rgba(255,250,235,0.18);
+}
+.hero-moon .crater-1 { width: 26px; height: 26px; top: 18%; left: 22%; }
+.hero-moon .crater-2 { width: 16px; height: 16px; top: 42%; left: 58%; }
+.hero-moon .crater-3 { width: 11px; height: 11px; top: 64%; left: 34%; }
+.hero-moon .crater-4 { width: 8px;  height: 8px;  top: 10%; left: 70%; }
+.hero-moon .crater-5 { width: 6px;  height: 6px;  top: 72%; left: 66%; }
+
+.hero-moon-maria {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse 40% 30% at 40% 40%, rgba(60,55,45,0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 25% at 65% 55%, rgba(60,55,45,0.3) 0%, transparent 70%);
+  mix-blend-mode: multiply;
+}
+
+@keyframes heroMoonGlow {
+  0%, 100% {
+    box-shadow:
+      inset -14px -11px 30px rgba(0,0,0,0.65),
+      inset 9px 7px 20px rgba(255,250,235,0.18),
+      0 0 30px rgba(230,207,158,0.28),
+      0 0 60px rgba(201,169,110,0.14);
+  }
+  50% {
+    box-shadow:
+      inset -14px -11px 30px rgba(0,0,0,0.65),
+      inset 9px 7px 20px rgba(255,250,235,0.22),
+      0 0 44px rgba(230,207,158,0.42),
+      0 0 90px rgba(201,169,110,0.22);
+  }
+}
+
+/* светлая тема — луна светлее, свечение теплее */
+html.light-theme .hero-moon-texture {
+  background:
+    radial-gradient(circle at 32% 28%, #fffdf7 0%, #f7f0e2 18%, #ebe2d0 42%, #d8ccb4 68%, #b8a888 88%, #9a8a6a 100%);
+  box-shadow:
+    inset -10px -9px 24px rgba(138, 90, 18, 0.18),
+    inset 8px 6px 18px rgba(255, 255, 250, 0.6),
+    0 0 30px rgba(230, 207, 158, 0.45),
+    0 0 60px rgba(201, 169, 110, 0.22);
+  animation: heroMoonGlowLight 8s ease-in-out infinite;
+}
+html.light-theme .hero-moon-texture::after {
+  background:
+    radial-gradient(circle at 70% 65%, rgba(120, 95, 50, 0.18) 0%, transparent 55%),
+    radial-gradient(circle at 20% 75%, rgba(120, 95, 50, 0.15) 0%, transparent 45%);
+}
+html.light-theme .hero-moon .crater {
+  background: radial-gradient(circle at 35% 30%, rgba(120, 90, 45, 0.35) 0%, rgba(120, 90, 45, 0.12) 55%, transparent 75%);
+  box-shadow:
+    inset 1px 1px 2px rgba(120, 90, 45, 0.4),
+    inset -1px -1px 2px rgba(255, 255, 250, 0.7);
+}
+html.light-theme .hero-moon-maria {
+  background:
+    radial-gradient(ellipse 40% 30% at 40% 40%, rgba(160, 135, 90, 0.22) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 25% at 65% 55%, rgba(160, 135, 90, 0.18) 0%, transparent 70%);
+}
+
+@keyframes heroMoonGlowLight {
+  0%, 100% {
+    box-shadow:
+      inset -10px -9px 24px rgba(138,90,18,0.18),
+      inset 8px 6px 18px rgba(255,255,250,0.6),
+      0 0 30px rgba(230,207,158,0.45),
+      0 0 60px rgba(201,169,110,0.22);
+  }
+  50% {
+    box-shadow:
+      inset -10px -9px 24px rgba(138,90,18,0.18),
+      inset 8px 6px 18px rgba(255,255,250,0.7),
+      0 0 44px rgba(230,207,158,0.6),
+      0 0 90px rgba(201,169,110,0.32);
+  }
+}
+
+/* на телефоне луну не показываем */
+@media (max-width: 720px) {
+  .hero-moon { display: none; }
+}
+
+@media (max-width: 720px) {
+  .pyramid-mist,
+  .pyramid-mist-1,
+  .pyramid-mist-2,
+  .pyramid-mist-3 {
+    display: none !important;
+  }
 }
