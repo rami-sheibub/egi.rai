@@ -27,6 +27,8 @@
 </head>
 <body>
  
+  <div class="sand-fade" aria-hidden="true"></div>
+
   <div class="announcement">Масляные ароматы · Доставка и самовывоз · Заказы в Telegram</div>
 <!-- Фоновые облака (видны только в светлой теме) -->
   <div class="bg-clouds">
@@ -61,12 +63,21 @@
         <h1 class="hero-title">Искусство<br>в каждом <em>аромате.</em></h1>
         <p class="hero-text">140+ ароматов: мужские, женские и унисекс. Найдите свой характер  и закажите в Telegram.</p>
         <a class="button button-gold hero-btn" href="#catalog" style="margin-top: 30px;">Выбрать аромат</a>
+
+        <div class="pyramid-mist pyramid-mist-1" aria-hidden="true"></div>
+        <div class="pyramid-mist pyramid-mist-2" aria-hidden="true"></div>
       </div>
       
       <div class="hero-art" aria-label="Иллюстрация флакона духов">
         <div class="art-orbit orbit-one"></div>
         <div class="art-orbit orbit-two"></div>
         <div class="art-glow"></div>
+       
+        <div class="pyramid-mist pyramid-mist-3" aria-hidden="true"></div>
+        <div class="scent-particles" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
         
         <div class="bottle">
           <div class="bottle-cap"></div>
@@ -86,6 +97,12 @@
         <div class="floating-note note-b">EST. WITH LOVE</div>
       </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="currentColor"/>
+      </svg>
+    </div>
 
     <section class="catalog section" id="catalog">
       <div class="section-heading">
@@ -284,15 +301,21 @@
 
       <div class="modal-form">
         <label>Выберите объём:</label>
-        <select id="modalVolume">
-          <option value="5">5 мл — 500 ₽</option>
-          <option value="10">10 мл — 1 000 ₽</option>
-          <option value="20">20 мл — 2 000 ₽</option>
-          <option value="30">30 мл — 3 000 ₽</option>
-          <option value="50">50 мл — 5 000 ₽</option>
-          <option value="70">70 мл — 7 000 ₽</option>
-          <option value="100">100 мл — 10 000 ₽</option>
-        </select>
+        <div class="custom-select" id="modalVolume" data-value="5">
+          <button type="button" class="custom-select-trigger">
+            <span class="custom-select-label">5 мл — 500 ₽</span>
+            <span class="custom-select-arrow"></span>
+          </button>
+          <ul class="custom-select-options">
+            <li class="custom-select-option selected" data-value="5">5 мл — 500 ₽</li>
+            <li class="custom-select-option" data-value="10">10 мл — 1 000 ₽</li>
+            <li class="custom-select-option" data-value="20">20 мл — 2 000 ₽</li>
+            <li class="custom-select-option" data-value="30">30 мл — 3 000 ₽</li>
+            <li class="custom-select-option" data-value="50">50 мл — 5 000 ₽</li>
+            <li class="custom-select-option" data-value="70">70 мл — 7 000 ₽</li>
+            <li class="custom-select-option" data-value="100">100 мл — 10 000 ₽</li>
+          </ul>
+        </div>
 
         <button class="button button-gold" id="addToCartBtn" style="margin-top: 25px; width: 100%;">Добавить в корзину</button>
       </div>
