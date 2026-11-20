@@ -736,12 +736,12 @@ function createStars() {
     starsContainer.className = "bg-stars";
     document.body.prepend(starsContainer);
   }
-  const starCount = 70;
+  const starCount = 180;
   for (let i = 0; i < starCount; i++) {
     const star = document.createElement("div");
     star.classList.add("star");
-    if (Math.random() > 0.7) star.classList.add("gold");
-    const size = Math.random() * 2 + 1;
+    if (Math.random() > 0.6) star.classList.add("gold");
+    const size = Math.random() * 2.6 + 1.2;
     star.style.width = `${size}px`;
     star.style.height = `${size}px`;
     star.style.left = `${Math.random() * 100}%`;
