@@ -416,11 +416,15 @@ if (cartContactInput) {
 function updateCartUI() {
   if (!cartCount) return;
   cartCount.textContent = cart.length;
-  
+
+  const cartTotal = document.getElementById("cartTotal");
+  const cartTotalSum = document.getElementById("cartTotalSum");
+
   if (cart.length === 0) {
     cartEmptyMsg.style.display = "block";
     cartFormWrapper.style.display = "none";
     cartItemsList.innerHTML = "";
+    if (cartTotal) cartTotal.style.display = "none";
     return;
   }
 
@@ -445,6 +449,13 @@ function updateCartUI() {
       updateCartUI();
     });
   });
+
+  // --- ИТОГО В КОРЗИНЕ ---
+  const total = cart.reduce((sum, item) => sum + parseInt(item.volume) * 100, 0);
+  if (cartTotal && cartTotalSum) {
+    cartTotalSum.textContent = total.toLocaleString("ru-RU") + " ₽";
+    cartTotal.style.display = "flex";
+  }
 }
 
 function flyToCart(startRect) {
@@ -529,7 +540,6 @@ if (submitCartOrderBtn) {
       return;
     }
 
-
     let itemsText = "";
     let totalPrice = 0;
     cart.forEach((item, i) => {
@@ -592,15 +602,22 @@ if (submitCartOrderBtn) {
 }
 
 // --- Кнопка скролла Вверх / Вниз ---
+// Стрелка ↓ в первой половине страницы, ↑ во второй.
+// Кнопка видна только после прокрутки.
 if (toTop && scrollIcon) {
   const updateScrollButton = () => {
-    const isScrolledDown = window.scrollY > 300;
-    if (window.scrollY > 50) {
+    const scrollY = window.scrollY;
+    const scrollable = document.body.scrollHeight - window.innerHeight;
+    const half = scrollable / 2;
+    const isSecondHalf = scrollY > half;
+
+    if (scrollY > 50) {
       toTop.classList.add("visible");
     } else {
       toTop.classList.remove("visible");
     }
-    if (isScrolledDown) {
+
+    if (isSecondHalf) {
       scrollIcon.innerHTML = "&uarr;";
       toTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -609,6 +626,7 @@ if (toTop && scrollIcon) {
     }
   };
   window.addEventListener("scroll", updateScrollButton);
+  window.addEventListener("resize", updateScrollButton);
   updateScrollButton();
 }
 
@@ -669,6 +687,7 @@ if (themeToggle) {
     localStorage.setItem("theme", isLight ? "light" : "dark");
   });
 }
+
 // ==========================================
 // ПРОМО-АКЦИЯ 3+1 (Тап на телефоне)
 // ==========================================
@@ -687,6 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
 // Запуск
 createStars();
 updateBrandOptions();
