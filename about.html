@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="О бренде EGI.RAI — масляные духи, 140+ ароматов, заказ в Telegram.">
   <title>О бренде — EGI.RAI</title>
-  
+
   <script>
     (function() {
       const savedTheme = localStorage.getItem('theme');
@@ -39,7 +38,7 @@
       <span class="logo-mark">E</span>
       <span>EGI<span class="gold">.</span>RAI<small>ART OF SCENT</small></span>
     </a>
-    
+
     <div class="header-actions">
       <button id="themeToggle" class="theme-toggle" aria-label="Сменить тему">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -54,32 +53,44 @@
   </header>
 
   <main class="about-main">
+    <!-- Детальная луна (тёмная тема) / детальное солнце (светлая тема) -->
     <div class="moon-container">
-      <div class="moon-texture"></div>
-    </div>
+  <!-- ЛУНА -->
+  <div class="moon-texture"></div>
+  <div class="moon-craters">
+    <span class="crater crater-1"></span>
+    <span class="crater crater-2"></span>
+    <span class="crater crater-3"></span>
+    <span class="crater crater-4"></span>
+    <span class="crater crater-5"></span>
+    <span class="crater crater-6"></span>
+    <span class="crater crater-7"></span>
+    <span class="crater crater-8"></span>
+  </div>
+  <div class="moon-maria"></div>
+</div>
 
     <section class="about-content">
       <p class="eyebrow">О БРЕНДЕ</p>
       <h2 style="font-family:'DM Sans',sans-serif;font-weight:700;font-size:clamp(36px,4vw,54px);line-height:1.15;margin:0 0 26px; color:var(--ink);letter-spacing:-0.5px;">
         EGI.RAI —<br>искусство <em style="color:var(--gold);font-style:normal;">в каждом аромате.</em>
       </h2>
-      
+
       <p>
         EGI.RAI — это не просто магазин, а результат <strong>более чем 30-летнего опыта</strong> в мире парфюмерии и тщательного подбора масел. Мы знаем, как создать аромат, который будет звучать дорого и стойко.
       </p>
-      
+
       <p>
         В нашей коллекции 140+ композиций: от признанной классики (Chanel, Dior, Versace) до редких нишевых творений (Amouage, Creed, Tom Ford). Каждый флакон — от 5 до 100 мл, и вы всегда можете выбрать удобный формат.
       </p>
-      
+
       <p>
         Теперь заказать любимый аромат стало еще проще: соберите свою корзину прямо на сайте или напишите нам в Telegram. Мы поможем с выбором, подскажем наличие и оформим доставку.
       </p>
-      
+
       <div style="margin-top: 30px;">
-        <a class="button button-gold" href="https://t.me/Faputa_void" target="_blank" rel="noopener">Написать в Telegram</a>
-        <a class="text-link" href="index.html#catalog" style="margin-left:20px;display:inline-block;">Вернуться в каталог</a>
-      </div>
+  <a class="footer-tg-btn" href="index.html#catalog">Вернуться в каталог</a>
+</div>
     </section>
   </main>
 
