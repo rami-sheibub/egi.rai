@@ -179,19 +179,31 @@ function updateBrandOptions() {
   const availableProducts = allProducts.filter(p => activeGender === "Все" || p.category === activeGender);
   const brands = [...new Set(availableProducts.map(p => p.brand))].sort((a, b) => a.localeCompare(b, 'ru'));
   
-  brandFilter.innerHTML = '<option value="Все">Все бренды</option>';
+  const optionsList = brandFilter.querySelector(".custom-select-options");
+  const label = brandFilter.querySelector(".custom-select-label");
+
+  optionsList.innerHTML = '<li class="custom-select-option selected" data-value="Все">Все бренды</li>';
   brands.forEach(brand => {
-    const option = document.createElement("option");
-    option.value = brand;
-    option.textContent = brand;
-    brandFilter.appendChild(option);
+    const li = document.createElement("li");
+    li.className = "custom-select-option";
+    li.setAttribute("data-value", brand);
+    li.textContent = brand;
+    optionsList.appendChild(li);
   });
 
   if (brands.includes(currentSelected)) {
-    brandFilter.value = currentSelected;
+    brandFilter.setAttribute("data-value", currentSelected);
+    label.textContent = currentSelected;
+    optionsList.querySelectorAll(".custom-select-option").forEach(o => {
+      o.classList.toggle("selected", o.getAttribute("data-value") === currentSelected);
+    });
   } else {
     activeBrand = "Все";
-    brandFilter.value = "Все";
+    brandFilter.setAttribute("data-value", "Все");
+    label.textContent = "Все бренды";
+    optionsList.querySelectorAll(".custom-select-option").forEach(o => {
+      o.classList.toggle("selected", o.getAttribute("data-value") === "Все");
+    });
   }
 }
 
@@ -298,16 +310,55 @@ function renderProducts() {
 if (searchInput) {
   searchInput.addEventListener("input", () => { currentLimit = 12; renderProducts(); });
 }
-if (genderFilter) {
-  genderFilter.addEventListener("change", (e) => {
-    activeGender = e.target.value; currentLimit = 12; updateBrandOptions(); renderProducts();
+// --- КАСТОМНЫЕ СЕЛЕКТЫ ---
+function setupCustomSelect(el, onChange) {
+  if (!el) return;
+  const trigger = el.querySelector(".custom-select-trigger");
+  const label = el.querySelector(".custom-select-label");
+  const options = el.querySelector(".custom-select-options");
+
+  trigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    // Закрыть другие открытые селекты
+    document.querySelectorAll(".custom-select.open").forEach(sel => {
+      if (sel !== el) sel.classList.remove("open");
+    });
+    el.classList.toggle("open");
+  });
+
+  options.addEventListener("click", (e) => {
+    const opt = e.target.closest(".custom-select-option");
+    if (!opt) return;
+    const value = opt.getAttribute("data-value");
+    const text = opt.textContent;
+
+    el.setAttribute("data-value", value);
+    label.textContent = text;
+
+    options.querySelectorAll(".custom-select-option").forEach(o => o.classList.remove("selected"));
+    opt.classList.add("selected");
+
+    el.classList.remove("open");
+    onChange(value);
   });
 }
-if (brandFilter) {
-  brandFilter.addEventListener("change", (e) => {
-    activeBrand = e.target.value; currentLimit = 12; renderProducts();
-  });
-}
+
+document.addEventListener("click", () => {
+  document.querySelectorAll(".custom-select.open").forEach(el => el.classList.remove("open"));
+});
+
+setupCustomSelect(genderFilter, (value) => {
+  activeGender = value;
+  currentLimit = 12;
+  updateBrandOptions();
+  renderProducts();
+});
+
+setupCustomSelect(brandFilter, (value) => {
+  activeBrand = value;
+  currentLimit = 12;
+  renderProducts();
+});
 
 if (expandBtn) {
   expandBtn.addEventListener("click", () => { 
