@@ -46,12 +46,7 @@ html.light-theme body {
   background-color: #f7e2b0;
   background-image:
     var(--sand-texture),
-    radial-gradient(ellipse 60% 25% at 20% 88%, rgba(201, 165, 106, 0.55) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 22% at 80% 92%, rgba(184, 140, 70, 0.5) 0%, transparent 70%),
-    radial-gradient(ellipse 70% 20% at 50% 96%, rgba(160, 120, 55, 0.45) 0%, transparent 75%),
     radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255, 248, 225, 0.9) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 18% at 15% 30%, rgba(255, 250, 235, 0.55) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 15% at 85% 45%, rgba(255, 245, 220, 0.45) 0%, transparent 70%),
     linear-gradient(180deg,
       #fdf6e3 0%,
       #f7e2b0 22%,
@@ -59,17 +54,9 @@ html.light-theme body {
       #d9b878 65%,
       #c9a56a 88%,
       #b8935a 100%);
-  background-size:
-    120px 120px,
-    100% 100%,
-    100% 100%,
-    100% 100%,
-    100% 100%,
-    100% 100%,
-    100% 100%,
-    100% 100%;
-  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: scroll, scroll, scroll, scroll, scroll, scroll, scroll, fixed;
+  background-size: 120px 120px, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-attachment: scroll;
 }
 a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; }
@@ -1671,7 +1658,6 @@ html.light-theme .sand-mist {
     radial-gradient(ellipse 60% 15% at 15% 92%, rgba(220, 180, 120, 0.55) 0%, transparent 70%),
     radial-gradient(ellipse 60% 15% at 85% 88%, rgba(220, 180, 120, 0.55) 0%, transparent 70%),
     radial-gradient(ellipse 70% 20% at 50% 20%, rgba(255, 240, 200, 0.35) 0%, transparent 70%);
-  filter: blur(24px);
 }
 
 .scent-particles {
@@ -1783,25 +1769,4 @@ html.light-theme .pyramid-mist-2 {
 }
 html.light-theme .pyramid-mist-3 {
   filter: blur(14px);
-}
-/* Песчаный слой от hero до низа страницы — глубина вниз */
-.sand-fade {
-  position: absolute;
-  top: 100vh;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 0;
-  display: none;
-}
-html.light-theme .sand-fade {
-  display: block;
-  background:
-    linear-gradient(180deg,
-      rgba(230, 195, 140, 0) 0%,
-      rgba(225, 190, 130, 0.10) 20%,
-      rgba(215, 178, 116, 0.18) 45%,
-      rgba(205, 165, 100, 0.26) 70%,
-      rgba(195, 152, 88, 0.34) 100%);
 }
