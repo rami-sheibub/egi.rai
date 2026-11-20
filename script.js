@@ -360,6 +360,8 @@ setupCustomSelect(brandFilter, (value) => {
   renderProducts();
 });
 
+
+
 if (expandBtn) {
   expandBtn.addEventListener("click", () => { 
     isExpanded = !isExpanded; 
@@ -387,6 +389,11 @@ const modalProductName = document.getElementById("modalProductName");
 const modalProductBrand = document.getElementById("modalProductBrand");
 const modalVolume = document.getElementById("modalVolume");
 
+// кастомный селект объёма в модалке (после объявления modalVolume)
+setupCustomSelect(modalVolume, () => {
+  // значение читается напрямую через data-value при добавлении в корзину
+});
+
 let currentProduct = { brand: "", name: "" };
 
 if (grid) {
@@ -410,7 +417,17 @@ if (grid) {
     
     modalProductName.textContent = currentProduct.name;
     modalProductBrand.textContent = currentProduct.brand;
-    modalVolume.value = "5";
+
+    // сброс объёма на 5 мл
+    if (modalVolume) {
+      modalVolume.setAttribute("data-value", "5");
+      const volLabel = modalVolume.querySelector(".custom-select-label");
+      if (volLabel) volLabel.textContent = "5 мл — 500 ₽";
+      modalVolume.querySelectorAll(".custom-select-option").forEach(o => {
+        o.classList.toggle("selected", o.getAttribute("data-value") === "5");
+      });
+      modalVolume.classList.remove("open");
+    }
     
     modal.classList.add("active");
     lockScroll();
@@ -541,7 +558,7 @@ function flyToCart(startRect) {
 
 if (addToCartBtn) {
   addToCartBtn.addEventListener("click", () => {
-    const vol = modalVolume.value;
+    const vol = modalVolume.getAttribute("data-value") || "5";
     const cardEl = document.querySelector(`.product-card[data-name="${CSS.escape(currentProduct.name)}"]`);
     if (cardEl) {
       const rect = cardEl.getBoundingClientRect();
@@ -749,40 +766,37 @@ if (themeToggle) {
 
     const goingLight = !document.documentElement.classList.contains("light-theme");
 
-    // Цвет занавеса фиксируем под целевую тему
+    // Сброс
+    curtain.classList.remove("to-light", "to-dark", "start-bottom", "start-top", "curtain-dark");
+
+    // Цвет фиксируем под целевую тему
     curtain.classList.toggle("curtain-dark", goingLight);
-    curtain.classList.remove("to-light", "to-dark", "start-top");
 
-    // Для светлой стартуем снизу, для тёмной — сверху
-    if (goingLight) {
-      curtain.style.transition = "none";
-      curtain.style.transform = "translateY(100%)";
-    } else {
-      curtain.style.transition = "none";
-      curtain.style.transform = "translateY(-100%)";
-    }
+    // Стартовая позиция (без transition)
+    curtain.classList.add(goingLight ? "start-bottom" : "start-top");
 
+    // Форсируем reflow, чтобы стартовая позиция применилась
     void curtain.offsetWidth;
 
-    // Один проход насквозь
-    curtain.style.transition = "";
-    curtain.classList.add(goingLight ? "to-light" : "to-dark");
+    // На следующем кадре убираем стартовый класс и включаем движение
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        curtain.classList.remove("start-bottom", "start-top");
+        curtain.classList.add(goingLight ? "to-light" : "to-dark");
+      });
+    });
 
     // Смена темы в середине пути
     setTimeout(() => {
       document.documentElement.classList.toggle("light-theme", goingLight);
       localStorage.setItem("theme", goingLight ? "light" : "dark");
-    }, 350);
+    }, 420);
 
     // Сброс после завершения
     setTimeout(() => {
       curtain.classList.remove("to-light", "to-dark", "curtain-dark");
-      curtain.style.transition = "none";
-      curtain.style.transform = "translateY(100%)";
-      void curtain.offsetWidth;
-      curtain.style.transition = "";
       switching = false;
-    }, 750);
+    }, 900);
   });
 }
 
