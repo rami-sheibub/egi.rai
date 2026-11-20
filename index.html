@@ -59,7 +59,7 @@
       <div class="hero-copy">
         <p class="eyebrow"><span></span> АРОМАТ — ЭТО ВАША ИСТОРИЯ</p>
         <h1 class="hero-title">Искусство<br>в каждом <em>аромате.</em></h1>
-        <p class="hero-text">140+ ароматов: мужские, женские и унисекс. Найдите свой signature и закажите в Telegram.</p>
+        <p class="hero-text">140+ ароматов: мужские, женские и унисекс. Найдите свой характер  и закажите в Telegram.</p>
         <a class="button button-gold hero-btn" href="#catalog" style="margin-top: 30px;">Выбрать аромат</a>
       </div>
       
@@ -90,7 +90,7 @@
     <section class="catalog section" id="catalog">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">НАЙДИТЕ СВОЙ SIGNATURE</p>
+          <p class="eyebrow">НАЙДИТЕ СВОЙ ХАРАКТЕР </p>
           <h2>Каталог <em>ароматов</em></h2>
         </div>
         
@@ -107,20 +107,32 @@
       </div>
 
       <div class="catalog-layout">
-        <div class="catalog-main" style="width: 100%;">
-          <div class="catalog-tools">
-            <div class="filters" id="filters" style="display: flex; gap: 15px; flex-wrap: wrap;">
-              <select id="genderFilter" class="filter">
-                <option value="Все">Все категории</option>
-                <option value="Мужские">Мужские</option>
-                <option value="Женские">Женские</option>
-                <option value="Унисекс">Унисекс</option>
-              </select>
+  <div class="catalog-main" style="width: 100%;">
+    <div class="catalog-tools">
+      <div class="filters">
+        <div class="custom-select" id="genderFilter" data-value="Все">
+          <button type="button" class="custom-select-trigger">
+            <span class="custom-select-label">Все категории</span>
+            <span class="custom-select-arrow"></span>
+          </button>
+          <ul class="custom-select-options">
+            <li class="custom-select-option selected" data-value="Все">Все категории</li>
+            <li class="custom-select-option" data-value="Мужские">Мужские</li>
+            <li class="custom-select-option" data-value="Женские">Женские</li>
+            <li class="custom-select-option" data-value="Унисекс">Унисекс</li>
+          </ul>
+        </div>
 
-              <select id="brandFilter" class="filter">
-                <option value="Все">Все бренды</option>
-              </select>
-            </div>
+        <div class="custom-select" id="brandFilter" data-value="Все">
+          <button type="button" class="custom-select-trigger">
+            <span class="custom-select-label">Все бренды</span>
+            <span class="custom-select-arrow"></span>
+          </button>
+          <ul class="custom-select-options">
+            <li class="custom-select-option selected" data-value="Все">Все бренды</li>
+          </ul>
+        </div>
+      </div>
             
             <label class="search">
               <span>⌕</span>
@@ -181,41 +193,54 @@
     <section class="contact-section" id="contacts">
       <div class="contact-inner">
         <div class="contact-copy">
-          <p class="eyebrow">03 / НА СВЯЗИ</p>
+          <p class="eyebrow">НА СВЯЗИ</p>
           <h2>Выбор аромата —<br><em>это личное.</em></h2>
+          <p class="eyebrow" style="margin-top: 30px;">БУДЕМ РАДЫ ВСТРЕЧЕ</p>
         </div>
-        <div class="contact-info">
-          <p class="eyebrow">БУДЕМ РАДЫ ВСТРЕЧЕ</p>
-          <div class="address-card">
-            <div class="addr-item">
-              <div>
-                <div class="addr-title">Новочеркасский, 20к1</div>
-                <div class="addr-item">
-               <div>
-                  <div class="addr-map">
-                    <iframe
-                    src="https://yandex.ru/map-widget/v1/?text=Новочеркасский%20бульвар%2C%2020к1&z=16"
-                   width="100%" height="180" frameborder="0" loading="lazy"
-                    style="border-radius:10px;border:1px solid var(--line);"></iframe>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-            <div class="addr-item">
-              <div>
-                <div class="addr-title">Прокатная ул., д. 2</div>
-                <div class="addr-map">
-  <iframe
-    src="https://yandex.ru/map-widget/v1/?text=Прокатная%20улица%2C%202&z=16"
-    width="100%" height="180" frameborder="0" loading="lazy"
-    style="border-radius:10px;border:1px solid var(--line);"></iframe>
+
+        <div class="address-card">
+  
+  <div class="addr-item">
+    <div>
+      <div class="addr-sub">Бутик</div>
+      <div class="addr-title">Новочеркасский бульвар, 20к1</div>
+    </div>
+    <div class="addr-map">
+      <iframe 
+        src="https://yandex.ru/map-widget/v1/?text=Москва%20Новочеркасский%20бульвар%2C%2020к1&z=16"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <a class="addr-map-link" 
+         href="https://yandex.ru/maps/?text=Москва%20Новочеркасский%20бульвар%2C%2020к1" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         aria-label="Открыть адрес на карте"></a>
+    </div>
+  </div>
+
+  <div class="addr-item">
+    <div>
+      <div class="addr-sub">Бутик</div>
+      <div class="addr-title">Прокатная ул., д. 2</div>
+    </div>
+    <div class="addr-map">
+      <iframe 
+        src="https://yandex.ru/map-widget/v1/?text=Прокатная%20улица%2C%202&z=16"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <a class="addr-map-link" 
+         href="https://yandex.ru/maps/?text=Прокатная%20улица%2C%202" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         aria-label="Открыть адрес на карте"></a>
+    </div>
+  </div>
+
 </div>
-              </div>
-            </div>
-          </div>
-          <p class="contact-note">Уточните время визита в сообщении</p>
-        </div>
+
+        <p class="contact-note">Уточните время визита в сообщении</p>
       </div>
     </section>
   </main>
