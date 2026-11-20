@@ -163,7 +163,7 @@ let currentLimit = 12;
 let isExpanded = false;
 
 // ==========================================
-// БЛОКИРОВКА СКРОЛЛА С СОХРАНЕНИЕМ ПОЗИЦИИ
+// БЛОКИРОВКА СКРОЛЛА
 // ==========================================
 function lockScroll() {
   document.body.classList.add("no-scroll");
@@ -240,7 +240,16 @@ function renderProducts() {
           <button class="btn-info" title="Узнать ноты">i</button>
           <div class="product-visual">
             <span class="product-category">${escapeHtml(categoryLabel)}</span>
-            <div class="mini-perfume" aria-hidden="true"><span>E</span></div>
+            <div class="mini-perfume" aria-hidden="true">
+              <div class="mini-cap"></div>
+              <div class="mini-neck"></div>
+              <div class="mini-body">
+                <div class="mini-liquid"></div>
+                <div class="mini-glass-back"></div>
+                <div class="mini-label"><span>E</span><i>EGI.RAI</i></div>
+                <div class="mini-glass-front"><div class="mini-shine"></div></div>
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <div class="product-brand">${escapeHtml(brand)}</div>
@@ -369,7 +378,7 @@ if (modal) {
 }
 
 // ==========================================
-// ЛОГИКА КОРЗИНЫ И АНИМАЦИЯ
+// КОРЗИНА
 // ==========================================
 
 let cart = JSON.parse(localStorage.getItem("egi_cart")) || [];
@@ -450,7 +459,6 @@ function updateCartUI() {
     });
   });
 
-  // --- ИТОГО В КОРЗИНЕ ---
   const total = cart.reduce((sum, item) => sum + parseInt(item.volume) * 100, 0);
   if (cartTotal && cartTotalSum) {
     cartTotalSum.textContent = total.toLocaleString("ru-RU") + " ₽";
@@ -602,8 +610,6 @@ if (submitCartOrderBtn) {
 }
 
 // --- Кнопка скролла Вверх / Вниз ---
-// Стрелка ↓ в первой половине страницы, ↑ во второй.
-// Кнопка видна только после прокрутки.
 if (toTop && scrollIcon) {
   const updateScrollButton = () => {
     const scrollY = window.scrollY;
@@ -689,7 +695,7 @@ if (themeToggle) {
 }
 
 // ==========================================
-// ПРОМО-АКЦИЯ 3+1 (Тап на телефоне)
+// ПРОМО-АКЦИЯ 3+1
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
   const promoBanner = document.getElementById("promoBanner");
