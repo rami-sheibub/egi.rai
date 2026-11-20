@@ -27,7 +27,8 @@ html.light-theme {
   --dark: #fdfaf3;
   --island-bg: linear-gradient(145deg, rgba(253, 250, 243, 0.96) 0%, rgba(242, 220, 176, 0.98) 100%);
   --shadow: rgba(90, 60, 15, 0.22);
-  --announcement-bg: #d9b878;
+    --announcement-bg: #d9b878;
+  --sand-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
 }
 
 * { box-sizing: border-box; }
@@ -35,10 +36,25 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 
 body {
   margin: 0; background: var(--paper); color: var(--ink);
+  background-image: none;
   font-family: "DM Sans", sans-serif; font-size: 14px;
   animation: fadeInPage 0.8s ease-out forwards;
   position: relative; overflow-x: hidden;
   transition: background 0.3s ease, color 0.3s ease;
+}
+html.light-theme body {
+  background-color: #f7e2b0;
+  background-image:
+    var(--sand-texture),
+    linear-gradient(180deg,
+      #fdf6e3 0%,
+      #f7e2b0 22%,
+      #e8c98f 45%,
+      #d9b878 65%,
+      #c9a56a 100%);
+  background-size: 120px 120px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+  background-attachment: scroll, fixed;
 }
 a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; }
@@ -56,7 +72,7 @@ html.light-theme .bg-clouds { display: block; }
 .bg-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; overflow: hidden; }
 .star { position: absolute; background-color: #fff; border-radius: 50%; box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.6); animation: twinkle linear infinite; }
 .star.gold { background-color: var(--gold-light); box-shadow: 0 0 8px 2px rgba(201, 169, 110, 0.8); }
-html.light-theme .star { background-color: #6e4a10; opacity: 0.35; box-shadow: 0 0 4px 1px rgba(110, 74, 16, 0.5); }
+html.light-theme .bg-stars { display: none; }
 @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.2; transform: scale(0.8); } }
 
 /* КНОПКИ */
@@ -155,7 +171,32 @@ html.light-theme .to-top:hover { color: #fdf6e3; }
 
 /* ОБЩИЕ БЛОКИ */
 .section, .contact-inner { background: var(--island-bg) !important; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 20px; margin: 40px auto; max-width: 1300px; box-shadow: 0 10px 30px var(--shadow); }
-.hero { background: transparent !important; border: none; margin: 0; max-width: 100%; box-shadow: none; min-height: 100vh; padding: 0 8.5% 40px 10%; display: flex; align-items: stretch; overflow: hidden; }
+.hero { background: transparent !important; border: none; margin: 0; max-width: 100%; box-shadow: none; min-height: 100vh; padding: 0 8.5% 40px 10%; display: flex; align-items: stretch; overflow: hidden; position: relative; }
+
+/* Пустыня — только светлая тема */
+html.light-theme .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+}
+html.light-theme .hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 55%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--sand-texture);
+  background-size: 120px 120px;
+  background-repeat: repeat;
+  mask-image: linear-gradient(180deg, transparent 0%, #000 40%, #000 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 40%, #000 100%);
+  opacity: 0.55;
+}
+html.light-theme .hero > * { position: relative; z-index: 2; }
 .footer { background: var(--announcement-bg) !important; border-radius: 0; margin: 0; max-width: 100%; border: none; border-top: 1px solid var(--line); padding: 28px 8.5% 0; color: var(--ink); position: relative; z-index: 2; }
 html.light-theme .footer { background: var(--island-bg) !important; }
 
@@ -183,6 +224,34 @@ html.light-theme .hero-btn:active { box-shadow: 0 2px 0 #6b4f1a, 0 4px 10px rgba
 
 /* БОЛЬШОЙ ФЛАКОН В HERO */
 .hero-art { position: relative; width: 52%; min-height: 900px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
+
+/* Пирамиды — слева, на холмиках, только светлая тема */
+html.light-theme .hero .hero-copy::before {
+  content: "";
+  position: absolute;
+  left: 2%;
+  bottom: 26%;
+  width: 260px;
+  height: 210px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(160deg, #e0b978 0%, #c99a52 55%, #a87d3d 100%);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  filter: drop-shadow(0 10px 16px rgba(120, 80, 20, 0.28));
+}
+html.light-theme .hero .hero-copy::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  bottom: 24%;
+  width: 170px;
+  height: 135px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(160deg, #d4a862 0%, #b98a45 55%, #9a6f35 100%);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  filter: drop-shadow(0 8px 12px rgba(120, 80, 20, 0.25));
+}
 .art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 580px; height: 580px; }
 html.light-theme .art-orbit { border-color: rgba(138, 90, 18, 0.25); }
 .orbit-two { width: 700px; height: 700px; border-color: rgba(201, 169, 110, 0.08); }
@@ -191,7 +260,7 @@ html.light-theme .orbit-two { border-color: rgba(138, 90, 18, 0.12); }
 html.light-theme .art-glow { background: rgba(255, 250, 235, 0.7); }
 
 .bottle { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; transform: rotate(-4deg); animation: floatBottle 7s ease-in-out infinite, shadowPulse 7s ease-in-out infinite; transition: filter 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
-.bottle:hover { filter: drop-shadow(0px 30px 50px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 50px rgba(201, 169, 110, 0.4)); animation-play-state: paused; transform: translateY(-15px) rotate(2deg) scale(1.02); }
+.bottle:hover { filter: drop-shadow(0px 30px 50px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 50px rgba(201, 169, 110, 0.4)); transform: translateY(-15px) rotate(2deg) scale(1.02); }
 html.light-theme .bottle:hover { filter: drop-shadow(0px 30px 50px rgba(60, 40, 10, 0.4)) drop-shadow(0px 0px 50px rgba(176, 125, 30, 0.5)); }
 
 .bottle-cap {
@@ -361,6 +430,26 @@ html.light-theme .bottle-shine {
 @keyframes waveFlow { 0% { transform: translateX(0) scaleY(1); } 50% { transform: translateX(20%) scaleY(1.1); } 100% { transform: translateX(0) scaleY(1); } }
 @keyframes shineMove { 0% { transform: translateX(0) scaleY(1); opacity: 0.7; } 50% { transform: translateX(5px) scaleY(1.05); opacity: 0.9; } 100% { transform: translateX(0) scaleY(1); opacity: 0.7; } }
 @keyframes floatBottle { 0% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-15px) rotate(-2deg); } 100% { transform: translateY(0) rotate(-4deg); } }
+@keyframes bottleShake {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  15% { transform: translateY(-2px) translateX(-4px) rotate(-6deg); }
+  30% { transform: translateY(2px) translateX(4px) rotate(-2deg); }
+  45% { transform: translateY(-2px) translateX(-4px) rotate(-6deg); }
+  60% { transform: translateY(2px) translateX(4px) rotate(-2deg); }
+  75% { transform: translateY(-1px) translateX(-2px) rotate(-5deg); }
+}
+.bottle.shake { animation: bottleShake 0.5s ease-in-out; }
+.bottle.shake .bottle-liquid { animation: liquidLevel 7s ease-in-out infinite, liquidShake 0.5s ease-in-out; }
+.bottle.shake .bottle-liquid::before { animation-duration: 1.5s; }
+.bottle.shake .bottle-liquid::after { animation-duration: 1.2s; }
+@keyframes liquidShake {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  15% { transform: translateX(-6px) translateY(2px); }
+  30% { transform: translateX(6px) translateY(-2px); }
+  45% { transform: translateX(-5px) translateY(1px); }
+  60% { transform: translateX(5px) translateY(-1px); }
+  75% { transform: translateX(-3px) translateY(1px); }
+}
 @keyframes shadowPulse { 0% { filter: drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.4)); } 50% { filter: drop-shadow(15px 45px 40px rgba(0, 0, 0, 0.65)); } 100% { filter: drop-shadow(15px 25px 20px rgba(0, 0, 0, 0.4)); } }
 
 .art-caption { position: absolute; bottom: 38px; left: 9%; right: 9%; display: flex; justify-content: space-between; font-size: 9px; letter-spacing: 1.5px; color: var(--muted); }
@@ -796,6 +885,31 @@ html.light-theme #expandBtn { box-shadow: 0 10px 30px rgba(90, 60, 15, 0.35) !im
 #expandBtn:hover { background: var(--gold) !important; color: var(--paper) !important; }
 html.light-theme #expandBtn:hover { color: #fdf6e3 !important; }
 #expandWrapper.is-sticky { position: fixed !important; bottom: 30px !important; left: 50% !important; transform: translateX(-50%) !important; z-index: 9999 !important; margin: 0 !important; }
+
+/* ОВЕРЛЕЙ СМЕНЫ ТЕМЫ (один проход) */
+.theme-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  transform: translateY(100%);
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+  background: #e8c98f;
+}
+.theme-curtain.curtain-dark {
+  background: #0d0b0a;
+}
+/* снизу вверх (в светлую) */
+.theme-curtain.to-light {
+  transform: translateY(-100%);
+}
+/* сверху вниз (в тёмную) */
+.theme-curtain.to-dark {
+  transform: translateY(100%);
+}
+.theme-curtain.start-top {
+  transform: translateY(-100%);
+}
 
 /* СКРОЛЛБАР */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -1432,6 +1546,20 @@ html.light-theme .cart-total strong { color: var(--gold); }
 
   /* луна */
   .moon-container { width: 180px; height: 180px; margin: 0 auto 20px; }
+
+  /* пирамиды на мобилке */
+  html.light-theme .hero .hero-copy::before {
+    left: 0;
+    bottom: 8%;
+    width: 150px;
+    height: 120px;
+  }
+  html.light-theme .hero .hero-copy::after {
+    left: 32%;
+    bottom: 6%;
+    width: 100px;
+    height: 80px;
+  }
 }
 
 @media (max-width: 390px) {
