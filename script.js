@@ -738,10 +738,51 @@ function createStars() {
 // --- ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ ---
 const themeToggle = document.getElementById("themeToggle");
 if (themeToggle) {
+  const curtain = document.createElement("div");
+  curtain.className = "theme-curtain";
+  document.body.appendChild(curtain);
+
+  let switching = false;
   themeToggle.addEventListener("click", () => {
-    document.documentElement.classList.toggle("light-theme");
-    const isLight = document.documentElement.classList.contains("light-theme");
-    localStorage.setItem("theme", isLight ? "light" : "dark");
+    if (switching) return;
+    switching = true;
+
+    const goingLight = !document.documentElement.classList.contains("light-theme");
+
+    // Цвет занавеса фиксируем под целевую тему
+    curtain.classList.toggle("curtain-dark", goingLight);
+    curtain.classList.remove("to-light", "to-dark", "start-top");
+
+    // Для светлой стартуем снизу, для тёмной — сверху
+    if (goingLight) {
+      curtain.style.transition = "none";
+      curtain.style.transform = "translateY(100%)";
+    } else {
+      curtain.style.transition = "none";
+      curtain.style.transform = "translateY(-100%)";
+    }
+
+    void curtain.offsetWidth;
+
+    // Один проход насквозь
+    curtain.style.transition = "";
+    curtain.classList.add(goingLight ? "to-light" : "to-dark");
+
+    // Смена темы в середине пути
+    setTimeout(() => {
+      document.documentElement.classList.toggle("light-theme", goingLight);
+      localStorage.setItem("theme", goingLight ? "light" : "dark");
+    }, 350);
+
+    // Сброс после завершения
+    setTimeout(() => {
+      curtain.classList.remove("to-light", "to-dark", "curtain-dark");
+      curtain.style.transition = "none";
+      curtain.style.transform = "translateY(100%)";
+      void curtain.offsetWidth;
+      curtain.style.transition = "";
+      switching = false;
+    }, 750);
   });
 }
 
@@ -763,6 +804,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Клик по большому флакону — дрожь
+const heroBottle = document.querySelector(".hero .bottle");
+if (heroBottle) {
+  heroBottle.addEventListener("click", () => {
+    heroBottle.classList.remove("shake");
+    void heroBottle.offsetWidth;
+    heroBottle.classList.add("shake");
+    setTimeout(() => heroBottle.classList.remove("shake"), 500);
+  });
+}
 
 // Запуск
 createStars();
