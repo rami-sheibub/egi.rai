@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="referrer" content="origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>404 — Страница не найдена | EGI.RAI</title>
+
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light-theme');
+      } else if (!savedTheme) {
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        if (prefersLight) document.documentElement.classList.add('light-theme');
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="sand-bg-image" aria-hidden="true"></div>
+  <div class="sand-fade" aria-hidden="true"></div>
+
+  <div class="announcement">Масляные ароматы · Доставка и самовывоз · Заказы в Telegram</div>
+
+  <header class="header">
+    <a class="logo" href="index.html" aria-label="EGI.RAI — главная">
+      <span class="logo-mark">E</span>
+      <span>EGI<span class="gold">.</span>RAI<small>ART OF SCENT</small></span>
+    </a>
+    <div class="header-actions">
+      <button id="themeToggle" class="theme-toggle" aria-label="Сменить тему">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="min-height: 75vh; justify-content: center; flex-direction: column; text-align: center; padding-top: 60px;">
+      <div class="hero-copy" style="width: 100%; align-items: center; justify-content: center;">
+        <p class="eyebrow"><span></span> ОШИБКА 404 <span style="margin-left:8px;"></span></p>
+        <h1 class="hero-title" style="font-size: clamp(60px, 10vw, 120px); line-height: 1;">
+          4<span class="gold">0</span>4
+        </h1>
+        <h2 style="font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: clamp(20px, 3vw, 28px); margin: 20px 0 16px; letter-spacing: -0.3px;">
+          Этот аромат <em style="color: var(--gold); font-style: normal;">растворился</em> в воздухе
+        </h2>
+        <p class="hero-text" style="max-width: 460px; margin: 0 auto;">
+          Страница, которую вы ищете, не найдена — возможно, она была перемещена или никогда не существовала. 
+        </p>
+        
+      </div>
+
+      <div class="art-caption" style="position: static; margin-top: 60px; display: flex; justify-content: center; gap: 40px; font-size: 9px; letter-spacing: 1.5px; color: var(--muted);">
+        <span>EGI.RAI · ART OF SCENT</span>
+        <span>PAGE NOT FOUND</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" style="margin-top: 0;">
+    <div class="footer-top" style="justify-content: center;">
+      <a class="logo footer-logo" href="index.html">
+        <span class="logo-mark">E</span>
+        <span>EGI<span class="gold">.</span>RAI<small>ART OF SCENT</small></span>
+      </a>
+    </div>
+    <div style="border-top: 1px solid var(--line); margin-top: 20px; padding: 20px 0; text-align: center; font-size: 11px; color: var(--muted); line-height: 1.8;">
+      <p style="margin: 0 0 10px;">ИП ШЕЙБУБ АЙМАН МОХАМЕД ЭЛЬ-СЕЙЕД · ИНН 772310423973 · ОГРНИП 325774600591551</p>
+      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="privacy.html" style="color: var(--gold); text-decoration: underline;">Политика конфиденциальности</a>
+        <a href="consent.html" style="color: var(--gold); text-decoration: underline;">Согласие на обработку ПД</a>
+        <a href="offer.html" style="color: var(--gold); text-decoration: underline;">Публичная оферта</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
