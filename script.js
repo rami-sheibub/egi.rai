@@ -599,12 +599,28 @@ if (cartModal) {
   });
 }
 
-if (submitCartOrderBtn) {
-  submitCartOrderBtn.addEventListener("click", () => {
-    const name = document.getElementById("cartName").value.trim();
-    const contact = document.getElementById("cartContact").value.trim();
-    const comment = document.getElementById("cartComment").value.trim();
+const submitCartOrderLink = document.getElementById("submitCartOrderLink");
 
+if (submitCartOrderLink) {
+  submitCartOrderLink.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const nameInput = document.getElementById("cartName");
+    const contactInput = document.getElementById("cartContact");
+    const commentInput = document.getElementById("cartComment");
+
+    const name = nameInput ? nameInput.value.trim() : "";
+    const contact = contactInput ? contactInput.value.trim() : "";
+    const comment = commentInput ? commentInput.value.trim() : "";
+
+    // Проверка согласия
+    const consent = document.getElementById("consentCheckbox");
+    if (!consent || !consent.checked) {
+      alert("Пожалуйста, подтвердите согласие на обработку персональных данных.");
+      return;
+    }
+
+    // Валидация
     if (name.length < 2) {
       alert("Пожалуйста, введите ваше имя.");
       return;
@@ -616,6 +632,7 @@ if (submitCartOrderBtn) {
       return;
     }
 
+    // Сборка заказа
     let itemsText = "";
     let totalPrice = 0;
     cart.forEach((item, i) => {
@@ -624,59 +641,32 @@ if (submitCartOrderBtn) {
       itemsText += `${i + 1}. ${item.brand} — ${item.name} (${item.volume} мл) — ${price.toLocaleString("ru-RU")} ₽\n`;
     });
 
-    const originalText = submitCartOrderBtn.innerHTML;
-    submitCartOrderBtn.innerHTML = "Отправка...";
-    submitCartOrderBtn.disabled = true;
+    const orderText = itemsText + `\nИтого: ${totalPrice.toLocaleString("ru-RU")} ₽` + (comment ? `\nКомментарий: ${comment}` : "");
 
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrpqpaeq";
+    // Данные вашей формы
+    const YANDEX_FORM_URL = "https://forms.yandex.ru/u/6b014f0bc45c070bf62a1d8c";
+    const FIELD_NAME = "answer_short_text_9008994506985490";
+    const FIELD_PHONE = "answer_phone_9008994503120124";
+    const FIELD_ORDER = "answer_long_text_9008994503473832";
 
-    const iframe = document.createElement('iframe');
-    iframe.name = 'hidden_iframe_cart';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
+    const params = new URLSearchParams();
+    params.set(FIELD_NAME, name);
+    params.set(FIELD_PHONE, contact);
+    params.set(FIELD_ORDER, orderText);
 
-    const form = document.createElement('form');
-    form.action = FORMSPREE_ENDPOINT;
-    form.method = 'POST';
-    form.target = 'hidden_iframe_cart'; 
+    const finalUrl = `${YANDEX_FORM_URL}?${params.toString()}`;
 
-    const fields = {
-      name: name,
-      email: "linashebik230@gmail.com", 
-      contact: contact,
-      comment: comment,
-      order_details: itemsText,
-      total: `Итого: ${totalPrice.toLocaleString("ru-RU")} ₽`,
-      _subject: `Новый заказ (Корзина): ${name} (${contact})`
-    };
+    // Открываем в новой вкладке
+    window.open(finalUrl, "_blank");
 
-    for (const key in fields) {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = fields[key];
-      form.appendChild(input);
-    }
-
-    document.body.appendChild(form);
-    form.submit(); 
-
-    setTimeout(() => {
-      alert('Заказ из корзины отправлен! Мы скоро свяжемся с вами.');
-      cart = [];
-      localStorage.setItem("egi_cart", JSON.stringify(cart));
-      updateCartUI();
-      cartModal.classList.remove("active");
-      unlockScroll();
-      
-      document.body.removeChild(form);
-      document.body.removeChild(iframe);
-      submitCartOrderBtn.innerHTML = originalText;
-      submitCartOrderBtn.disabled = false;
-    }, 1000);
+    // Очистка
+    cart = [];
+    localStorage.setItem("egi_cart", JSON.stringify(cart));
+    updateCartUI();
+    cartModal.classList.remove("active");
+    unlockScroll();
   });
 }
-
 // --- Кнопка скролла Вверх / Вниз ---
 if (toTop && scrollIcon) {
   const updateScrollButton = () => {
@@ -835,3 +825,29 @@ createStars();
 updateBrandOptions();
 renderProducts();
 updateCartUI();
+
+// ==========================================
+// COOKIE-БАННЕР
+// ==========================================
+(function initCookieBanner() {
+  const banner = document.getElementById("cookieBanner");
+  const accept = document.getElementById("cookieAccept");
+  
+  if (!banner || !accept) return;
+
+  // Если пользователь УЖЕ нажимал "Принять" раньше — принудительно скрываем баннер
+  if (localStorage.getItem("cookie_accepted")) {
+    banner.style.display = "none";
+    return;
+  }
+
+  // Если не нажимал — показываем баннер
+  banner.style.display = "flex";
+  banner.hidden = false;
+
+  // Обработка клика по кнопке
+  accept.addEventListener("click", () => {
+    localStorage.setItem("cookie_accepted", "1"); // Запоминаем в браузере
+    banner.style.display = "none"; // Полностью скрываем баннер через CSS
+  });
+})();
