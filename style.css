@@ -59,21 +59,12 @@ html.light-theme body {
 a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; }
 
-/* ФОН */
-.bg-clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; display: none; }
-html.light-theme .bg-clouds { display: block; }
-.cloud { position: absolute; background: radial-gradient(circle, rgba(176, 125, 30, 0.38) 0%, transparent 70%); border-radius: 50%; filter: blur(60px); animation: floatClouds linear infinite; }
-.cloud-1 { width: 400px; height: 400px; top: 10%; left: -10%; animation-duration: 40s; }
-.cloud-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; animation-duration: 50s; animation-direction: reverse; }
-.cloud-3 { width: 300px; height: 300px; top: 40%; left: 50%; animation-duration: 35s; }
-.cloud-4 { width: 500px; height: 500px; top: -10%; right: 20%; animation-duration: 60s; }
-@keyframes floatClouds { 0% { transform: translateX(0) translateY(0); } 50% { transform: translateX(100px) translateY(-50px); } 100% { transform: translateX(0) translateY(0); } }
 
 .bg-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; overflow: hidden; }
-.star { position: absolute; background-color: #fff; border-radius: 50%; box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.9); animation: twinkle linear infinite; }
-.star.gold { background-color: var(--gold-light); box-shadow: 0 0 11px 3px rgba(230, 207, 158, 1); }
+.star { position: absolute; background-color: #fff; border-radius: 50%; box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.35); animation: twinkle linear infinite; }
+.star.gold { background-color: var(--gold-light); box-shadow: 0 0 7px 1px rgba(230, 207, 158, 0.35); }
 html.light-theme .bg-stars { display: none; }
-@keyframes twinkle { 0% { opacity: 0.35; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.35); } 100% { opacity: 0.35; transform: scale(0.85); } }
+@keyframes twinkle { 0% { opacity: 0.12; transform: scale(0.85); } 50% { opacity: 0.45; transform: scale(1.25); } 100% { opacity: 0.12; transform: scale(0.85); } }
 
 /* КНОПКИ */
 button, .button { border-radius: 8px; transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s; box-shadow: 0 4px 6px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1); border: 1px solid rgba(201, 169, 110, 0.5); cursor: pointer; }
@@ -273,47 +264,7 @@ html.light-theme .hero-btn:active {
 /* БОЛЬШОЙ ФЛАКОН В HERO */
 .hero-art { position: relative; width: 52%; min-height: 900px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 48%, rgba(201, 169, 110, 0.05) 0%, transparent 70%); opacity: 0; animation: fadeInArt 1.2s ease-out 0.3s forwards; }
 
-/* Пирамиды — слева, на холмиках, только светлая тема */
-.hero .hero-copy::before {
-  content: "";
-  position: absolute;
-  left: 2%;
-  bottom: 26%;
-  width: 260px;
-  height: 210px;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(105deg,
-    #e8c184 0%,
-    #d9a95e 30%,
-    #c99a52 50%,
-    #a87d3d 70%,
-    #8c6530 100%);
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-  filter: drop-shadow(0 10px 16px rgba(110, 70, 15, 0.3));
-}
-html:not(.light-theme) .hero .hero-copy::before {
-  left: 6%;
-}
- 
-.hero .hero-copy::after {
-  content: "";
-  position: absolute;
-  left: 18%;
-  bottom: 24%;
-  width: 170px;
-  height: 135px;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(105deg,
-    #e0b475 0%,
-    #cc9c55 30%,
-    #b98a45 50%,
-    #9a6f35 70%,
-    #7d5a28 100%);
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-  filter: drop-shadow(0 8px 12px rgba(110, 70, 15, 0.28));
-}
+
 .art-orbit { position: absolute; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 50%; width: 580px; height: 580px; }
 html.light-theme .art-orbit { border-color: rgba(138, 90, 18, 0.25); }
 .orbit-two { width: 700px; height: 700px; border-color: rgba(201, 169, 110, 0.08); }
@@ -321,25 +272,7 @@ html.light-theme .orbit-two { border-color: rgba(138, 90, 18, 0.12); }
 .art-glow { position: absolute; width: 380px; height: 460px; background: rgba(201, 169, 110, 0.12); filter: blur(65px); border-radius: 50%; }
 html.light-theme .art-glow { background: rgba(255, 250, 235, 0.7); }
 
-/* Третья пирамида — маленькая, справа от больших, только светлая тема */
-.hero-art::before {
-  content: "";
-  position: absolute;
-  left: 12%;
-  bottom: 22%;
-  width: 110px;
-  height: 88px;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(105deg,
-    #e5ba7b 0%,
-    #d2a25b 30%,
-    #bb8c48 50%,
-    #9c7136 70%,
-    #7f5c29 100%);
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-  filter: drop-shadow(0 6px 10px rgba(110, 70, 15, 0.25));
-}
+
 
 .bottle { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; transform: rotate(-4deg); animation: floatBottle 7s ease-in-out infinite, shadowPulse 7s ease-in-out infinite; transition: filter 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
 .bottle:hover { filter: drop-shadow(0px 30px 50px rgba(0, 0, 0, 0.6)) drop-shadow(0px 0px 50px rgba(201, 169, 110, 0.4)); transform: translateY(-15px) rotate(2deg) scale(1.02); }
@@ -1692,13 +1625,6 @@ html.light-theme .cart-total strong { color: var(--gold); }
   /* луна */
   .moon-container { width: 180px; height: 180px; margin: 0 auto 20px; }
 
-  /* пирамиды на мобилке — скрыты */
-  .hero .hero-copy::before,
-  .hero .hero-copy::after,
-  .hero-art::before,
-  .pyramid-mist {
-    display: none;
-  }
 }
 
 @media (max-width: 390px) {
@@ -1708,20 +1634,6 @@ html.light-theme .cart-total strong { color: var(--gold); }
   .logo-mark { width: 26px; height: 26px; font-size: 16px; }
   .cart-btn { font-size: 10px; padding: 8px 12px; }
   .header .footer-tg-btn span { display: none; }
-}
-
-
-
-
-html.light-theme .sand-mist {
-  display: block;
-}
-html.light-theme .sand-mist {
-  background:
-    radial-gradient(ellipse 80% 22% at 50% 100%, rgba(230, 195, 140, 0.7) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 15% at 15% 92%, rgba(220, 180, 120, 0.55) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 15% at 85% 88%, rgba(220, 180, 120, 0.55) 0%, transparent 70%),
-    radial-gradient(ellipse 70% 20% at 50% 20%, rgba(255, 240, 200, 0.35) 0%, transparent 70%);
 }
 
 .scent-particles {
@@ -1763,168 +1675,7 @@ html.light-theme .scent-particles span {
   100% { opacity: 0; transform: translateY(-110px) scale(0.5); }
 }
 
-.section-divider {
-  width: 100%;
-  max-width: 100%;
-  margin: -20px auto 0;
-  color: rgba(201, 169, 110, 0.35);
-  line-height: 0;
-  pointer-events: none;
-  position: relative;
-  z-index: 1;
-}
-html.light-theme .section-divider {
-  color: rgba(200, 165, 106, 0.55);
-}
-.section-divider svg {
-  display: block;
-  width: 100%;
-  height: 120px;
-}
 
-
-/* Дымки у оснований пирамид — «погружение в песок» */
-.pyramid-mist {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  filter: blur(16px);
-  display: block;
-}
-
-/* большая пирамида */
-.pyramid-mist-1 {
-  left: -2%;
-  bottom: 22%;
-  width: 300px;
-  height: 60px;
-  background:
-    radial-gradient(ellipse at 50% 50%, rgba(220, 180, 120, 0.85) 0%, rgba(220, 180, 120, 0.4) 40%, transparent 72%);
-}
-html.light-theme .pyramid-mist-1 {
-  filter: blur(18px);
-}
-
-/* малая пирамида */
-.pyramid-mist-2 {
-  left: 14%;
-  bottom: 20%;
-  width: 210px;
-  height: 48px;
-  background:
-    radial-gradient(ellipse at 50% 50%, rgba(210, 170, 110, 0.8) 0%, rgba(210, 170, 110, 0.35) 40%, transparent 72%);
-}
-html.light-theme .pyramid-mist-2 {
-  filter: blur(16px);
-}
-
-/* третья пирамида */
-.pyramid-mist-3 {
-  left: 8%;
-  bottom: 18%;
-  width: 150px;
-  height: 38px;
-  background:
-    radial-gradient(ellipse at 50% 50%, rgba(200, 160, 100, 0.8) 0%, rgba(200, 160, 100, 0.35) 40%, transparent 72%);
-}
-html.light-theme .pyramid-mist-3 {
-  filter: blur(14px);
-}
-
-/* ============================================
-   ПИРАМИДА ВМЕСТО ЛУНЫ (светлая тема)
-   ============================================ */
-
-/* Обёртка луны — чтобы скрывать её целиком */
-.moon-body {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-}
-
-html.light-theme .moon-body {
-  display: none;
-}
-
-/* Сцена пирамиды — по умолчанию скрыта */
-.pyramid-scene {
-  position: absolute;
-  inset: 0;
-  display: none;
-}
-
-html.light-theme .pyramid-scene {
-  display: block;
-}
-
-/* Основание / тело пирамиды */
-.pyramid-base {
-  position: absolute;
-  left: 50%;
-  bottom: 8%;
-  transform: translateX(-50%);
-  width: 78%;
-  height: 72%;
-  background: linear-gradient(105deg,
-    #e8c184 0%,
-    #d9a95e 30%,
-    #c99a52 50%,
-    #a87d3d 70%,
-    #8c6530 100%);
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-  filter: drop-shadow(0 14px 22px rgba(110, 70, 15, 0.35));
-}
-
-/* Боковая грань — тень для объёма */
-.pyramid-side {
-  position: absolute;
-  left: 50%;
-  bottom: 8%;
-  transform: translateX(-50%);
-  width: 78%;
-  height: 72%;
-  background: linear-gradient(105deg,
-    transparent 0%,
-    transparent 50%,
-    rgba(120, 80, 25, 0.35) 50%,
-    rgba(90, 60, 15, 0.55) 100%);
-  clip-path: polygon(50% 0%, 100% 100%, 50% 100%);
-  pointer-events: none;
-}
-
-/* Свечение вокруг */
-.pyramid-glow {
-  position: absolute;
-  left: 50%;
-  top: 10%;
-  transform: translateX(-50%);
-  width: 120%;
-  height: 90%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 60%,
-    rgba(255, 240, 200, 0.55) 0%,
-    rgba(230, 195, 140, 0.25) 40%,
-    transparent 70%);
-  pointer-events: none;
-}
-
-/* Песчаная дымка у основания */
-.pyramid-sand {
-  position: absolute;
-  left: 50%;
-  bottom: 2%;
-  transform: translateX(-50%);
-  width: 110%;
-  height: 26%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 50%,
-    rgba(220, 180, 120, 0.85) 0%,
-    rgba(210, 170, 110, 0.4) 45%,
-    transparent 75%);
-  filter: blur(10px);
-  pointer-events: none;
-}
 
 /* ============================================
    КАРТИНКА ПЕСКА НА ФОНЕ (светлая тема)
@@ -1960,156 +1711,3 @@ html.light-theme .sand-bg-image {
   );
 }
 
-html.light-theme .section-divider {
-  display: none !important;
-}
-
-/* ============================================
-   ЛУНА ПОД КНОПКОЙ В HERO
-   ============================================ */
-.hero-moon {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  margin-top: 38px;
-  margin-left: 8px;
-  border-radius: 50%;
-  opacity: 0;
-  animation: heroMoonAppear 1s ease-out 0.5s forwards;
-}
-
-@keyframes heroMoonAppear {
-  to { opacity: 1; }
-}
-
-.hero-moon-texture {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, #f6f1e6 0%, #d9d2c2 18%, #a89d8a 42%, #6e6455 68%, #3a332a 88%, #1c1712 100%);
-  box-shadow:
-    inset -14px -11px 30px rgba(0, 0, 0, 0.65),
-    inset 9px 7px 20px rgba(255, 250, 235, 0.18),
-    0 0 30px rgba(230, 207, 158, 0.28),
-    0 0 60px rgba(201, 169, 110, 0.14);
-  animation: heroMoonGlow 8s ease-in-out infinite;
-}
-
-.hero-moon-texture::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 70% 65%, rgba(0,0,0,0.35) 0%, transparent 55%),
-    radial-gradient(circle at 20% 75%, rgba(0,0,0,0.28) 0%, transparent 45%);
-  mix-blend-mode: multiply;
-}
-
-.hero-moon-craters {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.hero-moon .crater {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 55%, transparent 75%);
-  box-shadow:
-    inset 1px 1px 2px rgba(0,0,0,0.55),
-    inset -1px -1px 2px rgba(255,250,235,0.18);
-}
-.hero-moon .crater-1 { width: 26px; height: 26px; top: 18%; left: 22%; }
-.hero-moon .crater-2 { width: 16px; height: 16px; top: 42%; left: 58%; }
-.hero-moon .crater-3 { width: 11px; height: 11px; top: 64%; left: 34%; }
-.hero-moon .crater-4 { width: 8px;  height: 8px;  top: 10%; left: 70%; }
-.hero-moon .crater-5 { width: 6px;  height: 6px;  top: 72%; left: 66%; }
-
-.hero-moon-maria {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse 40% 30% at 40% 40%, rgba(60,55,45,0.35) 0%, transparent 70%),
-    radial-gradient(ellipse 30% 25% at 65% 55%, rgba(60,55,45,0.3) 0%, transparent 70%);
-  mix-blend-mode: multiply;
-}
-
-@keyframes heroMoonGlow {
-  0%, 100% {
-    box-shadow:
-      inset -14px -11px 30px rgba(0,0,0,0.65),
-      inset 9px 7px 20px rgba(255,250,235,0.18),
-      0 0 30px rgba(230,207,158,0.28),
-      0 0 60px rgba(201,169,110,0.14);
-  }
-  50% {
-    box-shadow:
-      inset -14px -11px 30px rgba(0,0,0,0.65),
-      inset 9px 7px 20px rgba(255,250,235,0.22),
-      0 0 44px rgba(230,207,158,0.42),
-      0 0 90px rgba(201,169,110,0.22);
-  }
-}
-
-/* светлая тема — луна светлее, свечение теплее */
-html.light-theme .hero-moon-texture {
-  background:
-    radial-gradient(circle at 32% 28%, #fffdf7 0%, #f7f0e2 18%, #ebe2d0 42%, #d8ccb4 68%, #b8a888 88%, #9a8a6a 100%);
-  box-shadow:
-    inset -10px -9px 24px rgba(138, 90, 18, 0.18),
-    inset 8px 6px 18px rgba(255, 255, 250, 0.6),
-    0 0 30px rgba(230, 207, 158, 0.45),
-    0 0 60px rgba(201, 169, 110, 0.22);
-  animation: heroMoonGlowLight 8s ease-in-out infinite;
-}
-html.light-theme .hero-moon-texture::after {
-  background:
-    radial-gradient(circle at 70% 65%, rgba(120, 95, 50, 0.18) 0%, transparent 55%),
-    radial-gradient(circle at 20% 75%, rgba(120, 95, 50, 0.15) 0%, transparent 45%);
-}
-html.light-theme .hero-moon .crater {
-  background: radial-gradient(circle at 35% 30%, rgba(120, 90, 45, 0.35) 0%, rgba(120, 90, 45, 0.12) 55%, transparent 75%);
-  box-shadow:
-    inset 1px 1px 2px rgba(120, 90, 45, 0.4),
-    inset -1px -1px 2px rgba(255, 255, 250, 0.7);
-}
-html.light-theme .hero-moon-maria {
-  background:
-    radial-gradient(ellipse 40% 30% at 40% 40%, rgba(160, 135, 90, 0.22) 0%, transparent 70%),
-    radial-gradient(ellipse 30% 25% at 65% 55%, rgba(160, 135, 90, 0.18) 0%, transparent 70%);
-}
-
-@keyframes heroMoonGlowLight {
-  0%, 100% {
-    box-shadow:
-      inset -10px -9px 24px rgba(138,90,18,0.18),
-      inset 8px 6px 18px rgba(255,255,250,0.6),
-      0 0 30px rgba(230,207,158,0.45),
-      0 0 60px rgba(201,169,110,0.22);
-  }
-  50% {
-    box-shadow:
-      inset -10px -9px 24px rgba(138,90,18,0.18),
-      inset 8px 6px 18px rgba(255,255,250,0.7),
-      0 0 44px rgba(230,207,158,0.6),
-      0 0 90px rgba(201,169,110,0.32);
-  }
-}
-
-/* на телефоне луну не показываем */
-@media (max-width: 720px) {
-  .hero-moon { display: none; }
-}
-
-@media (max-width: 720px) {
-  .pyramid-mist,
-  .pyramid-mist-1,
-  .pyramid-mist-2,
-  .pyramid-mist-3 {
-    display: none !important;
-  }
-}
