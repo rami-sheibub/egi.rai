@@ -161,7 +161,7 @@ html.light-theme .to-top:hover { color: #fdf6e3; }
 .to-top:active { transform: scale(0.9); }
 
 /* ОБЩИЕ БЛОКИ */
-.section, .contact-inner { background: var(--island-bg) !important; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 20px; margin: 40px auto; max-width: 1300px; box-shadow: 0 10px 30px var(--shadow); }
+.section, .contact-inner { background: var(--island-bg) !important; border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 20px; margin: 40px auto; max-width: 1400px; width: 92%; box-sizing: border-box; box-shadow: 0 10px 30px var(--shadow); }
 .hero { background: transparent !important; border: none; margin: 0; max-width: 100%; box-shadow: none; min-height: 100vh; padding: 0 8.5% 40px 10%; display: flex; align-items: stretch; overflow: hidden; position: relative; }
 
 /* Пустыня — только светлая тема */
@@ -188,7 +188,7 @@ html.light-theme .hero::after {
   opacity: 0.55;
 }
 html.light-theme .hero > * { position: relative; z-index: 2; }
-.footer { background: var(--announcement-bg) !important; border-radius: 0; margin: 0; max-width: 100%; border: none; border-top: 1px solid var(--line); padding: 28px 8.5% 0; color: var(--ink); position: relative; z-index: 2; }
+.footer { background: var(--announcement-bg) !important; border-radius: 0; margin: 0; max-width: 100%; border: none; border-top: 1px solid var(--line); padding: 28px 6% 0; color: var(--ink); position: relative; z-index: 2; }
 html.light-theme .footer { background: var(--island-bg) !important; }
 
 /* HERO */
@@ -781,7 +781,7 @@ html.light-theme .product-card:hover .mini-perfume {
 }
 
 /* ЦИТАТА */
-.quote-band { background: var(--dark) !important; color: var(--ink); padding: 66px 20px; text-align: center; position: relative; z-index: 2; border-radius: 20px; max-width: 1300px; margin: 40px auto; border: 1px solid rgba(201, 169, 110, 0.15); }
+.quote-band { background: var(--dark) !important; color: var(--ink); padding: 66px 20px; text-align: center; position: relative; z-index: 2; border-radius: 20px; max-width: 1400px; width: 92%; box-sizing: border-box; margin: 40px auto; border: 1px solid rgba(201, 169, 110, 0.15); }
 html.light-theme .quote-band { background: var(--dark) !important; border-color: var(--line); }
 .quote-mark { font-family: "DM Sans", sans-serif; font-size: 70px; line-height: 0.8; color: var(--gold); }
 .quote-band p { font-family: "DM Sans", sans-serif; font-size: clamp(24px, 3vw, 38px); line-height: 1.4; margin: 18px 0; }
@@ -802,13 +802,15 @@ html.light-theme .price-unified .big { color: var(--gold); }
 html.light-theme .vol-row span { color: var(--gold); background: var(--paper); }
 
 /* БЛОК КОНТАКТОВ */
-.contact-section { max-width: 1300px; margin: 40px auto; padding: 0 6%; }
+.contact-section { max-width: 1400px; width: 92%; margin: 40px auto; padding: 0; }
 .contact-inner {
   display: flex;
   flex-direction: column;
   gap: 30px;
   padding: 60px 8%;
-  margin: 0 !important;
+  margin: 0 auto !important;
+  width: 100%;
+  box-sizing: border-box;
   align-items: stretch;
   justify-content: flex-start;
 }
