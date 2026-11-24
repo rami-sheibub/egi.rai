@@ -56,9 +56,10 @@
   <main>
     <section class="hero" id="home">
       <div class="hero-copy">
-        <p class="eyebrow"><span></span> АРОМАТ — ЭТО ВАША ИСТОРИЯ</p>
-        <h1 class="hero-title">Искусство<br>в каждом <em>аромате.</em></h1>
-        <p class="hero-text">140+ ароматов: мужские, женские и унисекс. Найдите свой характер  и закажите в Telegram.</p>
+        <p class="eyebrow"><span></span> АРОМАТ — ЭТО ВАША ИСТОРИЯ <span></span></p>
+        <h1 class="hero-title"> EGI<em>.</em>RAI<br></em></h1>
+        <p class="eyebrow"><span></span> ИСКУССТВО В КАЖДОМ АРОМАТЕ <span></span></p>
+        <p class="hero-text">EGI.RAI — это не просто магазин, а результат более чем 30-летнего опыта в мире парфюмерии и тщательного подбора масел.</p>
         <a class="button button-gold hero-btn" href="#catalog" style="margin-top: 30px;">Выбрать аромат</a>
       </div>
       
@@ -101,6 +102,7 @@
         
         <!-- Промо-акция 3+1 -->
         <div class="promo-banner" id="promoBanner">
+          <div class="promo-info-badge" aria-hidden="true">i</div>
           <div class="promo-content">
             <span class="promo-title">Акция 3 + 1</span>
             <span class="promo-sub">При покупке трёх ароматов — четвёртый в подарок!</span>
@@ -346,9 +348,12 @@
         <label style="display:block; font-size:11px; color:var(--gold-light); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; margin-top:20px; font-weight:600;">Сообщение:</label>
         <input type="text" id="cartComment" placeholder="Например: пишите в WhatsApp" style="width:100%; padding:14px 16px; background-color:var(--paper); border:1px solid var(--line); border-radius:8px; color:var(--ink); font-family:inherit; font-size:14px; outline:none; box-sizing:border-box;">
 
-        <label style="display:flex; gap:10px; margin-top:20px; margin-bottom:10px; font-size:11px; cursor:pointer; color:#a89a8a; text-align:left; align-items:flex-start; line-height:1.5;">
-          <input type="checkbox" id="consentCheckbox" required style="margin-top:2px; accent-color:#c9a96e; flex-shrink:0; width:16px; height:16px;">
-          <span>Я согласен с <a href="privacy.html" target="_blank" style="color:#c9a96e; text-decoration:underline;">политикой конфиденциальности</a> и даю <a href="consent.html" target="_blank" style="color:#c9a96e; text-decoration:underline;">согласие на обработку персональных данных</a></span>
+        <label class="consent-label">
+          <span class="consent-box">
+            <input type="checkbox" id="consentCheckbox" required>
+            <span class="consent-tick" aria-hidden="true"></span>
+          </span>
+          <div class="consent-text">Я согласен с <a href="privacy.html" target="_blank" style="color:#c9a96e; text-decoration:underline;">политикой конфиденциальности</a> и даю <a href="consent.html" target="_blank" style="color:#c9a96e; text-decoration:underline;">согласие на обработку персональных данных</a></div>
         </label>
 
         <a href="#" id="submitCartOrderLink" class="button button-gold" style="margin-top: 10px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; padding: 16px; box-sizing: border-box;">Оформить заказ</a>
