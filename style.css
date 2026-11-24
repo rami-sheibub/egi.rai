@@ -2281,3 +2281,13 @@ html.light-theme #submitCartOrderLink.is-disabled {
 #submitCartOrderLink.is-disabled::after {
   display: none;
 }
+
+@media (max-width: 720px) {
+  .theme-overlay.active {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .theme-overlay.active::before {
+    opacity: 0.85;
+  }
+}
