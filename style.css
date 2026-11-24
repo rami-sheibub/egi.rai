@@ -1313,36 +1313,111 @@ html.light-theme #expandBtn { box-shadow: 0 10px 30px rgba(90, 60, 15, 0.35) !im
 html.light-theme #expandBtn:hover { color: #fdf6e3 !important; }
 #expandWrapper.is-sticky { position: fixed !important; bottom: 30px !important; left: 50% !important; transform: translateX(-50%) !important; z-index: 9999 !important; margin: 0 !important; }
 
-/* ОВЕРЛЕЙ СМЕНЫ ТЕМЫ (один проход) */
-.theme-curtain {
+/* ============================================
+   СМЕНА ТЕМЫ — золотая пыль + blur (A + B)
+   ============================================ */
+.theme-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9998;
+  z-index: 9997;
   pointer-events: none;
-  background: #e8c98f;
-  transform: translateY(100%);
-  transition: none;
+  opacity: 0;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition:
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.theme-curtain.curtain-dark {
-  background: #0d0b0a;
+.theme-overlay.active {
+  opacity: 1;
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
 }
-/* стартовые позиции (без transition) */
-.theme-curtain.start-bottom {
-  transform: translateY(100%);
-  transition: none;
+
+/* Мягкий цветной слой под blur — плавный градиент, без резких краёв */
+.theme-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
-.theme-curtain.start-top {
-  transform: translateY(-100%);
-  transition: none;
+.theme-overlay.light-bg::before {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(253, 246, 227, 0.75) 0%, transparent 70%),
+    linear-gradient(180deg, #f7e2b0 0%, #e8c98f 60%, #c9a56a 100%);
 }
-/* конечные позиции (с transition) */
-.theme-curtain.to-light {
-  transform: translateY(-100%);
-  transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+.theme-overlay.dark-bg::before {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(42, 31, 20, 0.7) 0%, transparent 70%),
+    linear-gradient(180deg, #1c1714 0%, #0d0b0a 100%);
 }
-.theme-curtain.to-dark {
-  transform: translateY(100%);
-  transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+.theme-overlay.active::before {
+  opacity: 1;
+}
+
+/* Частицы */
+.theme-particle {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  border-radius: 50%;
+  background: var(--gold-light);
+  box-shadow: 0 0 10px 3px rgba(230, 207, 158, 0.6);
+  opacity: 0;
+  animation: themeParticleFly 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  filter: blur(0.3px);
+}
+html.light-theme .theme-particle {
+  background: #8a5a12;
+  box-shadow: 0 0 10px 3px rgba(138, 90, 18, 0.45);
+}
+
+@keyframes themeParticleFly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.2);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(
+      calc(var(--dx) * 0.1),
+      calc(var(--dy) * 0.1)
+    ) scale(1.2);
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.1);
+  }
+}
+/* ============================================
+   КНОПКА СМЕНЫ ТЕМЫ — реакция на клик
+   ============================================ */
+.theme-toggle.switching {
+  animation: themeBtnSpin 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+}
+@keyframes themeBtnSpin {
+  0%   { transform: rotate(0deg)   scale(1); }
+  40%  { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.theme-toggle.switching::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  animation: themeBtnPulse 0.55s ease-out;
+  pointer-events: none;
+}
+@keyframes themeBtnPulse {
+  0%   { transform: scale(0.9); opacity: 0.9; }
+  100% { transform: scale(1.8); opacity: 0; }
 }
 
 /* СКРОЛЛБАР */
