@@ -778,51 +778,73 @@ function createStars() {
   }
 }
 
-// --- ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ ---
+// --- ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ — золотая пыль + blur (A + B) ---
 const themeToggle = document.getElementById("themeToggle");
 if (themeToggle) {
-  const curtain = document.createElement("div");
-  curtain.className = "theme-curtain";
-  document.body.appendChild(curtain);
+  const overlay = document.createElement("div");
+  overlay.className = "theme-overlay";
+  document.body.appendChild(overlay);
 
   let switching = false;
+
   themeToggle.addEventListener("click", () => {
     if (switching) return;
     switching = true;
 
     const goingLight = !document.documentElement.classList.contains("light-theme");
 
-    // Сброс
-    curtain.classList.remove("to-light", "to-dark", "start-bottom", "start-top", "curtain-dark");
+    // Оверлей под целевую тему
+    overlay.classList.remove("light-bg", "dark-bg");
+    overlay.classList.add(goingLight ? "light-bg" : "dark-bg");
 
-    // Цвет фиксируем под целевую тему
-    curtain.classList.toggle("curtain-dark", goingLight);
+    // Кнопка крутится + пульс
+    themeToggle.classList.add("switching");
 
-    // Стартовая позиция (без transition)
-    curtain.classList.add(goingLight ? "start-bottom" : "start-top");
-
-    // Форсируем reflow, чтобы стартовая позиция применилась
-    void curtain.offsetWidth;
-
-    // На следующем кадре убираем стартовый класс и включаем движение
+    // Запускаем: blur + цветной слой
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        curtain.classList.remove("start-bottom", "start-top");
-        curtain.classList.add(goingLight ? "to-light" : "to-dark");
-      });
+      overlay.classList.add("active");
     });
 
-    // Смена темы в середине пути
+    // Частицы из центра кнопки
+    const rect = themeToggle.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const count = 42;
+
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement("span");
+      p.className = "theme-particle";
+      const size = Math.random() * 6 + 2.5;
+      p.style.width = size + "px";
+      p.style.height = size + "px";
+      p.style.left = cx + "px";
+      p.style.top = cy + "px";
+
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
+      const distance = 140 + Math.random() * 320;
+      p.style.setProperty("--dx", Math.cos(angle) * distance + "px");
+      p.style.setProperty("--dy", Math.sin(angle) * distance + "px");
+      p.style.animationDelay = Math.random() * 0.15 + "s";
+
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1300);
+    }
+
+    // Меняем тему в момент, когда blur уже на пике (250 мс)
     setTimeout(() => {
       document.documentElement.classList.toggle("light-theme", goingLight);
       localStorage.setItem("theme", goingLight ? "light" : "dark");
-    }, 420);
+    }, 250);
 
-    // Сброс после завершения
+    // Убираем оверлей — плавно растворяем blur
     setTimeout(() => {
-      curtain.classList.remove("to-light", "to-dark", "curtain-dark");
-      switching = false;
-    }, 900);
+      overlay.classList.remove("active");
+      themeToggle.classList.remove("switching");
+      setTimeout(() => {
+        overlay.classList.remove("light-bg", "dark-bg");
+        switching = false;
+      }, 550);
+    }, 420);
   });
 }
 
