@@ -173,6 +173,26 @@ function unlockScroll() {
   document.body.classList.remove("no-scroll");
 }
 
+// Универсальный открыватель/закрыватель модалок с плавной анимацией
+function openModalEl(el) {
+  if (!el) return;
+  el.style.display = "flex";
+  void el.offsetWidth;          // форсируем reflow
+  requestAnimationFrame(() => {
+    el.classList.add("active");
+  });
+  lockScroll();
+}
+
+function closeModalEl(el) {
+  if (!el) return;
+  el.classList.remove("active");
+  unlockScroll();
+  setTimeout(() => {
+    if (!el.classList.contains("active")) el.style.display = "none";
+  }, 300);
+}
+
 function updateBrandOptions() {
   if (!brandFilter) return;
   const currentSelected = activeBrand;
@@ -429,14 +449,12 @@ if (grid) {
       modalVolume.classList.remove("open");
     }
     
-    modal.classList.add("active");
-    lockScroll();
+    openModalEl(modal);
   });
 }
 
 function closeModal() {
-  modal.classList.remove("active");
-  unlockScroll();
+  closeModalEl(modal);
 }
 if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
 if (modal) {
@@ -534,6 +552,30 @@ function updateCartUI() {
   }
 }
 
+// ==========================================
+// СИНХРОНИЗАЦИЯ ГАЛОЧКИ И КНОПКИ "ОФОРМИТЬ ЗАКАЗ"
+// ==========================================
+function syncOrderButtonState() {
+  const consent = document.getElementById("consentCheckbox");
+  const btn = document.getElementById("submitCartOrderLink");
+  if (!consent || !btn) return;
+
+  if (consent.checked) {
+    btn.classList.remove("is-disabled");
+    btn.setAttribute("aria-disabled", "false");
+  } else {
+    btn.classList.add("is-disabled");
+    btn.setAttribute("aria-disabled", "true");
+  }
+}
+
+const consentEl = document.getElementById("consentCheckbox");
+if (consentEl) {
+  consentEl.addEventListener("change", syncOrderButtonState);
+  // Первичная инициализация
+  syncOrderButtonState();
+}
+
 function flyToCart(startRect) {
   const flyingEl = document.createElement("div");
   flyingEl.className = "flying-perfume";
@@ -576,26 +618,21 @@ if (addToCartBtn) {
   });
 }
 
+
+
 if (cartBtn) {
   cartBtn.addEventListener("click", (e) => {
     e.preventDefault();
     updateCartUI();
-    cartModal.classList.add("active");
-    lockScroll();
+    openModalEl(cartModal);
   });
 }
 if (closeCartBtn) {
-  closeCartBtn.addEventListener("click", () => {
-    cartModal.classList.remove("active");
-    unlockScroll();
-  });
+  closeCartBtn.addEventListener("click", () => closeModalEl(cartModal));
 }
 if (cartModal) {
   cartModal.addEventListener("click", (e) => {
-    if (e.target === cartModal) {
-      cartModal.classList.remove("active");
-      unlockScroll();
-    }
+    if (e.target === cartModal) closeModalEl(cartModal);
   });
 }
 
@@ -663,8 +700,7 @@ if (submitCartOrderLink) {
     cart = [];
     localStorage.setItem("egi_cart", JSON.stringify(cart));
     updateCartUI();
-    cartModal.classList.remove("active");
-    unlockScroll();
+    closeModalEl(cartModal);
   });
 }
 // --- Кнопка скролла Вверх / Вниз ---
