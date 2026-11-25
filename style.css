@@ -138,42 +138,99 @@ html.light-theme .logo:hover {
 /* Бургер скрыт (кнопка есть в HTML, логика в JS неактивна) */
 .menu-toggle { display: none !important; }
 
+
+/* ============================================
+   ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ — ПЕЙЗАЖНЫЙ СЛАЙДЕР
+   ============================================ */
 .theme-toggle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  color: var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
+  background: transparent;
+  border: none;
   padding: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  box-shadow: none;
+  border-radius: 50px;
+  outline: none;
 }
-html.light-theme .theme-toggle {
-  background: #fdfaf3;
-  border-color: rgba(138, 90, 18, 0.25);
-  box-shadow: 0 2px 8px rgba(90, 60, 15, 0.12);
+
+.theme-slider-track {
+  display: block;
+  position: relative;
+  width: 76px;
+  height: 38px;
+  border-radius: 50px;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.3s;
 }
-.theme-toggle svg { width: 18px; height: 18px; }
-.theme-toggle .icon-sun { display: none; }
-html.light-theme .theme-toggle .icon-sun { display: block; }
-html.light-theme .theme-toggle .icon-moon { display: none; }
-.theme-toggle:hover {
-  background: var(--dark);
+html.light-theme .theme-slider-track {
+  border-color: rgba(138, 90, 18, 0.35);
+}
+
+/* Сами фоны (картинки) */
+.theme-slider-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.5s ease;
+}
+
+.theme-bg-night {
+  background-image: url('theme-night.jpg');
+  opacity: 1;
+}
+.theme-bg-day {
+  background-image: url('theme-day.jpg');
+  opacity: 0;
+}
+
+html.light-theme .theme-bg-night {
+  opacity: 0;
+}
+html.light-theme .theme-bg-day {
+  opacity: 1;
+}
+
+/* Кружок-ползунок */
+.theme-slider-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 28px;
+  height: 28px;
+  background: #1c1714; /* ТЁМНЫЙ шарик для тёмной темы */
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1), background-color 0.4s ease, width 0.2s ease;
+  z-index: 2;
+}
+
+/* В светлой теме шарик СВЕТЛЫЙ */
+html.light-theme .theme-slider-knob {
+  transform: translateX(38px);
+  background: #fdfaf3; /* СВЕТЛЫЙ шарик для светлой темы */
+}
+
+/* При наведении чуть подсвечиваем */
+.theme-toggle:hover .theme-slider-track {
   border-color: var(--gold);
-  color: var(--gold-light);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.2), 0 4px 14px rgba(201, 169, 110, 0.3);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.2), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
-html.light-theme .theme-toggle:hover {
-  background: #f2dcb0;
-  color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(176, 125, 30, 0.2), 0 4px 14px rgba(176, 125, 30, 0.25);
+html.light-theme .theme-toggle:hover .theme-slider-track {
+  box-shadow: 0 0 0 3px rgba(176, 125, 30, 0.2), 0 2px 8px rgba(90, 60, 15, 0.15);
 }
+
+/* Анимация при клике */
+.theme-toggle:active .theme-slider-knob {
+  width: 34px;
+}
+
+/* Блокировка кликов во время переключения */
+.theme-toggle.switching {
+  pointer-events: none;
+}
+
 
 /* ПЛАВАЮЩИЕ КНОПКИ */
 .floating-bottom-right { position: fixed; bottom: 28px; right: 28px; display: flex; flex-direction: column; gap: 15px; z-index: 100; align-items: flex-end; }
@@ -1373,52 +1430,7 @@ html.light-theme .theme-particle {
   box-shadow: 0 0 10px 3px rgba(138, 90, 18, 0.45);
 }
 
-@keyframes themeParticleFly {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) scale(0.2);
-  }
-  15% {
-    opacity: 1;
-    transform: translate(
-      calc(var(--dx) * 0.1),
-      calc(var(--dy) * 0.1)
-    ) scale(1.2);
-  }
-  70% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(var(--dx), var(--dy)) scale(0.1);
-  }
-}
-/* ============================================
-   КНОПКА СМЕНЫ ТЕМЫ — реакция на клик
-   ============================================ */
-.theme-toggle.switching {
-  animation: themeBtnSpin 0.55s cubic-bezier(0.65, 0, 0.35, 1);
-  pointer-events: none;
-}
-@keyframes themeBtnSpin {
-  0%   { transform: rotate(0deg)   scale(1); }
-  40%  { transform: rotate(180deg) scale(1.15); }
-  100% { transform: rotate(360deg) scale(1); }
-}
 
-.theme-toggle.switching::before {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 1.5px solid var(--gold);
-  animation: themeBtnPulse 0.55s ease-out;
-  pointer-events: none;
-}
-@keyframes themeBtnPulse {
-  0%   { transform: scale(0.9); opacity: 0.9; }
-  100% { transform: scale(1.8); opacity: 0; }
-}
 
 /* СКРОЛЛБАР */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -2011,8 +2023,26 @@ html.light-theme .cart-total strong { color: var(--gold); }
   .header-actions { gap: 10px; }
   .logo { font-size: 16px; }
   .logo-mark { width: 30px; height: 30px; font-size: 20px; }
-  .theme-toggle { width: 36px; height: 36px; margin: 0; }
-  .theme-toggle svg { width: 16px; height: 16px; }
+  .theme-toggle {
+    transform: scale(0.85);
+    transform-origin: center right;
+  }
+  .theme-slider-track {
+    width: 64px;
+    height: 32px;
+  }
+  .theme-slider-knob {
+    width: 24px;
+    height: 24px;
+    top: 2.5px;
+    left: 2.5px;
+  }
+  html.light-theme .theme-slider-knob {
+    transform: translateX(32px);
+  }
+  .theme-toggle:active .theme-slider-knob {
+    width: 30px;
+  }
   .header .footer-tg-btn {
     width: 36px;
     height: 36px;
@@ -2150,6 +2180,30 @@ html.light-theme .cart-total strong { color: var(--gold); }
   /* луна */
   .moon-container { width: 180px; height: 180px; margin: 0 auto 20px; }
 
+  /* === СТАБИЛЬНОСТЬ НА ТЕЛЕФОНАХ: убираем тяжелое стекло === */
+  .section, .contact-inner, .quote-band, .price-unified, .about-content {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--dark) !important;
+  }
+  html.light-theme .section,
+  html.light-theme .contact-inner,
+  html.light-theme .quote-band,
+  html.light-theme .price-unified,
+  html.light-theme .about-content {
+    background: #fdfaf3 !important;
+  }
+
+  /* Отключаем blur при смене темы на телефоне */
+  .theme-overlay.active {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1;
+  }
+  .theme-overlay.active::before {
+    opacity: 0.95;
+  }
+
 }
 
 @media (max-width: 390px) {
@@ -2281,4 +2335,3 @@ html.light-theme #submitCartOrderLink.is-disabled {
 #submitCartOrderLink.is-disabled::after {
   display: none;
 }
-
