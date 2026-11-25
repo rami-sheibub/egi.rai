@@ -778,7 +778,7 @@ function createStars() {
   }
 }
 
-// --- ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ — золотая пыль + blur (A + B) ---
+// --- ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ (Пейзажный слайдер) ---
 const themeToggle = document.getElementById("themeToggle");
 if (themeToggle) {
   const overlay = document.createElement("div");
@@ -793,58 +793,33 @@ if (themeToggle) {
 
     const goingLight = !document.documentElement.classList.contains("light-theme");
 
-    // Оверлей под целевую тему
+    // Настраиваем цвет фона-оверлея
     overlay.classList.remove("light-bg", "dark-bg");
     overlay.classList.add(goingLight ? "light-bg" : "dark-bg");
 
-    // Кнопка крутится + пульс
+    // Блокируем кнопку
     themeToggle.classList.add("switching");
 
-    // Запускаем: blur + цветной слой
+    // Включаем оверлей
     requestAnimationFrame(() => {
       overlay.classList.add("active");
     });
 
-    // Частицы из центра кнопки
-    const rect = themeToggle.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const count = 42;
-
-    for (let i = 0; i < count; i++) {
-      const p = document.createElement("span");
-      p.className = "theme-particle";
-      const size = Math.random() * 6 + 2.5;
-      p.style.width = size + "px";
-      p.style.height = size + "px";
-      p.style.left = cx + "px";
-      p.style.top = cy + "px";
-
-      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
-      const distance = 140 + Math.random() * 320;
-      p.style.setProperty("--dx", Math.cos(angle) * distance + "px");
-      p.style.setProperty("--dy", Math.sin(angle) * distance + "px");
-      p.style.animationDelay = Math.random() * 0.15 + "s";
-
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 1300);
-    }
-
-    // Меняем тему в момент, когда blur уже на пике (250 мс)
+    // Меняем тему
     setTimeout(() => {
       document.documentElement.classList.toggle("light-theme", goingLight);
       localStorage.setItem("theme", goingLight ? "light" : "dark");
     }, 250);
 
-    // Убираем оверлей — плавно растворяем blur
+    // Убираем оверлей
     setTimeout(() => {
       overlay.classList.remove("active");
       themeToggle.classList.remove("switching");
       setTimeout(() => {
         overlay.classList.remove("light-bg", "dark-bg");
         switching = false;
-      }, 550);
-    }, 420);
+      }, 500);
+    }, 400);
   });
 }
 
