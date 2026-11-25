@@ -2587,22 +2587,36 @@ html.light-theme .cart-total strong { color: var(--gold); }
   /* === ПРОЗРАЧНОЕ СТЕКЛО НА ТЕЛЕФОНАХ === */
   .section, .contact-inner, .quote-band, .price-unified, .about-content, 
   .card-front, .card-back, .header {
-    background: linear-gradient(145deg, rgba(28, 23, 20, 0.6) 0%, rgba(13, 11, 10, 0.7) 100%) !important;
     backdrop-filter: blur(12px) saturate(120%) !important;
     -webkit-backdrop-filter: blur(12px) saturate(120%) !important;
   }
   
+  /* Островки на мобилках (каталог и т.д.) */
   html.light-theme .section,
   html.light-theme .contact-inner,
   html.light-theme .quote-band,
   html.light-theme .price-unified,
   html.light-theme .about-content,
-  html.light-theme .card-front,
-  html.light-theme .card-back,
   html.light-theme .header {
-    /* Сделали светлую тему на телефонах гораздо прозрачнее (0.4 - 0.5) */
     background: linear-gradient(145deg, rgba(253, 250, 243, 0.45) 0%, rgba(242, 220, 176, 0.5) 100%) !important;
     border-color: rgba(138, 90, 18, 0.4) !important;
+  }
+
+  /* Карточки каталога сохраняют свой фирменный градиент */
+  html.light-theme .card-front {
+    background: linear-gradient(145deg, rgba(253, 250, 243, 0.85) 0%, rgba(242, 220, 176, 0.9) 100%) !important;
+    border-color: rgba(138, 90, 18, 0.4) !important;
+  }
+  html.light-theme .card-back {
+    background: linear-gradient(145deg, rgba(253, 250, 243, 0.95) 0%, rgba(242, 220, 176, 0.98) 100%) !important;
+    border-color: var(--gold) !important;
+  }
+  /* Темная тема для карточек тоже сохраняет свой градиент */
+  .card-front {
+    background: linear-gradient(145deg, rgba(35, 28, 23, 0.8) 0%, rgba(15, 12, 10, 0.95) 100%) !important;
+  }
+  .card-back {
+    background: linear-gradient(145deg, rgba(35, 28, 23, 0.9) 0%, rgba(15, 12, 10, 0.98) 100%) !important;
   }
 
   /* Отключаем blur при смене темы на телефоне */
